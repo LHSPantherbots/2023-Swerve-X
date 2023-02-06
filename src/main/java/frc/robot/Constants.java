@@ -144,5 +144,8 @@ public final class Constants {
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
       }
 
-
+      public static final class RIO_Channels_CAN_MOTOR {
+        public static final int ELEVATOR_LEADER = 31;
+        public static final int ELEVATOR_FOLLOWER = 32;
+      }
 }

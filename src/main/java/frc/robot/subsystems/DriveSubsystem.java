@@ -134,7 +134,10 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Front Right Encoder Distance", m_frontRight.getDriveEncoderPositionMeter());
     SmartDashboard.putNumber("Front Right Encoder Speed Meter/s", m_frontRight.getDriveEncoderVelocityMeterPerSec());
 
-    SmartDashboard.putNumber("Front Left Wheel Rotations", m_frontLeft.getModuleAbsoluteAngle());
+    SmartDashboard.putNumber("Front Left Abs Angle", m_frontLeft.getModuleAbsoluteAngle());
+    SmartDashboard.putNumber("Front Right Abs Angle", m_frontRight.getModuleAbsoluteAngle());
+    SmartDashboard.putNumber("Rear Left Abs Angle", m_rearLeft.getModuleAbsoluteAngle());
+    SmartDashboard.putNumber("Rear Right Abs Angle", m_rearRight.getModuleAbsoluteAngle());
 
 
     SmartDashboard.putNumber("Gyro Angle", getHeading());
