@@ -36,7 +36,7 @@ public class SwerveModule {
   public double kP_turn, kI_turn, kD_turn, kIz_turn, kFF_turn, kMaxOutput_turn, kMinOutput_turn, maxRPM_turn, maxVel_turn, minVel_turn, maxAcc_turn, allowedErr_turn;
 
   //private final CANCoder m_turningEncoder;
-  private final AnalogInput m_turningEncoder;
+  // private final AnalogInput m_turningEncoder;
 
   private final PIDController turningPidController;
   // Using a TrapezoidProfile PIDController to allow for smooth turning
@@ -85,12 +85,13 @@ public class SwerveModule {
     this.turn_Encoder = new AnalogEncoder(turningEncoderPort);
 
     //this.m_turningEncoder = new CANCoder(turningEncoderPort);
-    this.m_turningEncoder = new AnalogInput(turningEncoderPort);
+    // this.m_turningEncoder = new AnalogInput(turningEncoderPort);
     //this.m_turningEncoder.configMagnetOffset(-angleZero);
     this.offsetAngle = angleZero;
     // this.turn_Encoder.setPositionConversionFactor(ModuleConstants.kTurningEncoderRot2Rad);
     // this.turn_Encoder.setVelocityConversionFactor(ModuleConstants.kTurningEncoderRPM2RadPerSec);
     this.turn_Encoder.setDistancePerRotation(ModuleConstants.kTurningEncoderRot2Rad);
+    this.turn_Encoder.setPositionOffset(angleZero/360);
 
         // PID coefficients
         kP = 0.0002;//5e-5; 
@@ -245,11 +246,12 @@ public class SwerveModule {
 
 public double getModuleAbsoluteAngle(){
   // double motor_turns=turn_Encoder.getPosition();
-  double motor_turns=turn_Encoder.getAbsolutePosition();
-  double wheel_turns=motor_turns*(12.0/24.0)*(14.0/72.0);
-  double wheel_turn_degrees=-(wheel_turns*360.0)%360.0;
+  // double motor_turns=turn_Encoder.getAbsolutePosition();
+  // double wheel_turns=motor_turns*(12.0/24.0)*(14.0/72.0);
+  // double wheel_turn_degrees=-(wheel_turns*360.0)%360.0;
 
-  return wheel_turn_degrees;
+  // return wheel_turn_degrees;
+  return turn_Encoder.getAbsolutePosition();
 }
 
 
@@ -296,12 +298,21 @@ public double getModuleAbsoluteAngle(){
 
 
   public double getModuleAngle(){
-    return getModuleAngleRadians()*180/Math.PI;
+    // return getModuleAngleRadians()*180/Math.PI;
+    double rawAngle = (turn_Encoder.getAbsolutePosition()*360)-this.offsetAngle;
+    double angle;
+    if (rawAngle > 180.0 && rawAngle < 360.0){
+      angle = -180 + rawAngle % 180.0;
+    }else{
+      angle = rawAngle;
+    }
+    return angle;
   }
 
   public double getModuleAngleRadians(){
     // return turn_Encoder.getPosition();
-    return turn_Encoder.get();
+    // return turn_Encoder.get();
+    return turn_Encoder.getAbsolutePosition();
     //return getModuleAngle() * Math.PI / 180;
   }
 
