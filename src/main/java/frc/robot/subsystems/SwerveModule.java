@@ -20,13 +20,15 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.AnalogInput;
 
 public class SwerveModule {
   private final CANSparkMax m_driveMotor;
   private final CANSparkMax m_turningMotor;
   private final RelativeEncoder m_driveEncoder;
-  private final RelativeEncoder turn_Encoder;
+  // private final RelativeEncoder turn_Encoder;
+  private final AnalogEncoder turn_Encoder;
   private SparkMaxPIDController m_drivePidController, m_turnPidController;
   private final Double offsetAngle;
 
@@ -80,15 +82,15 @@ public class SwerveModule {
     m_drivePidController = m_driveMotor.getPIDController();
     m_turnPidController = m_turningMotor.getPIDController();
     this.m_driveEncoder = m_driveMotor.getEncoder();
-    this.turn_Encoder = m_turningMotor.getEncoder();
+    this.turn_Encoder = new AnalogEncoder(turningEncoderPort);
 
     //this.m_turningEncoder = new CANCoder(turningEncoderPort);
     this.m_turningEncoder = new AnalogInput(turningEncoderPort);
     //this.m_turningEncoder.configMagnetOffset(-angleZero);
     this.offsetAngle = angleZero;
-    this.turn_Encoder.setPositionConversionFactor(ModuleConstants.kTurningEncoderRot2Rad);
-    this.turn_Encoder.setVelocityConversionFactor(ModuleConstants.kTurningEncoderRPM2RadPerSec);
-
+    // this.turn_Encoder.setPositionConversionFactor(ModuleConstants.kTurningEncoderRot2Rad);
+    // this.turn_Encoder.setVelocityConversionFactor(ModuleConstants.kTurningEncoderRPM2RadPerSec);
+    this.turn_Encoder.setDistancePerRotation(ModuleConstants.kTurningEncoderRot2Rad);
 
         // PID coefficients
         kP = 0.0002;//5e-5; 
@@ -227,7 +229,8 @@ public class SwerveModule {
   public void resetEncoders() {
     m_driveEncoder.setPosition(0);
     //m_turningEncoder.setPosition(0);
-    turn_Encoder.setPosition(0);
+    // turn_Encoder.setPosition(0);
+    turn_Encoder.reset();
   }
 
 
@@ -241,7 +244,8 @@ public class SwerveModule {
 
 
 public double getModuleAbsoluteAngle(){
-  double motor_turns=turn_Encoder.getPosition();
+  // double motor_turns=turn_Encoder.getPosition();
+  double motor_turns=turn_Encoder.getAbsolutePosition();
   double wheel_turns=motor_turns*(12.0/24.0)*(14.0/72.0);
   double wheel_turn_degrees=-(wheel_turns*360.0)%360.0;
 
@@ -296,7 +300,8 @@ public double getModuleAbsoluteAngle(){
   }
 
   public double getModuleAngleRadians(){
-    return turn_Encoder.getPosition();
+    // return turn_Encoder.getPosition();
+    return turn_Encoder.get();
     //return getModuleAngle() * Math.PI / 180;
   }
 

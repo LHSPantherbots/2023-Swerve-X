@@ -143,6 +143,23 @@ public final class Constants {
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
       }
+    
+    public static final class ElevatorConstants {
+        public static final int leftElavatorMotor_ID = 31;
+        public static final int rightElavatorMotor_ID = 32;
+        public static final double kP = 0.0000035;
+        public static final double kI = 0.0;
+        public static final double kD = 0.00002; 
+        public static final double kIz = 0;
+        public static final double kFF = 0.000165;
+        public static final double kMaxOutput = 1;
+        public static final double kMinOutput = -1;
+        public static final double maxRPM = 5700;
+        public static final double maxVel = 5700;
+        public static final double minVel = -5700;
+        public static final double maxAcc = 4000;
+        public static final double allowedErr = 0;
+    }
 
 
 }
