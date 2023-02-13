@@ -37,10 +37,10 @@ public final class Constants {
         public static final int kFrontRightTurningEncoderPort = 2;
         public static final int kRearRightTurningEncoderPort = 3;
     
-        public static final double kFrontLeftAngleZero = 0.0; //Set after aligign all wheels forward
-        public static final double kRearLeftAngleZero = 0.0;
-        public static final double kFrontRightAngleZero = 0.0;
-        public static final double kRearRightAngleZero = 0.0;
+        public static final double kFrontLeftAngleZero = 1.9;// 2.15; //Set after aligign all wheels forward
+        public static final double kRearLeftAngleZero = 244.5;//243.5;
+        public static final double kFrontRightAngleZero = 231.5;//231.5;
+        public static final double kRearRightAngleZero = 177.5;//177.4;
     
     
         public static final double kTrackWidth = 20.255 * 0.0254; //converts 18.5 inches to meters
@@ -98,6 +98,7 @@ public final class Constants {
     
     public static final class OIConstants {
         public static final int kDriverControllerPort = 0;
+        public static final int kOperatorControllerPort = 1;
     }
 
     public static final class GamePadButtons{
@@ -147,5 +148,9 @@ public final class Constants {
       public static final class RIO_Channels_CAN_MOTOR {
         public static final int ELEVATOR_LEADER = 31;
         public static final int ELEVATOR_FOLLOWER = 32;
+        public static final int CROSS_SLIDE = 33;
+        public static final int INTAKE_PIVOT = 34;
+        public static final int INTAKE_PIVOT_ABS_INCODER = 35;
+        public static final int INTAKE = 36;
       }
 }

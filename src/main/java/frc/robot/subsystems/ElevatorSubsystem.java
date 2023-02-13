@@ -23,7 +23,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   RelativeEncoder elevatorEncoder;
 
   private SparkMaxPIDController elevatorPidController;
-  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowableError, arbFF;
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowableError, karbFF;
   private double heightSetpoint = 0.0;
   private double lastSetpoint = 0.0;
 
@@ -64,7 +64,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     kMinOutput = -1;
     maxRPM = 5700;
     allowableError = 50;
-    arbFF = 0.5;
+    karbFF = 0.5;
 
     // Smart Motion Coefficients
     maxVel = 2000; // rpm
@@ -85,21 +85,22 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorPidController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
     elevatorPidController.setSmartMotionAllowedClosedLoopError(allowableError, smartMotionSlot);
 
-    SmartDashboard.putNumber("P Gain", kP);
-    SmartDashboard.putNumber("I Gain", kI);
-    SmartDashboard.putNumber("D Gain", kD);
-    SmartDashboard.putNumber("I Zone", kIz);
-    SmartDashboard.putNumber("Feed Forward", kFF);
-    SmartDashboard.putNumber("Max Output", kMaxOutput);
-    SmartDashboard.putNumber("Min Output", kMinOutput);
+    SmartDashboard.putNumber("Elevator P Gain", kP);
+    SmartDashboard.putNumber("Elevator I Gain", kI);
+    SmartDashboard.putNumber("Elevator D Gain", kD);
+    SmartDashboard.putNumber("Elevator I Zone", kIz);
+    SmartDashboard.putNumber("Elevator Feed Forward", kFF);
+    SmartDashboard.putNumber("Elevator Max Output", kMaxOutput);
+    SmartDashboard.putNumber("Elevator Min Output", kMinOutput);
+    SmartDashboard.putNumber("Elevator Arbitrary Feed Forward", karbFF);  
 
     // display Smart Motion coefficients
-    SmartDashboard.putNumber("Max Velocity", maxVel);
-    SmartDashboard.putNumber("Min Velocity", minVel);
-    SmartDashboard.putNumber("Max Acceleration", maxAcc);
-    SmartDashboard.putNumber("Allowed Closed Loop Error", allowableError);
-    SmartDashboard.putNumber("Set Position", 0);
-    SmartDashboard.putNumber("Set Velocity", 0);
+    SmartDashboard.putNumber("Elevator Max Velocity", maxVel);
+    SmartDashboard.putNumber("Elevator Min Velocity", minVel);
+    SmartDashboard.putNumber("Elevator Max Acceleration", maxAcc);
+    SmartDashboard.putNumber("Elevator Allowed Closed Loop Error", allowableError);
+    SmartDashboard.putNumber("Elevator Set Position", 0);
+    SmartDashboard.putNumber("Elevator Set Velocity", 0);
 
     elevatorLeader.burnFlash();
     elevatorFollower.burnFlash();
@@ -110,8 +111,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
      //Smart Dashboard Items
      SmartDashboard.putNumber("Elevator Height", getElevatorHeight());
-     SmartDashboard.putBoolean("At Set Height", isAtHeight());
-     SmartDashboard.putNumber("Height Setpoing", getHeightSetpoint());
+     SmartDashboard.putBoolean("Elevator at Set Height", isAtHeight());
+     SmartDashboard.putNumber("Elevator Height Setpoint", getHeightSetpoint());
     
  
  
@@ -140,18 +141,23 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorLeader.set(move);
   }
 
+  public void stopElevator(){
+    elevatorLeader.set(0.0);
+  }
+
   public void closedLoopElevator(){
-    final double p = SmartDashboard.getNumber("P Gain", 0);
-    final double i = SmartDashboard.getNumber("I Gain", 0);
-    final double d = SmartDashboard.getNumber("D Gain", 0);
-    final double iz = SmartDashboard.getNumber("I Zone", 0);
-    final double ff = SmartDashboard.getNumber("Feed Forward", 0);
-    final double max = SmartDashboard.getNumber("Max Output", 0);
-    final double min = SmartDashboard.getNumber("Min Output", 0);
-    final double maxV = SmartDashboard.getNumber("Max Velocity", 0);
-    final double minV = SmartDashboard.getNumber("Min Velocity", 0);
-    final double maxA = SmartDashboard.getNumber("Max Acceleration", 0);
-    final double allE = SmartDashboard.getNumber("Allowed Closed Loop Error", 0);
+    final double p = SmartDashboard.getNumber("Elevator P Gain", 0);
+    final double i = SmartDashboard.getNumber("Elevator I Gain", 0);
+    final double d = SmartDashboard.getNumber("Elevator D Gain", 0);
+    final double iz = SmartDashboard.getNumber("Elevator I Zone", 0);
+    final double ff = SmartDashboard.getNumber("Elevator Feed Forward", 0);
+    final double max = SmartDashboard.getNumber("Elevator Max Output", 0);
+    final double min = SmartDashboard.getNumber("Elevator Min Output", 0);
+    final double arbFF = SmartDashboard.getNumber("Elevator Arbitrary Feed Forward", 0);
+    final double maxV = SmartDashboard.getNumber("Elevator Max Velocity", 0);
+    final double minV = SmartDashboard.getNumber("Elevator Min Velocity", 0);
+    final double maxA = SmartDashboard.getNumber("Elevator Max Acceleration", 0);
+    final double allE = SmartDashboard.getNumber("Elevator Allowed Closed Loop Error", 0);
 
 
     // if PID coefficients on SmartDashboard have changed, write new values to controller
@@ -160,6 +166,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     if((d != kD)) { elevatorPidController.setD(d); kD = d; }
     if((iz != kIz)) { elevatorPidController.setIZone(iz); kIz = iz; }
     if((ff != kFF)) { elevatorPidController.setFF(ff); kFF = ff; }
+    if((arbFF !=karbFF)) {karbFF = arbFF;}
     if((max != kMaxOutput) || (min != kMinOutput)) { 
         elevatorPidController.setOutputRange(min, max); 
           kMinOutput = min; kMaxOutput = max; }
@@ -170,6 +177,17 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     
     elevatorPidController.setReference(heightSetpoint, CANSparkMax.ControlType.kPosition, 0 ,arbFF,ArbFFUnits.kVoltage);
+  }
+
+
+  public void setHeightMid(){
+    heightSetpoint = 60;
+    closedLoopElevator();    
+  }
+
+  public void setHeightLow(){
+    heightSetpoint = 10;
+    closedLoopElevator();
   }
 
 }

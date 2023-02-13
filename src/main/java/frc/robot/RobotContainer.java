@@ -21,12 +21,18 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakePivotSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Leds;
 import frc.robot.subsystems.LimeLight;
+import frc.robot.subsystems.RobotStateSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -43,15 +49,21 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // Talon and Pigeon needed for subsystems defined here...
   // The robot's subsystems and commands are defined here...
+  public final static RobotStateSubsystem robotState = new RobotStateSubsystem();
   public final static LimeLight limelight = new LimeLight();
   public final static DriveSubsystem driveTrain = new DriveSubsystem();
   public final static Leds leds = new Leds();
+  public final static ElevatorSubsystem elevator = new ElevatorSubsystem();
+  public final static CrossSlideSubsystem crossSlide = new CrossSlideSubsystem();
+  public final static IntakePivotSubsystem intakePivot = new IntakePivotSubsystem();
+  public final static IntakeSubsystem intake = new IntakeSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
 
  // The driver's controller
  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-
+ 
+ XboxController operatorController = new XboxController(OIConstants.kOperatorControllerPort);
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
@@ -60,9 +72,29 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-          leds.setDefaultCommand(
+        leds.setDefaultCommand(
               new RunCommand(() -> leds.rainbow(), leds)
           );
+
+        elevator.setDefaultCommand(
+          new RunCommand(() -> elevator.manualElevator(operatorController.getLeftY()), elevator)
+        );
+
+        crossSlide.setDefaultCommand(
+          new RunCommand(() -> crossSlide.manualCrossSlide(operatorController.getLeftX()), crossSlide)
+        );
+
+        intakePivot.setDefaultCommand(
+          new RunCommand(() -> intakePivot.manualintakePivot(operatorController.getRightY()), intakePivot)
+        );
+
+        intake.setDefaultCommand(
+          new RunCommand(intake::stopIntake, intake)
+        );
+
+
+
+
 
         // Set the default drive command to split-stick arcade drive
         driveTrain.setDefaultCommand(
@@ -103,6 +135,36 @@ public class RobotContainer {
                       -m_driverController.getLeftX()
               * DriveConstants.kMaxSpeedMetersPerSecond), driveTrain))
     .onFalse(new InstantCommand(limelight::setPipelineZero, limelight));
+
+//Turns on Cone Mode
+    new JoystickButton(m_driverController, GamePadButtons.A)
+    .onTrue(new InstantCommand(() -> robotState.setConeMode(true), robotState))
+    .onTrue(new InstantCommand(() -> robotState.setCubeMode(false), robotState))
+    .onTrue(new RunCommand(leds::yellow, leds));
+
+  //Turns on Cube Mode
+    new JoystickButton(m_driverController, GamePadButtons.A)
+    .onTrue(new InstantCommand(() -> robotState.setConeMode(false), robotState))
+    .onTrue(new InstantCommand(() -> robotState.setCubeMode(true), robotState))
+    .onTrue(new RunCommand(leds::purple, leds));
+
+  //Runs Intake
+  // If Cone
+  if (robotState.getConeMode()){
+    //Turns on Cone Mode
+    new JoystickButton(m_driverController, GamePadButtons.X)
+    .whileTrue(new RunCommand(intake::intakeCone, intake));
+  }
+  else if (robotState.getCubeMode()){
+    new JoystickButton(m_driverController, GamePadButtons.X)
+    .whileTrue(new RunCommand(intake::intakeCube, intake));
+  }
+  else{
+    new JoystickButton(m_driverController, GamePadButtons.X)
+    .whileTrue(new RunCommand(intake::stopIntake, intake));
+  }
+
+
 
   }
 

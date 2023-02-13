@@ -174,9 +174,9 @@ public class SwerveModule {
   public void resetEncoders() {
     m_driveEncoder.setPosition(0);
     //m_turningEncoder.setPosition(0);
-    turn_Encoder.setPosition(0);
+    //turn_Encoder.setPosition(0);
     //Change to this when absolute encoders work this should pre-seed the absolute angle into the relative
-    //turn_Encoder.setPosition(getModuleAbsoluteAngle()*Math.PI/180);
+    turn_Encoder.setPosition(getModuleAbsoluteAngle()*Math.PI/180);
   }
 
 
@@ -201,13 +201,13 @@ public class SwerveModule {
 
 //Returns absolute module angle from -180 deg to +180 deg 
 public double getModuleAbsoluteAngle(){
-  double angle = absTurningEncoder.getVoltage() / RobotController.getVoltage5V();
-  angle *= 360;
-  angle -= offsetAngle;
-  if (angle > 180.0 && angle < 360.0){
-    angle = -180 + angle % 180.0;
-  }
-  return angle;
+  double value = absTurningEncoder.getVoltage() / RobotController.getVoltage5V();
+  double angle = value * 360;
+  double absAngle = angle - offsetAngle;
+  //if (angle > 180.0 && angle < 360.0){
+  //  angle = -180 + angle % 180.0;
+  //}
+  return value;
 }
  
   public double getDriveEncoderPositionMeter(){
