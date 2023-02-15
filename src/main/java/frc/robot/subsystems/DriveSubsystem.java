@@ -19,6 +19,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -27,6 +29,8 @@ public class DriveSubsystem extends SubsystemBase {
   //limelight vision may need to be tuned
   private double kP = 0.120;
   private double kF = 0.0; //0.2;
+
+
 
   private Pigeon2  m_gyro = new Pigeon2(DriveConstants.kPigeonCAN_ID);
   
@@ -108,6 +112,11 @@ public class DriveSubsystem extends SubsystemBase {
           });
 
 
+    //Shuffleboard.getTab("Drivetrian")
+    //.add("Test", 0)
+    //.withWidget(BuiltInWidgets.kGyro) // specify the widget here
+    //.getEntry("SmartDashboard/Front Left Angle");
+
 
     //Add values to smartdashborad
     // SmartDashboard.putNumber("Front Left Abs Angle", m_frontLeft.getModuleAbsoluteAngle());
@@ -126,6 +135,10 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Front Right Pos, m", m_frontRight.getDriveEncoderPositionMeter());
     SmartDashboard.putNumber("Back Left Pos, m", m_rearLeft.getDriveEncoderPositionMeter());
     SmartDashboard.putNumber("Back Right Pos, m", m_rearRight.getDriveEncoderPositionMeter());
+    SmartDashboard.putNumber("Front Left Velocity, m/s", m_frontLeft.getDriveEncoderVelocityMeterPerSec());
+    SmartDashboard.putNumber("Front Right Velocity, m/s", m_frontRight.getDriveEncoderVelocityMeterPerSec());
+    SmartDashboard.putNumber("Back Left Velocity, m/s", m_rearLeft.getDriveEncoderVelocityMeterPerSec());
+    SmartDashboard.putNumber("Back Right Velocity, m/s", m_rearRight.getDriveEncoderVelocityMeterPerSec());    
     SmartDashboard.putNumber("Gyro Angle", m_gyro.getYaw());
 
     //SmartDashboard.putNumber("FR Drive Set", m_frontLeft.)

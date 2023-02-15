@@ -37,10 +37,10 @@ public final class Constants {
         public static final int kFrontRightTurningEncoderPort = 2;
         public static final int kRearRightTurningEncoderPort = 3;
     
-        public static final double kFrontLeftAngleZero = 0.0; //Set after aligign all wheels forward
-        public static final double kRearLeftAngleZero = 0.0;
-        public static final double kFrontRightAngleZero = 0.0;
-        public static final double kRearRightAngleZero = 0.0;
+        public static final double kFrontLeftAngleZero = 0.47; //Set after aligign all wheels forward
+        public static final double kRearLeftAngleZero = -116.6;
+        public static final double kFrontRightAngleZero = -128.13;
+        public static final double kRearRightAngleZero = 177.98;
     
     
         public static final double kTrackWidth = 20.255 * 0.0254; //converts 18.5 inches to meters
@@ -65,7 +65,7 @@ public final class Constants {
         public static final double kvVoltSecondsPerMeter = 3.16;
         public static final double kaVoltSecondsSquaredPerMeter = 0.274;
     
-        public static final double kMaxSpeedMetersPerSecond = 3.5;
+        public static final double kMaxSpeedMetersPerSecond = 4.4;
       }
     
       public static final class ModuleConstants {
@@ -143,6 +143,23 @@ public final class Constants {
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
       }
+    
+    public static final class ElevatorConstants {
+        public static final int leftElavatorMotor_ID = 31;
+        public static final int rightElavatorMotor_ID = 32;
+        public static final double kP = 0.0000035;
+        public static final double kI = 0.0;
+        public static final double kD = 0.00002; 
+        public static final double kIz = 0;
+        public static final double kFF = 0.000165;
+        public static final double kMaxOutput = 1;
+        public static final double kMinOutput = -1;
+        public static final double maxRPM = 5700;
+        public static final double maxVel = 5700;
+        public static final double minVel = -5700;
+        public static final double maxAcc = 4000;
+        public static final double allowedErr = 0;
+    }
 
 
 }

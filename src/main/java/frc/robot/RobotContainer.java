@@ -20,9 +20,13 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.TwoCubeAuto;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Leds;
@@ -54,9 +58,16 @@ public class RobotContainer {
 
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final TwoCubeAuto m_TwoCubeAuto = new TwoCubeAuto(driveTrain);
+
+  public static SendableChooser<Command> autoChoice = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    Shuffleboard.getTab("Autonomous").add(autoChoice);
+    autoChoice.addOption("Do Nothing", new RunCommand(() -> driveTrain.drive(0, 0, 0, false), driveTrain));
+    autoChoice.addOption("Two Cube", m_TwoCubeAuto);
     // Configure the button bindings
     configureButtonBindings();
 
@@ -71,13 +82,13 @@ public class RobotContainer {
           new RunCommand(
               () ->
                   driveTrain.drive(
-                    -m_driverController.getLeftY()
-                    * DriveConstants.kMaxSpeedMetersPerSecond,
-                      -m_driverController.getLeftX()
-              * DriveConstants.kMaxSpeedMetersPerSecond,
+                    -m_driverController.getLeftY(),
+                    //* DriveConstants.kMaxSpeedMetersPerSecond,
+                      -m_driverController.getLeftX(),
+              //* DriveConstants.kMaxSpeedMetersPerSecond,
                      // -m_driverController.getRightX()
-                     -(m_driverController.getRightTriggerAxis()-m_driverController.getLeftTriggerAxis())
-              * DriveConstants.kMaxSpeedMetersPerSecond,
+                     -(m_driverController.getRightTriggerAxis()-m_driverController.getLeftTriggerAxis()),
+              //* DriveConstants.kMaxSpeedMetersPerSecond,
                       
                       true), driveTrain));
   }
