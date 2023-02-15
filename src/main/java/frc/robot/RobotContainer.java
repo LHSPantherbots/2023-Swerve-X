@@ -82,13 +82,13 @@ public class RobotContainer {
           new RunCommand(
               () ->
                   driveTrain.drive(
-                    -m_driverController.getLeftY(),
-                    //* DriveConstants.kMaxSpeedMetersPerSecond,
-                      -m_driverController.getLeftX(),
-              //* DriveConstants.kMaxSpeedMetersPerSecond,
-                     // -m_driverController.getRightX()
-                     -(m_driverController.getRightTriggerAxis()-m_driverController.getLeftTriggerAxis()),
-              //* DriveConstants.kMaxSpeedMetersPerSecond,
+                    -m_driverController.getLeftY()
+                    * DriveConstants.kMaxSpeedMetersPerSecond,
+                      -m_driverController.getLeftX()
+              * DriveConstants.kMaxSpeedMetersPerSecond,
+                      //-m_driverController.getRightX()
+                     -(m_driverController.getRightTriggerAxis()-m_driverController.getLeftTriggerAxis())
+              * DriveConstants.kMaxSpeedMetersPerSecond,
                       
                       true), driveTrain));
   }

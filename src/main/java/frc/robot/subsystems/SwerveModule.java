@@ -45,7 +45,8 @@ public class SwerveModule {
   /**
    * Constructs a SwerveModule.
    *
-   * @param driveMotorChannel ID for the drive motor.
+   * @param driveMotorChannel ID for the driv
+   * e motor.
    * @param turningMotorChannel ID for the turning motor.
    * @param turningEncoderPort ID for the turning encoder port
    * @param angleZero Absolute angle when module is point forward
@@ -154,7 +155,7 @@ public class SwerveModule {
   /**
    * Sets the desired state for the module.
    *
-   * @param state Desired state with speed and angle.
+   * @param state Desired state with speed and angle.)
    */
   public void setDesiredState(SwerveModuleState state) {
     //keep modules at current state when no input is given
@@ -167,7 +168,7 @@ public class SwerveModule {
     state = SwerveModuleState.optimize(state, new Rotation2d(getModuleAngleRadians()));
   
    //double motorRpm = 0;
-    double motorRpm = getMotorRpmFromDriveVelocity(state.speedMetersPerSecond* DriveConstants.kMaxSpeedMetersPerSecond);
+    double motorRpm = getMotorRpmFromDriveVelocity(state.speedMetersPerSecond);
 
     if (Math.abs(state.speedMetersPerSecond)>0.1*DriveConstants.kMaxSpeedMetersPerSecond){
       if (openLoopDrive){
