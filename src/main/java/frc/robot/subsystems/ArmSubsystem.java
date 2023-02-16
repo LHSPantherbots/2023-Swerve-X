@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
 
-public class arm extends SubsystemBase {
+public class ArmSubsystem extends SubsystemBase {
     CANSparkMax armMotor=new CANSparkMax(0, MotorType.kBrushless);
     RelativeEncoder armEncoder;
 
@@ -21,7 +21,7 @@ public class arm extends SubsystemBase {
     double pid_setPoint = 0;
 
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxVel, minVel, maxRPM, maxAcc, allowedErr;
-public arm()
+public ArmSubsystem()
 {
     armMotor.restoreFactoryDefaults();
     armMotor.setInverted(false);
