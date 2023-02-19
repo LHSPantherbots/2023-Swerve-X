@@ -112,9 +112,9 @@ public class IntakePivotSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Intake Pivot Set Velocity", 0);
 
     m_constraints =
-      new TrapezoidProfile.Constraints(10, 10);
+      new TrapezoidProfile.Constraints(100, 250);
       m_controller =
-      new ProfiledPIDController(0.001, 0.0, 0.0, m_constraints, kDt);
+      new ProfiledPIDController(0.01, 0.0, 0.0, m_constraints, kDt);
 
     intakePivot.burnFlash();
 
@@ -127,8 +127,10 @@ public class IntakePivotSubsystem extends SubsystemBase {
      SmartDashboard.putBoolean("Intake Pivot at Set Positon", isAtPosition());
      SmartDashboard.putNumber("Intake Pivot Position Setpoint", getPositionSetpoint());
      SmartDashboard.putNumber("Intake Pivot Absolute Encoder Position", intakePivotAbsoluteEncoder.getAbsolutePosition());
+     SmartDashboard.putNumber("Intake Pivot Absolute Encoder Velocity", intakePivotAbsoluteEncoder.getVelocity());
      SmartDashboard.putNumber("Intake Pivot Feed Forward Voltage Output", calculateArbitraryFeedforward());
      SmartDashboard.putNumber("Motor Voltage", intakePivot.getAppliedOutput());
+
   }
 
 
@@ -157,6 +159,10 @@ public class IntakePivotSubsystem extends SubsystemBase {
 
   public void manualintakePivot(double move){
     intakePivot.set(move);
+  }
+
+  public void reset(){
+    m_controller.reset(intakePivotAbsoluteEncoder.getAbsolutePosition());
   }
 
   public void closedLoopIntakePivot(){
@@ -211,7 +217,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
   }
   
   public void setPositionStow(){
-    positionSetpoint = 0;
+    positionSetpoint = 355;
     closedLoopIntakePivot();
   }
 

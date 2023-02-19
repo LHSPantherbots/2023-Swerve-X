@@ -11,6 +11,8 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController.ArbFFUnits;
 
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.RIO_Channels_CAN_MOTOR;
@@ -26,7 +28,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowableError, karbFF;
   private double heightSetpoint = 0.0;
   private double lastSetpoint = 0.0;
-
+  private double arbitraryFeedForward = 0.026;
+  private static double kDt = 0.02;
+  private final TrapezoidProfile.Constraints m_constraints;
+  private final ProfiledPIDController m_controller;
 
   /** Creates a new ElevatorSubsystem. */
   public ElevatorSubsystem() {
@@ -34,8 +39,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorFollower.restoreFactoryDefaults();
 
     //Set limit low when starting to keep from destroying itself before tuning;
-    elevatorLeader.setSmartCurrentLimit(15);
-    elevatorFollower.setSmartCurrentLimit(15);
+    elevatorLeader.setSmartCurrentLimit(40);
+    elevatorFollower.setSmartCurrentLimit(40);
 
     //Adjust this value if the elevator is accellerating too fast
     elevatorLeader.setClosedLoopRampRate(0.25);
@@ -102,6 +107,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Elevator Set Position", 0);
     SmartDashboard.putNumber("Elevator Set Velocity", 0);
 
+
+    m_constraints =
+    new TrapezoidProfile.Constraints(30, 30
+    );
+    m_controller =
+    new ProfiledPIDController(0.05, 0.0, 0.0, m_constraints, kDt);
     elevatorLeader.burnFlash();
     elevatorFollower.burnFlash();
 
@@ -113,8 +124,9 @@ public class ElevatorSubsystem extends SubsystemBase {
      SmartDashboard.putNumber("Elevator Height", getElevatorHeight());
      SmartDashboard.putBoolean("Elevator at Set Height", isAtHeight());
      SmartDashboard.putNumber("Elevator Height Setpoint", getHeightSetpoint());
-    
- 
+     SmartDashboard.putNumber("Elevator Feed Forward", arbitraryFeedForward);  
+     SmartDashboard.putNumber("Elevator Velocity", elevatorEncoder.getVelocity());    
+     SmartDashboard.putNumber("Elvator Amps", elevatorLeader.getOutputCurrent());
  
   }
 
@@ -140,12 +152,20 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void manualElevator(double move){
     elevatorLeader.set(move);
   }
+  public void reset(){
+    m_controller.reset(elevatorEncoder.getPosition());
+  }
 
   public void stopElevator(){
     elevatorLeader.set(0.0);
   }
-
+  
   public void closedLoopElevator(){
+    elevatorLeader.set(arbitraryFeedForward + m_controller.calculate(elevatorEncoder.getPosition(), heightSetpoint));
+    //elevatorLeader.set(arbitraryFeedForward);
+  }
+
+  public void closedLoopElevator2(){
     final double p = SmartDashboard.getNumber("Elevator P Gain", 0);
     final double i = SmartDashboard.getNumber("Elevator I Gain", 0);
     final double d = SmartDashboard.getNumber("Elevator D Gain", 0);
@@ -181,14 +201,16 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 
   public void setHeightMid(){
-    heightSetpoint = 60;
+    heightSetpoint = 22.0;
     closedLoopElevator();    
   }
 
   public void setHeightLow(){
-    heightSetpoint = 10;
+    heightSetpoint = 7.0;
     closedLoopElevator();
   }
+
+  
 
 }
 

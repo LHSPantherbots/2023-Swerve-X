@@ -11,15 +11,186 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "3,1": {
+          "0,0": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Absolute Encoder Position",
-              "_title": "SmartDashboard/Intake Pivot Absolute Encoder Position",
+              "_source0": "network_table:///SmartDashboard/LL Horizontal Offset",
+              "_title": "LL Horizontal Offset",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LL Vertical Offset",
+              "_title": "LL Vertical Offset",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LL Target Area",
+              "_title": "LL Target Area",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/LL Valid Target",
+              "_title": "LL Valid Target",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Angle",
+              "_title": "Front Left Angle",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Angle",
+              "_title": "Front Right Angle",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Angle",
+              "_title": "Rear Left Angle",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Angle",
+              "_title": "Rear Right Angle",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Pos, m",
+              "_title": "Front Left Pos, m",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Pos, m",
+              "_title": "Front Right Pos, m",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Back Left Pos, m",
+              "_title": "Back Left Pos, m",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "1,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Back Right Pos, m",
+              "_title": "Back Right Pos, m",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Gyro Angle",
+              "_title": "Gyro Angle",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "1,2": {
+            "size": [
+              6,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FR Actual State",
+              "_title": "FR Actual State",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -31,13 +202,130 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Position",
-              "_title": "SmartDashboard/Intake Pivot Position",
+              "_source0": "network_table:///SmartDashboard/Front Right Encoder Distance",
+              "_title": "Front Right Encoder Distance",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "0,0": {
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Encoder Speed Meter/s",
+              "_title": "Front Right Encoder Speed Meter/s",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Wheel Rotations",
+              "_title": "Front Left Wheel Rotations",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Pose",
+              "_title": "Pose",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rot 2d",
+              "_title": "Rot 2d",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/FR2 Set State",
+              "_title": "FR2 Set State",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "3,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Velocity, m/s",
+              "_title": "Front Left Velocity, m/s",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Velocity, m/s",
+              "_title": "Front Right Velocity, m/s",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Back Left Velocity, m/s",
+              "_title": "Back Left Velocity, m/s",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Back Right Velocity, m/s",
+              "_title": "Back Right Velocity, m/s",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,2": {
             "size": [
               1,
               1
@@ -50,7 +338,7 @@
               "_showGlyph": false
             }
           },
-          "1,0": {
+          "0,3": {
             "size": [
               1,
               1
@@ -63,7 +351,7 @@
               "_showGlyph": false
             }
           },
-          "2,0": {
+          "1,3": {
             "size": [
               1,
               1
@@ -76,7 +364,7 @@
               "_showGlyph": false
             }
           },
-          "3,0": {
+          "2,3": {
             "size": [
               1,
               1
@@ -89,7 +377,7 @@
               "_showGlyph": false
             }
           },
-          "4,0": {
+          "3,3": {
             "size": [
               1,
               1
@@ -102,7 +390,7 @@
               "_showGlyph": false
             }
           },
-          "5,0": {
+          "4,3": {
             "size": [
               1,
               1
@@ -115,7 +403,7 @@
               "_showGlyph": false
             }
           },
-          "6,0": {
+          "5,3": {
             "size": [
               1,
               1
@@ -128,7 +416,7 @@
               "_showGlyph": false
             }
           },
-          "7,0": {
+          "6,3": {
             "size": [
               1,
               1
@@ -141,7 +429,7 @@
               "_showGlyph": false
             }
           },
-          "8,0": {
+          "7,3": {
             "size": [
               1,
               1
@@ -154,7 +442,7 @@
               "_showGlyph": false
             }
           },
-          "0,1": {
+          "8,3": {
             "size": [
               1,
               1
@@ -167,7 +455,7 @@
               "_showGlyph": false
             }
           },
-          "1,1": {
+          "9,3": {
             "size": [
               1,
               1
@@ -176,305 +464,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Elevator Arbitrary Feed Forward",
               "_title": "Elevator Arbitrary Feed Forward",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "2,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Elevator Max Velocity",
-              "_title": "Elevator Max Velocity",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "5,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Elevator Min Velocity",
-              "_title": "Elevator Min Velocity",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "6,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Elevator Max Acceleration",
-              "_title": "Elevator Max Acceleration",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "7,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Elevator Allowed Closed Loop Error",
-              "_title": "Elevator Allowed Closed Loop Error",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "8,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Elevator Set Position",
-              "_title": "Elevator Set Position",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "0,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Elevator Set Velocity",
-              "_title": "Elevator Set Velocity",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "1,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Cross Slide P Gain",
-              "_title": "Cross Slide P Gain",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "2,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Cross Slide I Gain",
-              "_title": "Cross Slide I Gain",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "3,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Cross Slide D Gain",
-              "_title": "Cross Slide D Gain",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "4,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Cross Slide I Zone",
-              "_title": "Cross Slide I Zone",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "5,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Cross Slide Feed Forward",
-              "_title": "Cross Slide Feed Forward",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "6,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Cross Slide Max Output",
-              "_title": "Cross Slide Max Output",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "7,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Cross Slide Min Output",
-              "_title": "Cross Slide Min Output",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "8,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Cross Slide Max Velocity",
-              "_title": "Cross Slide Max Velocity",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "0,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Cross Slide Min Velocity",
-              "_title": "Cross Slide Min Velocity",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "1,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Cross Slide Max Acceleration",
-              "_title": "Cross Slide Max Acceleration",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "2,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Cross Slide Allowed Closed Loop Error",
-              "_title": "Cross Slide Allowed Closed Loop Error",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "3,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Cross Slide Set Position",
-              "_title": "Cross Slide Set Position",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "4,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Cross Slide Set Velocity",
-              "_title": "Cross Slide Set Velocity",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "5,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot P Gain",
-              "_title": "Intake Pivot P Gain",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "6,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot I Gain",
-              "_title": "Intake Pivot I Gain",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "7,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot D Gain",
-              "_title": "Intake Pivot D Gain",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "8,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot I Zone",
-              "_title": "Intake Pivot I Zone",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -496,7 +485,7 @@
       }
     },
     {
-      "title": "Pivot",
+      "title": "Drivetrain",
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
@@ -506,184 +495,41 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "3,0": {
+          "2,0": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Absolute Encoder Position",
-              "_title": "SmartDashboard/Intake Pivot Absolute Encoder Position",
+              "_source0": "network_table:///SmartDashboard/Front Right Angle",
+              "_title": "SmartDashboard/Front Right Angle",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "6,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Allowed Closed Loop Error",
-              "_title": "SmartDashboard/Intake Pivot Allowed Closed Loop Error",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "6,1": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Arbitrary Feed Forward Constant",
-              "_title": "SmartDashboard/Intake Pivot Arbitrary Feed Forward Constant",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "6,2": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot D Gain",
-              "_title": "SmartDashboard/Intake Pivot D Gain",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "6,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Max Acceleration",
-              "_title": "SmartDashboard/Intake Pivot Max Acceleration",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "4,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot I Gain",
-              "_title": "SmartDashboard/Intake Pivot I Gain",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "4,1": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot I Zone",
-              "_title": "SmartDashboard/Intake Pivot I Zone",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "4,2": {
+          "1,1": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Max Output",
-              "_title": "SmartDashboard/Intake Pivot Max Output",
+              "_source0": "network_table:///SmartDashboard/Rear Left Angle",
+              "_title": "SmartDashboard/Rear Left Angle",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "4,3": {
+          "2,1": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Max Velocity",
-              "_title": "SmartDashboard/Intake Pivot Max Velocity",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "5,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Min Output",
-              "_title": "SmartDashboard/Intake Pivot Min Output",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "5,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Min Velocity",
-              "_title": "SmartDashboard/Intake Pivot Min Velocity",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "8,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot P Gain",
-              "_title": "SmartDashboard/Intake Pivot P Gain",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "3,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Position",
-              "_title": "SmartDashboard/Intake Pivot Position",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "3,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Set Position",
-              "_title": "SmartDashboard/Intake Pivot Set Position",
+              "_source0": "network_table:///SmartDashboard/Rear Right Angle",
+              "_title": "SmartDashboard/Rear Right Angle",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -695,8 +541,99 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Position Setpoint",
-              "_title": "SmartDashboard/Intake Pivot Position Setpoint",
+              "_source0": "network_table:///SmartDashboard/Gyro Angle",
+              "_title": "SmartDashboard/Gyro Angle",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,3": {
+            "size": [
+              6,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Pose",
+              "_title": "SmartDashboard/Pose",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Angle",
+              "_title": "SmartDashboard/Front Left Angle",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Back Left Pos, m",
+              "_title": "/SmartDashboard/Back Left Pos, m",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Back Right Pos, m",
+              "_title": "/SmartDashboard/Back Right Pos, m",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Pos, m",
+              "_title": "/SmartDashboard/Front Left Pos, m",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Pos, m",
+              "_title": "/SmartDashboard/Front Right Pos, m",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Back Left Velocity, m/s",
+              "_title": "SmartDashboard/Back Left Velocity, m/s",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -707,13 +644,24 @@
               1
             ],
             "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot at Set Positon",
-              "_title": "SmartDashboard/Intake Pivot at Set Positon",
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Back Right Velocity, m/s",
+              "_title": "SmartDashboard/Back Right Velocity, m/s",
               "_glyph": 148,
-              "_showGlyph": false,
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "_showGlyph": false
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Velocity, m/s",
+              "_title": "SmartDashboard/Front Left Velocity, m/s",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "8,0": {
@@ -723,34 +671,206 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Set Velocity",
-              "_title": "SmartDashboard/Intake Pivot Set Velocity",
+              "_source0": "network_table:///SmartDashboard/Front Right Velocity, m/s",
+              "_title": "SmartDashboard/Front Right Velocity, m/s",
               "_glyph": 148,
               "_showGlyph": false
             }
-          },
-          "1,0": {
+          }
+        }
+      }
+    },
+    {
+      "title": "pivot",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "6,0": {
             "size": [
               2,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Feed Forward",
-              "_title": "SmartDashboard/Intake Pivot Feed Forward",
+              "_source0": "network_table:///SmartDashboard/Intake Pivot Absolute Encoder Position",
+              "_title": "SmartDashboard/Intake Pivot Absolute Encoder Position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Pivot Position Setpoint",
+              "_title": "SmartDashboard/Intake Pivot Position Setpoint",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Pivot Position",
+              "_title": "SmartDashboard/Intake Pivot Position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Pivot Set Position",
+              "_title": "SmartDashboard/Intake Pivot Set Position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,0": {
+            "size": [
+              6,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Intake Pivot Absolute Encoder Velocity",
+              "_title": "SmartDashboard/Intake Pivot Absolute Encoder Velocity",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/Intake Pivot Absolute Encoder Velocity": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Elevator",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "3,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator Height Setpoint",
+              "_title": "SmartDashboard/Elevator Height Setpoint",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator Height",
+              "_title": "SmartDashboard/Elevator Height",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator Set Velocity",
+              "_title": "SmartDashboard/Elevator Set Velocity",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator Height",
+              "_title": "SmartDashboard/Elevator Height",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator Feed Forward",
+              "_title": "SmartDashboard/Elevator Feed Forward",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
           "1,1": {
             "size": [
-              2,
+              4,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Elevator Velocity",
+              "_title": "SmartDashboard/Elevator Velocity",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/Elevator Velocity": true
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Feed Forward Voltage Output",
-              "_title": "SmartDashboard/Intake Pivot Feed Forward Voltage Output",
+              "_source0": "network_table:///SmartDashboard/Elvator Amps",
+              "_title": "/SmartDashboard/Elvator Amps",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -762,7 +882,7 @@
   "windowGeometry": {
     "x": 0.0,
     "y": 0.0,
-    "width": 1366.0,
-    "height": 728.0
+    "width": 1536.0,
+    "height": 824.0
   }
 }

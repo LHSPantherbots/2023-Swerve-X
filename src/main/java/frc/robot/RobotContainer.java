@@ -38,6 +38,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -164,6 +165,31 @@ public class RobotContainer {
   //  .whileTrue(new RunCommand(intake::stopIntake, intake));
   //}
 
+
+  
+  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  //GOOD YES
+  /* 
+  new POVButton(operatorController, GamePadButtons.Left)
+  .onTrue(new InstantCommand(intakePivot::reset, intakePivot))
+  .onTrue(new RunCommand(intakePivot::setPositionStow, intakePivot));
+
+  new POVButton(operatorController, GamePadButtons.Down)
+  .onTrue(new InstantCommand(intakePivot::reset, intakePivot))
+  .onTrue(new RunCommand(intakePivot::setPositionintakeCone, intakePivot));
+  */
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+  new POVButton(operatorController, GamePadButtons.Left)
+  .onTrue(new InstantCommand(elevator::reset, elevator))
+  .onTrue(new RunCommand(elevator::setHeightMid, elevator));
+
+  new POVButton(operatorController, GamePadButtons.Down)
+  .onTrue(new InstantCommand(elevator::reset, elevator))
+  .onTrue(new RunCommand(elevator::setHeightLow, elevator));
+
+  new POVButton(operatorController, GamePadButtons.Right)
+  .onTrue(new RunCommand(elevator::stopElevator, elevator));  
 
   /*
     if (robotState.getConeMode()){
