@@ -18,6 +18,7 @@ public class Leds extends SubsystemBase{
     private int greenPulseBrightness = 0;
     private int blueStreakLED = 0;
     private int numLoops = 0;
+    private int index = 0;
 
   public Leds() {
     // PWM port 9
@@ -27,7 +28,7 @@ public class Leds extends SubsystemBase{
     // Reuse buffer
     // Default to a length of 60, start empty output
     // Length is expensive to set, so only set it once, then just update data
-    m_ledBuffer = new AddressableLEDBuffer(99);
+    m_ledBuffer = new AddressableLEDBuffer(200);
     m_led.setLength(m_ledBuffer.getLength());
 
     // Set the data
@@ -54,6 +55,25 @@ public class Leds extends SubsystemBase{
     m_rainbowFirstPixelHue += 3;
     // Check bounds
     m_rainbowFirstPixelHue %= 180;
+
+    m_led.setData(m_ledBuffer);
+  }
+
+  public void pantherStreak(){
+    for (int i = 0; i < m_ledBuffer.getLength(); i++){
+      m_ledBuffer.setRGB(i, 148, 0, 211);
+    }
+    for (int i = index; i < m_ledBuffer.getLength(); i++){
+      m_ledBuffer.setRGB(i, 255, 220, 0);
+    }
+
+    if (numLoops % 10 == 0){
+      index++;
+      index %= 0;
+      numLoops = 0;
+    }
+
+    numLoops++;
 
     m_led.setData(m_ledBuffer);
   }

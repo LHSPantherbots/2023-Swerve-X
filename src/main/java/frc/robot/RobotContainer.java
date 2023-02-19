@@ -77,15 +77,15 @@ public class RobotContainer {
           );
 
         elevator.setDefaultCommand(
-          new RunCommand(() -> elevator.manualElevator(operatorController.getLeftY()), elevator)
+          new RunCommand(() -> elevator.manualElevator(-operatorController.getLeftY()), elevator)
         );
 
         crossSlide.setDefaultCommand(
-          new RunCommand(() -> crossSlide.manualCrossSlide(operatorController.getLeftX()), crossSlide)
+          new RunCommand(() -> crossSlide.manualCrossSlide(-operatorController.getLeftX()*.1), crossSlide)
         );
 
         intakePivot.setDefaultCommand(
-          new RunCommand(() -> intakePivot.manualintakePivot(operatorController.getRightY()), intakePivot)
+          new RunCommand(() -> intakePivot.manualintakePivot(operatorController.getRightY()*.2), intakePivot)
         );
 
         intake.setDefaultCommand(
@@ -126,7 +126,7 @@ public class RobotContainer {
     .whileTrue(new InstantCommand(driveTrain::resetAll, driveTrain));
     
 
-    new JoystickButton(m_driverController, GamePadButtons.Y)
+    new JoystickButton(m_driverController, GamePadButtons.RB)
     .onTrue(new InstantCommand(limelight::ledPipeline, limelight))
     .onTrue(new InstantCommand(limelight::setPipelineThree, limelight))
     .whileTrue(new RunCommand(() -> driveTrain.limeLightAim(
@@ -143,29 +143,43 @@ public class RobotContainer {
     .onTrue(new RunCommand(leds::yellow, leds));
 
   //Turns on Cube Mode
-    new JoystickButton(m_driverController, GamePadButtons.A)
+    new JoystickButton(m_driverController, GamePadButtons.B)
     .onTrue(new InstantCommand(() -> robotState.setConeMode(false), robotState))
     .onTrue(new InstantCommand(() -> robotState.setCubeMode(true), robotState))
     .onTrue(new RunCommand(leds::purple, leds));
 
   //Runs Intake
   // If Cone
-  if (robotState.getConeMode()){
+ // if (robotState.getConeMode()){
     //Turns on Cone Mode
     new JoystickButton(m_driverController, GamePadButtons.X)
     .whileTrue(new RunCommand(intake::intakeCone, intake));
+ // }
+ // else if (robotState.getCubeMode()){
+    new JoystickButton(m_driverController, GamePadButtons.Y)
+    .whileTrue(new RunCommand(intake::intakeCube, intake));
+//  }
+ // else{
+   // new JoystickButton(m_driverController, GamePadButtons.X)
+  //  .whileTrue(new RunCommand(intake::stopIntake, intake));
+  //}
+
+
+  /*
+    if (robotState.getConeMode()){
+    //Turns on Cone Mode
+    new JoystickButton(m_driverController, GamePadButtons.Y)
+    .whileTrue(new RunCommand(intake::ejectCone, intake));
   }
   else if (robotState.getCubeMode()){
-    new JoystickButton(m_driverController, GamePadButtons.X)
-    .whileTrue(new RunCommand(intake::intakeCube, intake));
+    new JoystickButton(m_driverController, GamePadButtons.Y)
+    .whileTrue(new RunCommand(intake::ejectCube, intake));
   }
   else{
-    new JoystickButton(m_driverController, GamePadButtons.X)
+    new JoystickButton(m_driverController, GamePadButtons.Y)
     .whileTrue(new RunCommand(intake::stopIntake, intake));
   }
-
-
-
+*/
   }
 
   /**
@@ -173,6 +187,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+
+/** 
   public Command getAutonomousCommand() {
     // Create config for trajectory
     TrajectoryConfig config =
@@ -217,4 +233,10 @@ public class RobotContainer {
     // Run path following command, then stop at the end.
     return swerveControllerCommand.andThen(() -> driveTrain.drive(0, 0, 0, false));
   }
+ */ 
+
 }
+
+
+
+

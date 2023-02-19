@@ -14,6 +14,8 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController.ArbFFUnits;
 
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.RIO_Channels_CAN_MOTOR;
@@ -26,10 +28,18 @@ public class IntakePivotSubsystem extends SubsystemBase {
 
   RelativeEncoder intakePivotEncoder;
 
+    // Create a PID controller whose setpoint's change is subject to maximum
+  // velocity and acceleration constraints.
+  private static double kDt = 0.02;
+  private final TrapezoidProfile.Constraints m_constraints;
+  private final ProfiledPIDController m_controller;
+
   private SparkMaxPIDController intakePivotPidController;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowableError, karbFF;
   private double positionSetpoint = 0.0;
   private double lastSetpoint = 0.0;
+  
+
 
 
   private double armPivotRatio = 4 * 4 * 4 * 38 / 16 ;
@@ -47,7 +57,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
     intakePivot.setIdleMode(IdleMode.kBrake);
 
     //Flip these if the intake pivot goes the wrong direction
-    intakePivot.setInverted(false);
+    intakePivot.setInverted(true);
 
     intakePivotEncoder = intakePivot.getEncoder();
 
@@ -101,6 +111,11 @@ public class IntakePivotSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Intake Pivot Set Position", 0);
     SmartDashboard.putNumber("Intake Pivot Set Velocity", 0);
 
+    m_constraints =
+      new TrapezoidProfile.Constraints(10, 10);
+      m_controller =
+      new ProfiledPIDController(0.001, 0.0, 0.0, m_constraints, kDt);
+
     intakePivot.burnFlash();
 
   }
@@ -113,7 +128,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
      SmartDashboard.putNumber("Intake Pivot Position Setpoint", getPositionSetpoint());
      SmartDashboard.putNumber("Intake Pivot Absolute Encoder Position", intakePivotAbsoluteEncoder.getAbsolutePosition());
      SmartDashboard.putNumber("Intake Pivot Feed Forward Voltage Output", calculateArbitraryFeedforward());
- 
+     SmartDashboard.putNumber("Motor Voltage", intakePivot.getAppliedOutput());
   }
 
 
@@ -145,6 +160,11 @@ public class IntakePivotSubsystem extends SubsystemBase {
   }
 
   public void closedLoopIntakePivot(){
+    intakePivot.set(m_controller.calculate(intakePivotAbsoluteEncoder.getAbsolutePosition(), positionSetpoint));
+  }
+
+
+  public void closedLoopIntakePivot2(){
     final double p = SmartDashboard.getNumber("Intake Pivot P Gain", 0);
     final double i = SmartDashboard.getNumber("Intake Pivot I Gain", 0);
     final double d = SmartDashboard.getNumber("Intake Pivot D Gain", 0);
@@ -176,7 +196,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
     if((allE != allowableError)) {intakePivotPidController.setSmartMotionAllowedClosedLoopError(allE,0); allowableError = allE; }
 
     
-    intakePivotPidController.setReference(positionSetpoint, CANSparkMax.ControlType.kPosition, 0 , calculateArbitraryFeedforward(),ArbFFUnits.kVoltage);
+    intakePivotPidController.setReference(positionSetpoint, CANSparkMax.ControlType.kPosition, 0);
   }
 
 
@@ -189,6 +209,22 @@ public class IntakePivotSubsystem extends SubsystemBase {
     positionSetpoint = 10;
     closedLoopIntakePivot();
   }
+  
+  public void setPositionStow(){
+    positionSetpoint = 0;
+    closedLoopIntakePivot();
+  }
+
+  public void setPositionintakeCone(){
+    positionSetpoint = 257;
+    closedLoopIntakePivot();
+  }
+
+  public void setPositionintakeCube(){
+    positionSetpoint = 252;
+    closedLoopIntakePivot();
+  }
+
 
 }
 

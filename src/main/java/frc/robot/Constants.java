@@ -37,10 +37,10 @@ public final class Constants {
         public static final int kFrontRightTurningEncoderPort = 2;
         public static final int kRearRightTurningEncoderPort = 3;
     
-        public static final double kFrontLeftAngleZero = 1.9;// 2.15; //Set after aligign all wheels forward
-        public static final double kRearLeftAngleZero = 244.5;//243.5;
-        public static final double kFrontRightAngleZero = 231.5;//231.5;
-        public static final double kRearRightAngleZero = 177.5;//177.4;
+        public static final double kFrontLeftAngleZero = 0.47;// 2.15; //Set after aligign all wheels forward
+        public static final double kRearLeftAngleZero = -116.6;//243.5;
+        public static final double kFrontRightAngleZero = -128.13;//231.5;
+        public static final double kRearRightAngleZero = 177.98;//177.4;
     
     
         public static final double kTrackWidth = 20.255 * 0.0254; //converts 18.5 inches to meters
@@ -65,7 +65,7 @@ public final class Constants {
         public static final double kvVoltSecondsPerMeter = 3.16;
         public static final double kaVoltSecondsSquaredPerMeter = 0.274;
     
-        public static final double kMaxSpeedMetersPerSecond = 3.5;
+        public static final double kMaxSpeedMetersPerSecond = 4.4;
       }
     
       public static final class ModuleConstants {
