@@ -10,6 +10,8 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.RIO_Channels_CAN_MOTOR;
@@ -21,9 +23,18 @@ public class CrossSlideSubsystem extends SubsystemBase {
   RelativeEncoder crossSlideEncoder;
 
   private SparkMaxPIDController crossSlidePidController;
-  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowableError;
+  private double kP = 0.001;
+  private double kI = 0.0;
+  private double kD = 0.0;
+  private double kIz = 0.0;
+  private double maxVel = 10.0;
+  private double maxAcc = 10.0;
+  private double allowableError = 2.0;
   private double positionSetpoint = 0.0;
   private double lastSetpoint = 0.0;
+  private static double kDt = 0.02;
+  private final TrapezoidProfile.Constraints m_constraints;
+  private final ProfiledPIDController m_controller;
 
 
   /** Creates a new CrossSlideSubsystem. */
@@ -45,51 +56,11 @@ public class CrossSlideSubsystem extends SubsystemBase {
 
     crossSlidePidController = crossSlide.getPIDController();
 
-    // PID coefficients these will need to be tuned
-    kP = 0.00015; 
-    kI =  0;
-    kD = 0.0008; 
-    kIz = 0;
-    kFF = 0.000;
-    kMaxOutput = 1; 
-    kMinOutput = -1;
-    maxRPM = 5700;
-    allowableError = 50;
+    m_constraints =
+      new TrapezoidProfile.Constraints(maxVel, maxAcc);
+    m_controller =
+      new ProfiledPIDController(kP, kI, kD, m_constraints, kDt);
 
-    // Smart Motion Coefficients
-    maxVel = 2000; // rpm
-    maxAcc = 1500;
-
-
-     // set PID coefficients
-    crossSlidePidController.setP(kP);
-    crossSlidePidController.setI(kI);
-    crossSlidePidController.setD(kD);
-    crossSlidePidController.setIZone(kIz);
-    crossSlidePidController.setFF(kFF);
-    crossSlidePidController.setOutputRange(kMinOutput, kMaxOutput);
-
-    int smartMotionSlot = 0;
-    crossSlidePidController.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
-    crossSlidePidController.setSmartMotionMinOutputVelocity(minVel, smartMotionSlot);
-    crossSlidePidController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
-    crossSlidePidController.setSmartMotionAllowedClosedLoopError(allowableError, smartMotionSlot);
-
-    SmartDashboard.putNumber("Cross Slide P Gain", kP);
-    SmartDashboard.putNumber("Cross Slide I Gain", kI);
-    SmartDashboard.putNumber("Cross Slide D Gain", kD);
-    SmartDashboard.putNumber("Cross Slide I Zone", kIz);
-    SmartDashboard.putNumber("Cross Slide Feed Forward", kFF);
-    SmartDashboard.putNumber("Cross Slide Max Output", kMaxOutput);
-    SmartDashboard.putNumber("Cross Slide Min Output", kMinOutput);
-
-    // display Smart Motion coefficients
-    SmartDashboard.putNumber("Cross Slide Max Velocity", maxVel);
-    SmartDashboard.putNumber("Cross Slide Min Velocity", minVel);
-    SmartDashboard.putNumber("Cross Slide Max Acceleration", maxAcc);
-    SmartDashboard.putNumber("Cross Slide Allowed Closed Loop Error", allowableError);
-    SmartDashboard.putNumber("Cross Slide Set Position", 0);
-    SmartDashboard.putNumber("Cross Slide Set Velocity", 0);
 
     crossSlide.burnFlash();
 
@@ -129,50 +100,26 @@ public class CrossSlideSubsystem extends SubsystemBase {
     crossSlide.set(move);
   }
 
+  public void reset(){
+    m_controller.reset(crossSlideEncoder.getPosition());
+  }
+
   public void stopCrossSlide(){
     crossSlide.set(0.0);
   }
 
   public void closedLoopCrossSlide(){
-    final double p = SmartDashboard.getNumber("Cross Slide P Gain", 0);
-    final double i = SmartDashboard.getNumber("Cross Slide I Gain", 0);
-    final double d = SmartDashboard.getNumber("Cross Slide D Gain", 0);
-    final double iz = SmartDashboard.getNumber("Cross Slide I Zone", 0);
-    final double ff = SmartDashboard.getNumber("Cross Slide Feed Forward", 0);
-    final double max = SmartDashboard.getNumber("Cross Slide Max Output", 0);
-    final double min = SmartDashboard.getNumber("Cross Slide Min Output", 0);
-    final double maxV = SmartDashboard.getNumber("Cross Slide Max Velocity", 0);
-    final double minV = SmartDashboard.getNumber("Cross Slide Min Velocity", 0);
-    final double maxA = SmartDashboard.getNumber("Cross Slide Max Acceleration", 0);
-    final double allE = SmartDashboard.getNumber("Cross Slide Allowed Closed Loop Error", 0);
-
-
-    // if PID coefficients on SmartDashboard have changed, write new values to controller
-    if((p != kP)) { crossSlidePidController.setP(p); kP = p; }
-    if((i != kI)) { crossSlidePidController.setI(i); kI = i; }
-    if((d != kD)) { crossSlidePidController.setD(d); kD = d; }
-    if((iz != kIz)) { crossSlidePidController.setIZone(iz); kIz = iz; }
-    if((ff != kFF)) { crossSlidePidController.setFF(ff); kFF = ff; }
-    if((max != kMaxOutput) || (min != kMinOutput)) { 
-        crossSlidePidController.setOutputRange(min, max); 
-          kMinOutput = min; kMaxOutput = max; }
-    if((maxV != maxVel)) { crossSlidePidController.setSmartMotionMaxVelocity(maxV,0); maxVel = maxV; }
-    if((minV != minVel)) { crossSlidePidController.setSmartMotionMinOutputVelocity(minV,0); minVel = minV; }
-    if((maxA != maxAcc)) { crossSlidePidController.setSmartMotionMaxAccel(maxA,0); maxAcc = maxA; }
-    if((allE != allowableError)) {crossSlidePidController.setSmartMotionAllowedClosedLoopError(allE,0); allowableError = allE; }
-
-    
-    crossSlidePidController.setReference(positionSetpoint, CANSparkMax.ControlType.kPosition);
+    crossSlide.set(m_controller.calculate(crossSlideEncoder.getPosition(), positionSetpoint));
   }
 
 
-  public void setPositionMid(){
-    positionSetpoint = 40;
+  public void setPositionStow(){
+    positionSetpoint = 0;
     closedLoopCrossSlide();    
   }
 
-  public void setPositionIn(){
-    positionSetpoint = 10;
+  public void setPositionMid(){
+    positionSetpoint = 3;
     closedLoopCrossSlide();
   }
 
