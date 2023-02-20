@@ -23,12 +23,12 @@ public class CrossSlideSubsystem extends SubsystemBase {
   RelativeEncoder crossSlideEncoder;
 
   private SparkMaxPIDController crossSlidePidController;
-  private double kP = 0.001;
+  private double kP = 0.1;
   private double kI = 0.0;
   private double kD = 0.0;
   private double kIz = 0.0;
-  private double maxVel = 10.0;
-  private double maxAcc = 10.0;
+  private double maxVel = 30.0;
+  private double maxAcc = 30.0;
   private double allowableError = 2.0;
   private double positionSetpoint = 0.0;
   private double lastSetpoint = 0.0;
@@ -65,6 +65,8 @@ public class CrossSlideSubsystem extends SubsystemBase {
     crossSlide.burnFlash();
 
   }
+  
+
 
   @Override
   public void periodic() {
@@ -114,12 +116,17 @@ public class CrossSlideSubsystem extends SubsystemBase {
 
 
   public void setPositionStow(){
-    positionSetpoint = 0;
+    positionSetpoint = 0.0;
     closedLoopCrossSlide();    
   }
 
-  public void setPositionMid(){
-    positionSetpoint = 3;
+  public void setPositionIn(){
+    positionSetpoint = 3.0;
+    closedLoopCrossSlide();
+  }
+
+  public void setPositionOut(){
+    positionSetpoint = 9.0;
     closedLoopCrossSlide();
   }
 

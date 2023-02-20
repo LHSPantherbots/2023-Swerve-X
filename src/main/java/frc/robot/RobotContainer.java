@@ -23,6 +23,7 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -70,6 +71,23 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    //Add Button Controls to Smart Dashboard
+    SmartDashboard.putData("Elevator Mid", new InstantCommand(elevator::reset, elevator).andThen(new RunCommand(elevator::setHeightMid, elevator)));
+    SmartDashboard.putData("Elevator Low", new InstantCommand(elevator::reset, elevator).andThen(new RunCommand(elevator::setHeightLow, elevator)));
+    SmartDashboard.putData("Elevator Stop", new InstantCommand(elevator::reset, elevator).andThen(new RunCommand(elevator::stopElevator, elevator)));
+
+    SmartDashboard.putData("Cross Slide In", new InstantCommand(crossSlide::reset, crossSlide).andThen(new RunCommand(crossSlide::setPositionIn,crossSlide)));
+    SmartDashboard.putData("Cross Slide Out", new InstantCommand(crossSlide::reset, crossSlide).andThen(new RunCommand(crossSlide::setPositionOut,crossSlide)));
+
+    SmartDashboard.putData("Blue LED", new RunCommand(leds::blue, leds));
+    SmartDashboard.putData("Red LED", new RunCommand(leds::red, leds));
+    SmartDashboard.putData("Green LED", new RunCommand(leds::green,leds));
+
+
+
+
+
+
     // Configure the button bindings
     configureButtonBindings();
 
