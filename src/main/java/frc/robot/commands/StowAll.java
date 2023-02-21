@@ -25,28 +25,28 @@ public class StowAll extends SequentialCommandGroup {
       
       //Using new functional command (try this)
       new FunctionalCommand(
-        // Reset encoders on command start
+        // Reset controller on command start
         intakePivot::resetController,
-        // Start driving forward at the start of the command
+        // Start movint intake pivot to stow position
         () -> intakePivot.setPositionStow(),
-        // Stop driving at the end of the command
+        // at the end of the command call the closed loop intake to hold the setpoint position
         interrupted -> intakePivot.closedLoopIntakePivot(),
-        // End the command when the robot's driven distance exceeds the desired value
+        // End the command when the intakePivot is at position
         () -> intakePivot.isAtPosition(),
-        // Require the drive subsystem
+        // Require the intakePivot subsystem
         intakePivot
       ),
       
       new FunctionalCommand(
-        // Reset encoders on command start
+        // Reset controller on command start
         crossSlide::resetController,
-        // Start driving forward at the start of the command
+        // run the crossSlide to the stow position
         () -> crossSlide.setPositionStow(),
-        // Stop driving at the end of the command
+        // at the end of the command call the closed loop cross slide to hold the setpoint
         interrupted -> crossSlide.closedLoopCrossSlide(),
-        // End the command when the robot's driven distance exceeds the desired value
+        // End the command when intakePivot is at Position
         () -> crossSlide.isAtPosition(),
-        // Require the drive subsystem
+        // Require the crossSlide subsystem
         crossSlide
       )
 
