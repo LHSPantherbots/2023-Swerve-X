@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ConeIntakeCommand;
 import frc.robot.commands.ConeScoreHigh;
+import frc.robot.commands.ConeScoreMid;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.StowAll;
 import frc.robot.subsystems.CrossSlideSubsystem;
@@ -41,6 +42,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
@@ -149,6 +151,21 @@ public class RobotContainer {
 
     new JoystickButton(m_driverController, GamePadButtons.Start)
     .whileTrue(new InstantCommand(driveTrain::resetAll, driveTrain));
+
+    //While the left bumper is held down, the robot's speed will be set to a tenth of its standard value, 
+    //and the leds will pulse orange to indicate reduced speed
+    double reducedspeedconstant = 0.1; //how much the speed is reduced by
+    new JoystickButton(m_driverController, GamePadButtons.LB)
+      .whileTrue(
+
+          new RunCommand(
+              () ->
+                  driveTrain.drive(-m_driverController.getLeftY() * reducedspeedconstant * DriveConstants.kMaxSpeedMetersPerSecond,
+                   -m_driverController.getLeftX()* reducedspeedconstant * DriveConstants.kMaxSpeedMetersPerSecond,
+                     // -m_driverController.getRightX()
+                     -(m_driverController.getRightTriggerAxis()-m_driverController.getLeftTriggerAxis())
+                    * reducedspeedconstant * DriveConstants.kMaxSpeedMetersPerSecond,
+                      true), driveTrain)).whileTrue(new RunCommand(leds::orangePulse, leds));
     
 
     new JoystickButton(m_driverController, GamePadButtons.RB)
@@ -209,6 +226,9 @@ public class RobotContainer {
 
   new POVButton(operatorController, GamePadButtons.Down)
   .onTrue(new ConeIntakeCommand(crossSlide, intakePivot, elevator));
+
+  new POVButton(operatorController, GamePadButtons.Right)
+  .onTrue(new ConeScoreMid(crossSlide, intakePivot, elevator));
 
 
   new POVButton(operatorController, GamePadButtons.Up)

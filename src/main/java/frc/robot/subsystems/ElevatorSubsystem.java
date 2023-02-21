@@ -31,7 +31,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private double kIz = 0.0;
   private double maxVel = 30.0;
   private double maxAcc = 30.0;
-  private double allowableError = 2;
+  private double allowableError = 1.0;
   private double heightSetpoint = 0.0;
   private double lastSetpoint = 0.0;
   private double arbitraryFeedForward = 0.026; //duty cycle required to nearly hold up elevator

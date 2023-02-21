@@ -31,7 +31,7 @@ public class CrossSlideSubsystem extends SubsystemBase {
   private double kIz = 0.0;
   private double maxVel = 30.0;
   private double maxAcc = 30.0;
-  private double allowableError = 2.0;
+  private double allowableError = 1.0;
   private double positionSetpoint = 0.0;
   private double lastSetpoint = 0.0;
   private static double kDt = 0.02;

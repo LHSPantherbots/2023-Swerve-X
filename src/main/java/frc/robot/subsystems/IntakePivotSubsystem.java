@@ -101,7 +101,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
   }
   
   public double getintakePivotPosition(){
-    return intakePivotEncoder.getPosition();
+    return intakePivotAbsoluteEncoder.getAbsolutePosition();
   }
 
   public boolean isAtPosition(){
