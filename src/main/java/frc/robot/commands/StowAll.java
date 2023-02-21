@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -20,10 +21,47 @@ public class StowAll extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new InstantCommand(intakePivot::resetController, intakePivot),
-      new RunCommand(intakePivot::setPositionStow, intakePivot).withTimeout(1.0),
-      new InstantCommand(crossSlide::resetController, crossSlide),
-      new RunCommand(crossSlide::setPositionStow, crossSlide)
+      //new InstantCommand(intakePivot::resetController, intakePivot),
+      
+      //Using new functional command (try this)
+      new FunctionalCommand(
+        // Reset encoders on command start
+        intakePivot::resetController,
+        // Start driving forward at the start of the command
+        () -> intakePivot.setPositionStow(),
+        // Stop driving at the end of the command
+        interrupted -> intakePivot.closedLoopIntakePivot(),
+        // End the command when the robot's driven distance exceeds the desired value
+        () -> intakePivot.isAtPosition(),
+        // Require the drive subsystem
+        intakePivot
+      ),
+      
+      new FunctionalCommand(
+        // Reset encoders on command start
+        crossSlide::resetController,
+        // Start driving forward at the start of the command
+        () -> crossSlide.setPositionStow(),
+        // Stop driving at the end of the command
+        interrupted -> crossSlide.closedLoopCrossSlide(),
+        // End the command when the robot's driven distance exceeds the desired value
+        () -> crossSlide.isAtPosition(),
+        // Require the drive subsystem
+        crossSlide
+      )
+
+
+
+
+
+
+
+
+      //new RunCommand(intakePivot::setPositionStow, intakePivot).withTimeout(1.0),
+      //new InstantCommand(crossSlide::resetController, crossSlide),
+      //.alongWith(new InstantCommand(intakePivot::resetController, intakePivot)),
+      //new RunCommand(crossSlide::setPositionStow, crossSlide)
+      //.alongWith(new RunCommand(intakePivot::setPositionStow, intakePivot))
       // new RunCommand(crossSlide::setPositionIntake, crossSlide).until(() -> crossSlide.isAtPosition()),
 
       
