@@ -1262,6 +1262,19 @@
               "Y-axis/Unit": "ul",
               "Visible data/SmartDashboard/Intake Pivot Absolute Encoder Velocity": true
             }
+          },
+          "3,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Pivot Absolute Encoder Position",
+              "_title": "SmartDashboard/Intake Pivot Absolute Encoder Position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
@@ -1544,6 +1557,32 @@
               "_type": "Command",
               "_source0": "network_table:///SmartDashboard/Cross Slide Out",
               "_title": "SmartDashboard/Cross Slide Out",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Stow All",
+              "_title": "SmartDashboard/Stow All",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Cone Intake Command",
+              "_title": "/SmartDashboard/Cone Intake Command",
               "_glyph": 148,
               "_showGlyph": false
             }

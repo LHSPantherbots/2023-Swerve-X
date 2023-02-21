@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
@@ -35,6 +37,8 @@ public class CrossSlideSubsystem extends SubsystemBase {
   private static double kDt = 0.02;
   private final TrapezoidProfile.Constraints m_constraints;
   private final ProfiledPIDController m_controller;
+
+  public BooleanSupplier isAtPos = () -> this.isAtPosition();
 
 
   /** Creates a new CrossSlideSubsystem. */
@@ -90,6 +94,14 @@ public class CrossSlideSubsystem extends SubsystemBase {
     return (Math.abs(error) < allowableError);
   }
 
+  public BooleanSupplier isPos(){
+    return () -> this.isAtPosition();
+  }
+
+  // public BooleanSupplier supplyIsAtPositoin(){
+  //   return isAtPosition();
+  // }
+
   public double getPositionSetpoint(){
     return positionSetpoint;
   }
@@ -102,7 +114,7 @@ public class CrossSlideSubsystem extends SubsystemBase {
     crossSlide.set(move);
   }
 
-  public void reset(){
+  public void resetController(){
     m_controller.reset(crossSlideEncoder.getPosition());
   }
 
@@ -116,12 +128,12 @@ public class CrossSlideSubsystem extends SubsystemBase {
 
 
   public void setPositionStow(){
-    positionSetpoint = 0.0;
+    positionSetpoint = 0.2;
     closedLoopCrossSlide();    
   }
 
-  public void setPositionIn(){
-    positionSetpoint = 3.0;
+  public void setPositionIntake(){
+    positionSetpoint = 2.0;
     closedLoopCrossSlide();
   }
 

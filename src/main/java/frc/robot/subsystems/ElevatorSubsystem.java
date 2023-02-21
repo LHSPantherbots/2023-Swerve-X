@@ -107,7 +107,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void manualElevator(double move){
     elevatorLeader.set(move);
   }
-  public void reset(){
+  public void resetController(){
     m_controller.reset(elevatorEncoder.getPosition());
   }
 

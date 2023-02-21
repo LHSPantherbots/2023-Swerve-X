@@ -39,8 +39,8 @@ public class IntakePivotSubsystem extends SubsystemBase {
   private double kI = 0.0;
   private double kD = 0.0;
   private double kIz =0.0;
-  private double maxVel = 100.0; //deg/sec 
-  private double maxAcc = 250.0; //deg/sec/sed
+  private double maxVel = 10.0;//100.0; //deg/sec 
+  private double maxAcc = 25.0;//250.0; //deg/sec/sed
   private double karbFF = 0.0; //Scaling Constant for arbitrary feed forward. 
   private double allowableError = 5.0;
   private double positionSetpoint = 0.0;
@@ -68,12 +68,13 @@ public class IntakePivotSubsystem extends SubsystemBase {
 
     intakePivotEncoder = intakePivot.getEncoder();
 
+    intakePivotAbsoluteEncoder.configMagnetOffset(180.0);
+
         
     m_constraints =
       new TrapezoidProfile.Constraints(maxVel, maxAcc); 
     m_controller =
       new ProfiledPIDController(kP, kI, kD, m_constraints, kDt);
-
     intakePivot.burnFlash();
 
   }
@@ -120,38 +121,37 @@ public class IntakePivotSubsystem extends SubsystemBase {
     intakePivot.set(move);
   }
 
-  public void reset(){
+  public void resetController(){
     m_controller.reset(intakePivotAbsoluteEncoder.getAbsolutePosition());
   }
 
   public void closedLoopIntakePivot(){
+    
     intakePivot.set(m_controller.calculate(intakePivotAbsoluteEncoder.getAbsolutePosition(), positionSetpoint));
+    
   }
 
 
 
-  public void setPositionMid(){
-    positionSetpoint = 40;
-    closedLoopIntakePivot();    
-  }
 
-  public void setPositionIn(){
-    positionSetpoint = 10;
-    closedLoopIntakePivot();
-  }
   
   public void setPositionStow(){
-    positionSetpoint = 355;
+    positionSetpoint = 180.0;
     closedLoopIntakePivot();
   }
 
   public void setPositionintakeCone(){
-    positionSetpoint = 257;
+    positionSetpoint = 82.0;
     closedLoopIntakePivot();
   }
 
   public void setPositionintakeCube(){
-    positionSetpoint = 252;
+    positionSetpoint = 75.0    ;
+    closedLoopIntakePivot();
+  }
+
+  public void setPositionScoreCone(){
+    positionSetpoint = 82.0;
     closedLoopIntakePivot();
   }
 

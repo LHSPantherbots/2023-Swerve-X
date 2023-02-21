@@ -24,7 +24,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.ConeIntakeCommand;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.StowAll;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -72,12 +74,15 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //Add Button Controls to Smart Dashboard
-    SmartDashboard.putData("Elevator Mid", new InstantCommand(elevator::reset, elevator).andThen(new RunCommand(elevator::setHeightMid, elevator)));
-    SmartDashboard.putData("Elevator Low", new InstantCommand(elevator::reset, elevator).andThen(new RunCommand(elevator::setHeightLow, elevator)));
-    SmartDashboard.putData("Elevator Stop", new InstantCommand(elevator::reset, elevator).andThen(new RunCommand(elevator::stopElevator, elevator)));
+    SmartDashboard.putData("Elevator Mid", new InstantCommand(elevator::resetController, elevator).andThen(new RunCommand(elevator::setHeightMid, elevator)));
+    SmartDashboard.putData("Elevator Low", new InstantCommand(elevator::resetController, elevator).andThen(new RunCommand(elevator::setHeightLow, elevator)));
+    SmartDashboard.putData("Elevator Stop", new InstantCommand(elevator::resetController, elevator).andThen(new RunCommand(elevator::stopElevator, elevator)));
 
-    SmartDashboard.putData("Cross Slide In", new InstantCommand(crossSlide::reset, crossSlide).andThen(new RunCommand(crossSlide::setPositionIn,crossSlide)));
-    SmartDashboard.putData("Cross Slide Out", new InstantCommand(crossSlide::reset, crossSlide).andThen(new RunCommand(crossSlide::setPositionOut,crossSlide)));
+    SmartDashboard.putData("Cross Slide In", new InstantCommand(crossSlide::resetController, crossSlide).andThen(new RunCommand(crossSlide::setPositionIntake,crossSlide)));
+    SmartDashboard.putData("Cross Slide Out", new InstantCommand(crossSlide::resetController, crossSlide).andThen(new RunCommand(crossSlide::setPositionOut,crossSlide)));
+
+    SmartDashboard.putData("Cone Intake Command", new ConeIntakeCommand(crossSlide, intakePivot, elevator));
+    SmartDashboard.putData("Stow All", new StowAll(crossSlide, intakePivot, elevator));
 
     SmartDashboard.putData("Blue LED", new RunCommand(leds::blue, leds));
     SmartDashboard.putData("Red LED", new RunCommand(leds::red, leds));
@@ -92,7 +97,7 @@ public class RobotContainer {
     configureButtonBindings();
 
         leds.setDefaultCommand(
-              new RunCommand(() -> leds.rainbow(), leds)
+              new RunCommand(() -> leds.yellow(), leds)
           );
 
         elevator.setDefaultCommand(
@@ -189,21 +194,21 @@ public class RobotContainer {
   //GOOD YES
   /* 
   new POVButton(operatorController, GamePadButtons.Left)
-  .onTrue(new InstantCommand(intakePivot::reset, intakePivot))
+  .onTrue(new InstantCommand(intakePivot::resetController, intakePivot))
   .onTrue(new RunCommand(intakePivot::setPositionStow, intakePivot));
 
   new POVButton(operatorController, GamePadButtons.Down)
-  .onTrue(new InstantCommand(intakePivot::reset, intakePivot))
+  .onTrue(new InstantCommand(intakePivot::resetController, intakePivot))
   .onTrue(new RunCommand(intakePivot::setPositionintakeCone, intakePivot));
   */
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   new POVButton(operatorController, GamePadButtons.Left)
-  .onTrue(new InstantCommand(elevator::reset, elevator))
+  .onTrue(new InstantCommand(elevator::resetController, elevator))
   .onTrue(new RunCommand(elevator::setHeightMid, elevator));
 
   new POVButton(operatorController, GamePadButtons.Down)
-  .onTrue(new InstantCommand(elevator::reset, elevator))
+  .onTrue(new InstantCommand(elevator::resetController, elevator))
   .onTrue(new RunCommand(elevator::setHeightLow, elevator));
 
   new POVButton(operatorController, GamePadButtons.Right)
