@@ -13,9 +13,9 @@ import frc.robot.subsystems.IntakePivotSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ConeScoreHigh extends SequentialCommandGroup {
+public class ConeScoreMid extends SequentialCommandGroup {
   /** Creates a new IntakeConeCommand. */
-  public ConeScoreHigh(CrossSlideSubsystem crossSlide, IntakePivotSubsystem intakePivot, ElevatorSubsystem elevatorSubsystem) {
+  public ConeScoreMid(CrossSlideSubsystem crossSlide, IntakePivotSubsystem intakePivot, ElevatorSubsystem elevatorSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands( 
@@ -24,7 +24,7 @@ public class ConeScoreHigh extends SequentialCommandGroup {
         // Reset controller on command start
         elevatorSubsystem::resetController,
         // Start moving intake to high position
-        () -> elevatorSubsystem.setHeightHigh(),
+        () -> elevatorSubsystem.setHeightMid(),
         // at the end of the command call the closed loop elevator to hold the setpoint position
         interrupted -> elevatorSubsystem.closedLoopElevator(),
         // End the command when the elevator is at position
@@ -37,7 +37,7 @@ public class ConeScoreHigh extends SequentialCommandGroup {
         // Reset controller on command start
         crossSlide::resetController,
         // run the crossSlide to the out position
-        () -> crossSlide.setPositionOut(),
+        () -> crossSlide.setPositionIntake(),
         // at the end of the command call the closed loop cross slide to hold the setpoint
         interrupted -> crossSlide.closedLoopCrossSlide(),
         // End the command when intakePivot is at Position

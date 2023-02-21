@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ConeIntakeCommand;
+import frc.robot.commands.ConeScoreHigh;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.StowAll;
 import frc.robot.subsystems.CrossSlideSubsystem;
@@ -176,12 +177,12 @@ public class RobotContainer {
   // If Cone
  // if (robotState.getConeMode()){
     //Turns on Cone Mode
-    new JoystickButton(m_driverController, GamePadButtons.X)
+    new JoystickButton(operatorController, GamePadButtons.X)
     .whileTrue(new RunCommand(intake::intakeCone, intake));
  // }
  // else if (robotState.getCubeMode()){
-    new JoystickButton(m_driverController, GamePadButtons.Y)
-    .whileTrue(new RunCommand(intake::intakeCube, intake));
+    new JoystickButton(operatorController, GamePadButtons.Y)
+    .whileTrue(new RunCommand(intake::ejectCone, intake));
 //  }
  // else{
    // new JoystickButton(m_driverController, GamePadButtons.X)
@@ -204,15 +205,14 @@ public class RobotContainer {
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   new POVButton(operatorController, GamePadButtons.Left)
-  .onTrue(new InstantCommand(elevator::resetController, elevator))
-  .onTrue(new RunCommand(elevator::setHeightMid, elevator));
+  .onTrue(new StowAll(crossSlide, intakePivot, elevator));
 
   new POVButton(operatorController, GamePadButtons.Down)
-  .onTrue(new InstantCommand(elevator::resetController, elevator))
-  .onTrue(new RunCommand(elevator::setHeightLow, elevator));
+  .onTrue(new ConeIntakeCommand(crossSlide, intakePivot, elevator));
 
-  new POVButton(operatorController, GamePadButtons.Right)
-  .onTrue(new RunCommand(elevator::stopElevator, elevator));  
+
+  new POVButton(operatorController, GamePadButtons.Up)
+  .onTrue(new ConeScoreHigh(crossSlide, intakePivot, elevator));  
 
   /*
     if (robotState.getConeMode()){

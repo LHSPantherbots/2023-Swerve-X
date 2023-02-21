@@ -120,7 +120,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     //elevatorLeader.set(arbitraryFeedForward);
   }
 
-
+  public void setHeightHigh(){
+    heightSetpoint = 23.0;
+    closedLoopElevator();
+  }
+  
+  
   public void setHeightMid(){
     heightSetpoint = 22.0; // about 2/3 up
     closedLoopElevator();    
@@ -128,6 +133,11 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void setHeightLow(){
     heightSetpoint = 7.0; // aobout 1/3 up
+    closedLoopElevator();
+  }
+
+  public void setHeightStow(){
+    heightSetpoint = 0.5; // aobout 1/3 up
     closedLoopElevator();
   }
 

@@ -48,6 +48,19 @@ public class StowAll extends SequentialCommandGroup {
         () -> crossSlide.isAtPosition(),
         // Require the crossSlide subsystem
         crossSlide
+      ),
+
+      new FunctionalCommand(
+        // Reset controller on command start
+        elevatorSubsystem::resetController,
+        // run the elevator to the stow position
+        () -> elevatorSubsystem.setHeightStow(),
+        // at the end of the command call the closed loop elevator to hold the setpoint
+        interrupted -> elevatorSubsystem.closedLoopElevator(),
+        // End the command when elevator is at Position
+        () -> elevatorSubsystem.isAtHeight(),
+        // Require the elevator subsystem
+        elevatorSubsystem
       )
 
 
