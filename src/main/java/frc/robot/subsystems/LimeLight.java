@@ -19,7 +19,7 @@ public class LimeLight extends SubsystemBase {
   private double targetArea;
 
   public LimeLight() {
-    table=NetworkTableInstance.getDefault().getTable("limelight-wilson");
+    table=NetworkTableInstance.getDefault().getTable("limelight-spaldin");
   }
 
   @Override
@@ -86,6 +86,12 @@ public class LimeLight extends SubsystemBase {
 
   public void setPipelineOne(){
     table.getEntry("pipeline").setNumber(1);
+
+  }
+
+  public void setPipelineTwo(){
+    table.getEntry("pipeline").setNumber(2);
+
   }
 
   public void setPipelineThree(){

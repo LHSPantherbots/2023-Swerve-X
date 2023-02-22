@@ -25,10 +25,12 @@ import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoConeHigh;
-import frc.robot.commands.ConeIntakeCommand;
+import frc.robot.commands.ConeIntakeDoubleSubstation;
+import frc.robot.commands.ConeIntakeGround;
 import frc.robot.commands.ConeScoreHigh;
 import frc.robot.commands.ConeScoreMid;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.HoldAtCurrentPosition;
 import frc.robot.commands.StowAll;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -40,6 +42,7 @@ import frc.robot.subsystems.Leds;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.RobotStateSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -90,7 +93,7 @@ public class RobotContainer {
     SmartDashboard.putData("Pivot Down", new InstantCommand(intakePivot::resetController, intakePivot).andThen(new RunCommand(intakePivot::setPositionScoreCone, intakePivot)));
     
 
-    SmartDashboard.putData("Cone Intake Command", new ConeIntakeCommand(crossSlide, intakePivot, elevator));
+    SmartDashboard.putData("Cone Intake Command", new ConeIntakeGround(crossSlide, intakePivot, elevator));
     SmartDashboard.putData("Stow All", new StowAll(crossSlide, intakePivot, elevator));
 
     SmartDashboard.putData("Blue LED", new RunCommand(leds::blue, leds));
@@ -197,6 +200,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
+
+
+    //DRIVER CONTROLS
+
+
     new JoystickButton(m_driverController, GamePadButtons.Start)
     .whileTrue(new InstantCommand(driveTrain::resetAll, driveTrain));
 
@@ -212,11 +220,20 @@ public class RobotContainer {
                    -m_driverController.getLeftX()* reducedspeedconstant * DriveConstants.kMaxSpeedMetersPerSecond,
                      // -m_driverController.getRightX()
                      -(m_driverController.getRightTriggerAxis()-m_driverController.getLeftTriggerAxis())
-                    * reducedspeedconstant * DriveConstants.kMaxSpeedMetersPerSecond,
-                      true), driveTrain)).whileTrue(new RunCommand(leds::orangePulse, leds));
+                    * reducedspeedconstant * 2.0 * DriveConstants.kMaxSpeedMetersPerSecond, // Doubled the rotation because it was not turning at reduced speed
+                      true), driveTrain))
+      .whileTrue(new RunCommand(leds::orangePulse, leds));
+
+      new JoystickButton(m_driverController, GamePadButtons.A)//These dont move robot, but should change the limeilight state currently
+      .onTrue(new InstantCommand(limelight::setPipelineOne, limelight))
+      .onFalse(new InstantCommand(limelight::setPipelineZero, limelight));
+
+      new JoystickButton(m_driverController, GamePadButtons.B)
+      .onTrue(new InstantCommand(limelight::setPipelineTwo, limelight))
+      .onFalse(new InstantCommand(limelight::setPipelineZero, limelight));
     
 
-    new JoystickButton(m_driverController, GamePadButtons.RB)
+/*     new JoystickButton(m_driverController, GamePadButtons.RB)
     .onTrue(new InstantCommand(limelight::ledPipeline, limelight))
     .onTrue(new InstantCommand(limelight::setPipelineThree, limelight))
     .whileTrue(new RunCommand(() -> driveTrain.limeLightAim(
@@ -224,30 +241,23 @@ public class RobotContainer {
                     * DriveConstants.kMaxSpeedMetersPerSecond,
                       -m_driverController.getLeftX()
               * DriveConstants.kMaxSpeedMetersPerSecond), driveTrain))
-    .onFalse(new InstantCommand(limelight::setPipelineZero, limelight));
+    .onFalse(new InstantCommand(limelight::setPipelineZero, limelight)); */
 
-//Turns on Cone Mode
-    new JoystickButton(m_driverController, GamePadButtons.A)
-    .onTrue(new InstantCommand(() -> robotState.setConeMode(true), robotState))
-    .onTrue(new InstantCommand(() -> robotState.setCubeMode(false), robotState))
-    .onTrue(new RunCommand(leds::yellow, leds));
 
-  //Turns on Cube Mode
-    new JoystickButton(m_driverController, GamePadButtons.B)
-    .onTrue(new InstantCommand(() -> robotState.setConeMode(false), robotState))
-    .onTrue(new InstantCommand(() -> robotState.setCubeMode(true), robotState))
-    .onTrue(new RunCommand(leds::purple, leds));
 
-  //Runs Intake
-  // If Cone
- // if (robotState.getConeMode()){
-    //Turns on Cone Mode
-    new JoystickButton(operatorController, GamePadButtons.X)
-    .whileTrue(new RunCommand(intake::intakeCone, intake));
- // }
- // else if (robotState.getCubeMode()){
-    new JoystickButton(operatorController, GamePadButtons.Y)
-    .whileTrue(new RunCommand(intake::ejectCone, intake));
+
+    
+//Runs Intake both Driver and operator have these buttons currently if there is a change do to both
+  new JoystickButton(operatorController, GamePadButtons.X)
+  .whileTrue(new ConditionalCommand(new RunCommand(intake::intakeCone, intake), //runs if cone mode
+                                    new RunCommand(intake::intakeCube, intake), //runs if cube mode (or cone mode false)
+                                    () -> robotState.getConeMode()));
+  new JoystickButton(operatorController, GamePadButtons.Y)
+  .whileTrue(new ConditionalCommand(new RunCommand(intake::ejectCone, intake), //runs if cone mode
+                                    new RunCommand(intake::ejectCube, intake), //runs if cube mode (or cone mode false)
+                                    () -> robotState.getConeMode()));
+
+
 //  }
  // else{
    // new JoystickButton(m_driverController, GamePadButtons.X)
@@ -269,18 +279,54 @@ public class RobotContainer {
   */
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+  //OPERATOR CONTROLS
+
+
+
+  //Turns on Cone Mode
+  new JoystickButton(operatorController, GamePadButtons.A)
+  .onTrue(new InstantCommand(() -> robotState.setConeMode(true), robotState))
+  .onTrue(new InstantCommand(() -> robotState.setCubeMode(false), robotState))
+  .onTrue(new RunCommand(leds::yellow, leds));
+
+//Turns on Cube Mode
+  new JoystickButton(operatorController, GamePadButtons.B)
+  .onTrue(new InstantCommand(() -> robotState.setConeMode(false), robotState))
+  .onTrue(new InstantCommand(() -> robotState.setCubeMode(true), robotState))
+  .onTrue(new RunCommand(leds::purple, leds));
+
+//Runs Intake both Driver and operator have these buttons currently if there is a change do to both
+  new JoystickButton(operatorController, GamePadButtons.X)
+  .whileTrue(new ConditionalCommand(new RunCommand(intake::intakeCone, intake), //runs if cone mode
+                                    new RunCommand(intake::intakeCube, intake), //runs if cube mode (or cone mode false)
+                                    () -> robotState.getConeMode()));
+
+  new JoystickButton(operatorController, GamePadButtons.Y)
+  .whileTrue(new ConditionalCommand(new RunCommand(intake::ejectCone, intake), //runs if cone mode
+                                    new RunCommand(intake::ejectCube, intake), //runs if cube mode (or cone mode false)
+                                    () -> robotState.getConeMode()));
+
   new POVButton(operatorController, GamePadButtons.Left)
   .onTrue(new StowAll(crossSlide, intakePivot, elevator));
 
   new POVButton(operatorController, GamePadButtons.Down)
-  .onTrue(new ConeIntakeCommand(crossSlide, intakePivot, elevator));
+  .onTrue(new ConeIntakeGround(crossSlide, intakePivot, elevator));
 
   new POVButton(operatorController, GamePadButtons.Right)
   .onTrue(new ConeScoreMid(crossSlide, intakePivot, elevator));
 
 
   new POVButton(operatorController, GamePadButtons.Up)
-  .onTrue(new ConeScoreHigh(crossSlide, intakePivot, elevator));  
+  .onTrue(new ConeScoreHigh(crossSlide, intakePivot, elevator)); 
+  
+  new JoystickButton(operatorController, GamePadButtons.Select)
+  .onTrue(new ConeIntakeDoubleSubstation(crossSlide, intakePivot, elevator));
+
+  new JoystickButton(operatorController, GamePadButtons.LB)
+  .whileTrue(new RunCommand(() -> elevator.manualElevator(-(operatorController.getRightTriggerAxis()-operatorController.getLeftTriggerAxis())*.1), elevator))
+  .whileTrue(new RunCommand(() -> crossSlide.manualCrossSlide(-operatorController.getLeftY()*.1), crossSlide))
+  .whileTrue(new RunCommand(() -> intakePivot.manualintakePivot(operatorController.getRightY()*.2), intakePivot))
+  .onFalse(new HoldAtCurrentPosition(crossSlide, intakePivot, elevator));
 
   /*
     if (robotState.getConeMode()){

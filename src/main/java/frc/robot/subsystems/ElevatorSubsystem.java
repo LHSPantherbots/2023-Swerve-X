@@ -86,7 +86,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
 
-
   public double getElevatorHeight(){
     return elevatorEncoder.getPosition();
   }
@@ -152,6 +151,11 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void setLevelt2ConeScore(){
     heightSetpoint = 18.6;
+    closedLoopElevator();
+  }
+
+  public void setHeightConeIntakeDoubleSubstation(){
+    heightSetpoint = 28.8;//may need to adjust have not checked
     closedLoopElevator();
   }
 
