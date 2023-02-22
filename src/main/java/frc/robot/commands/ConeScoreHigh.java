@@ -24,7 +24,7 @@ public class ConeScoreHigh extends SequentialCommandGroup {
         // Reset controller on command start
         elevatorSubsystem::resetController,
         // Start moving intake to high position
-        () -> elevatorSubsystem.setHeightHigh(),
+        () -> elevatorSubsystem.setLevelt3ConeScore(),
         // at the end of the command call the closed loop elevator to hold the setpoint position
         interrupted -> elevatorSubsystem.closedLoopElevator(),
         // End the command when the elevator is at position
@@ -37,7 +37,7 @@ public class ConeScoreHigh extends SequentialCommandGroup {
         // Reset controller on command start
         crossSlide::resetController,
         // run the crossSlide to the out position
-        () -> crossSlide.setPositionOut(),
+        () -> crossSlide.setLevelt3ConeScore(),
         // at the end of the command call the closed loop cross slide to hold the setpoint
         interrupted -> crossSlide.closedLoopCrossSlide(),
         // End the command when intakePivot is at Position
@@ -53,7 +53,7 @@ public class ConeScoreHigh extends SequentialCommandGroup {
         // Reset controller on command start
         intakePivot::resetController,
         // Start movint intake pivot to score position
-        () -> intakePivot.setPositionScoreCone(),
+        () -> intakePivot.setLevelt3ConeScore(),
         // at the end of the command call the closed loop intake to hold the setpoint position
         interrupted -> intakePivot.closedLoopIntakePivot(),
         // End the command when the intakePivot is at position

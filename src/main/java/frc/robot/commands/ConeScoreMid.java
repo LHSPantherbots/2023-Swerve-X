@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -24,9 +25,9 @@ public class ConeScoreMid extends SequentialCommandGroup {
         // Reset controller on command start
         elevatorSubsystem::resetController,
         // Start moving intake to high position
-        () -> elevatorSubsystem.setHeightMid(),
+        () -> elevatorSubsystem.setLevelt2ConeScore(),
         // at the end of the command call the closed loop elevator to hold the setpoint position
-        interrupted -> elevatorSubsystem.closedLoopElevator(),
+        interrupted -> elevatorSubsystem.setLevelt2ConeScore(),
         // End the command when the elevator is at position
         () -> elevatorSubsystem.isAtHeight(),
         // Require the elevator subsystem
@@ -37,23 +38,21 @@ public class ConeScoreMid extends SequentialCommandGroup {
         // Reset controller on command start
         crossSlide::resetController,
         // run the crossSlide to the out position
-        () -> crossSlide.setPositionIntake(),
+        () -> crossSlide.setLevelt2ConeScore(),
         // at the end of the command call the closed loop cross slide to hold the setpoint
-        interrupted -> crossSlide.closedLoopCrossSlide(),
+        interrupted -> crossSlide.setLevelt2ConeScore(),
         // End the command when intakePivot is at Position
         () -> crossSlide.isAtPosition(),
         // Require the crossSlide subsystem
         crossSlide
       ),
 
-      
-
 
       new FunctionalCommand(
         // Reset controller on command start
         intakePivot::resetController,
         // Start movint intake pivot to score position
-        () -> intakePivot.setPositionScoreCone(),
+        () -> intakePivot.setLevelt2ConeScore(),
         // at the end of the command call the closed loop intake to hold the setpoint position
         interrupted -> intakePivot.closedLoopIntakePivot(),
         // End the command when the intakePivot is at position

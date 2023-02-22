@@ -1275,6 +1275,47 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Pivot Down",
+              "_title": "/SmartDashboard/Pivot Down",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Pivot Up",
+              "_title": "/SmartDashboard/Pivot Up",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Intake Pivot at Set Positon",
+              "_title": "/SmartDashboard/Intake Pivot at Set Positon",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
           }
         }
       }
@@ -1426,6 +1467,21 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Elevator at Set Height",
+              "_title": "SmartDashboard/Elevator at Set Height",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
           }
         }
       }
@@ -1507,9 +1563,9 @@
               "_showGlyph": false
             }
           },
-          "5,0": {
+          "1,1": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -1561,28 +1617,110 @@
               "_showGlyph": false
             }
           },
-          "7,1": {
+          "7,0": {
             "size": [
               2,
               1
             ],
             "content": {
               "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Stow All",
-              "_title": "SmartDashboard/Stow All",
+              "_source0": "network_table:///SmartDashboard/Cone Intake Command",
+              "_title": "/SmartDashboard/Cone Intake Command",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "7,0": {
+          "1,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Intake Pivot at Set Positon",
+              "_title": "/SmartDashboard/Intake Pivot at Set Positon",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "7,2": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Cone Intake Command",
-              "_title": "/SmartDashboard/Cone Intake Command",
+              "_source0": "network_table:///SmartDashboard/Cone Score: High ",
+              "_title": "SmartDashboard/Cone Score: High ",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Elevator at Set Height",
+              "_title": "SmartDashboard/Elevator at Set Height",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "8,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Eject Cone",
+              "_title": "SmartDashboard/Eject Cone",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Auto Cone High",
+              "_title": "SmartDashboard/Auto Cone High",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Cone Score: Mid ",
+              "_title": "SmartDashboard/Cone Score: Mid ",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Stow All",
+              "_title": "SmartDashboard/Stow All",
               "_glyph": 148,
               "_showGlyph": false
             }

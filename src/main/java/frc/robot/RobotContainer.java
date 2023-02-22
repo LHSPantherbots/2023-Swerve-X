@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.AutoConeHigh;
 import frc.robot.commands.ConeIntakeCommand;
 import frc.robot.commands.ConeScoreHigh;
 import frc.robot.commands.ConeScoreMid;
@@ -39,6 +40,7 @@ import frc.robot.subsystems.Leds;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.RobotStateSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -84,6 +86,10 @@ public class RobotContainer {
     SmartDashboard.putData("Cross Slide In", new InstantCommand(crossSlide::resetController, crossSlide).andThen(new RunCommand(crossSlide::setPositionIntake,crossSlide)));
     SmartDashboard.putData("Cross Slide Out", new InstantCommand(crossSlide::resetController, crossSlide).andThen(new RunCommand(crossSlide::setPositionOut,crossSlide)));
 
+    SmartDashboard.putData("Pivot Up", new InstantCommand(intakePivot::resetController, intakePivot).andThen(new RunCommand(intakePivot::setPositionStow, intakePivot)));
+    SmartDashboard.putData("Pivot Down", new InstantCommand(intakePivot::resetController, intakePivot).andThen(new RunCommand(intakePivot::setPositionScoreCone, intakePivot)));
+    
+
     SmartDashboard.putData("Cone Intake Command", new ConeIntakeCommand(crossSlide, intakePivot, elevator));
     SmartDashboard.putData("Stow All", new StowAll(crossSlide, intakePivot, elevator));
 
@@ -91,7 +97,12 @@ public class RobotContainer {
     SmartDashboard.putData("Red LED", new RunCommand(leds::red, leds));
     SmartDashboard.putData("Green LED", new RunCommand(leds::green,leds));
 
+    SmartDashboard.putData("Cone Score: Mid ", new ConeScoreMid(crossSlide, intakePivot, elevator));
+    SmartDashboard.putData("Cone Score: High ", new ConeScoreHigh(crossSlide, intakePivot, elevator));
 
+    SmartDashboard.putData("Eject Cone", new RunCommand(intake::ejectCone,intake));
+
+    SmartDashboard.putData("Auto Cone High", new AutoConeHigh(elevator, crossSlide, intakePivot, intake));
 
 
 
@@ -100,19 +111,56 @@ public class RobotContainer {
     configureButtonBindings();
 
         leds.setDefaultCommand(
-              new RunCommand(() -> leds.yellow(), leds)
+              new RunCommand(() -> leds.pantherStreak(), leds)
           );
 
         elevator.setDefaultCommand(
-          new RunCommand(() -> elevator.manualElevator(-operatorController.getLeftY()), elevator)
+          //new RunCommand(() -> elevator.manualElevator(-operatorController.getLeftY()*.1), elevator)
+          new FunctionalCommand(
+            // Reset controller on command start
+            elevator::resetController,
+            // Start moving intake to high position
+            () -> elevator.closedLoopElevator(),
+            // at the end of the command call the closed loop elevator to hold the setpoint position
+            interrupted -> elevator.stopElevator(),
+            // End the command when the elevator is at position
+            () -> false,
+            // Require the elevator subsystem
+            elevator
+          
+          )
         );
 
         crossSlide.setDefaultCommand(
-          new RunCommand(() -> crossSlide.manualCrossSlide(-operatorController.getLeftX()*.1), crossSlide)
+          //new RunCommand(() -> crossSlide.manualCrossSlide(-operatorController.getLeftX()*.1), crossSlide)
+          new FunctionalCommand(
+            // Reset controller on command start
+            crossSlide::resetController,
+            // Start moving intake to high position
+            () -> crossSlide.closedLoopCrossSlide(),
+            // at the end of the command call the closed loop elevator to hold the setpoint position
+            interrupted -> crossSlide.stopCrossSlide(),
+            // End the command when the elevator is at position
+            () -> false,
+            // Require the elevator subsystem
+            crossSlide
+          )
         );
 
         intakePivot.setDefaultCommand(
-          new RunCommand(() -> intakePivot.manualintakePivot(operatorController.getRightY()*.2), intakePivot)
+          //new RunCommand(() -> intakePivot.manualintakePivot(operatorController.getRightY()*.2), intakePivot)
+          new FunctionalCommand(
+            // Reset controller on command start
+            intakePivot::resetController,
+            // Start moving intake to high position
+            () -> intakePivot.closedLoopIntakePivot(),
+            // at the end of the command call the closed loop elevator to hold the setpoint position
+            interrupted -> intakePivot.intakePivotStop(),
+            // End the command when the elevator is at position
+            () -> false,
+            // Require the elevator subsystem
+            intakePivot
+          )
         );
 
         intake.setDefaultCommand(

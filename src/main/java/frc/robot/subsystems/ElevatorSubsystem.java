@@ -105,7 +105,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void manualElevator(double move){
-    elevatorLeader.set(move);
+    //keeps it from crashing down
+    if(move < -0.1){
+      move = -0.1;
+      }
+    elevatorLeader.set(arbitraryFeedForward + move);
   }
   public void resetController(){
     m_controller.reset(elevatorEncoder.getPosition());
@@ -141,7 +145,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     closedLoopElevator();
   }
 
-  
+  public void setLevelt3ConeScore(){
+    heightSetpoint = 28.8;
+    closedLoopElevator();
+  }
+
+  public void setLevelt2ConeScore(){
+    heightSetpoint = 18.6;
+    closedLoopElevator();
+  }
 
 }
 

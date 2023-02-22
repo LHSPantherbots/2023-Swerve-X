@@ -39,11 +39,11 @@ public class IntakePivotSubsystem extends SubsystemBase {
   private double kI = 0.0;
   private double kD = 0.0;
   private double kIz =0.0;
-  private double maxVel = 10.0;//100.0; //deg/sec 
-  private double maxAcc = 25.0;//250.0; //deg/sec/sed
+  private double maxVel = 100.0;//100.0; //deg/sec 
+  private double maxAcc = 250.0;//250.0; //deg/sec/sed
   private double karbFF = 0.0; //Scaling Constant for arbitrary feed forward. 
-  private double allowableError = 5.0;
-  private double positionSetpoint = 0.0;
+  private double allowableError = 2.0;
+  private double positionSetpoint = 180.0;
   private double lastSetpoint = 0.0;
   
 
@@ -121,6 +121,10 @@ public class IntakePivotSubsystem extends SubsystemBase {
     intakePivot.set(move);
   }
 
+  public void intakePivotStop(){
+    intakePivot.set(0.0);
+  }
+
   public void resetController(){
     m_controller.reset(intakePivotAbsoluteEncoder.getAbsolutePosition());
   }
@@ -155,6 +159,15 @@ public class IntakePivotSubsystem extends SubsystemBase {
     closedLoopIntakePivot();
   }
 
+  public void setLevelt3ConeScore(){
+    positionSetpoint = 110.0;
+    closedLoopIntakePivot();
+  }
+
+  public void setLevelt2ConeScore(){
+    positionSetpoint = 122.7;
+    closedLoopIntakePivot();
+  }
 
 }
 
