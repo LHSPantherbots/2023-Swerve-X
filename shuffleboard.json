@@ -1611,7 +1611,7 @@
             ],
             "content": {
               "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Cross Slide Out",
+              "_source0": "network_table:///SmartDashboard/Cone Score: Mid ",
               "_title": "SmartDashboard/Cross Slide Out",
               "_glyph": 148,
               "_showGlyph": false
@@ -1699,19 +1699,6 @@
               "_showGlyph": false
             }
           },
-          "7,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Cone Score: Mid ",
-              "_title": "SmartDashboard/Cone Score: Mid ",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
           "7,1": {
             "size": [
               1,
@@ -1721,6 +1708,19 @@
               "_type": "Command",
               "_source0": "network_table:///SmartDashboard/Stow All",
               "_title": "SmartDashboard/Stow All",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Cone Score: Mid ",
+              "_title": "/SmartDashboard/Cone Score: Mid ",
               "_glyph": 148,
               "_showGlyph": false
             }
