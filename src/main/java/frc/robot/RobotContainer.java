@@ -212,7 +212,7 @@ public class RobotContainer {
 
     //While the left bumper is held down, the robot's speed will be set to a tenth of its standard value, 
     //and the leds will pulse orange to indicate reduced speed
-    double reducedspeedconstant = 0.1; //how much the speed is reduced by
+    double reducedspeedconstant = 0.2; //how much the speed is reduced by
     new JoystickButton(m_driverController, GamePadButtons.LB)
       .whileTrue(
 

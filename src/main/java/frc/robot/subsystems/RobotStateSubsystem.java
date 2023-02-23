@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class RobotStateSubsystem extends SubsystemBase {
   /** Creates a new RobotStateSubsystem. */
-  private boolean coneMode = false;
+  private boolean coneMode = true; //defaults to cone mode
   private boolean cubeMode = false;
 
   public RobotStateSubsystem() {}

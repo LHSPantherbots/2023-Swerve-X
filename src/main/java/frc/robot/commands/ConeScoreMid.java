@@ -8,6 +8,7 @@ import javax.management.InstanceAlreadyExistsException;
 
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -34,7 +35,9 @@ public class ConeScoreMid extends SequentialCommandGroup {
         () -> elevatorSubsystem.isAtHeight(),
         // Require the elevator subsystem
         elevatorSubsystem
-      ),
+      //Added these race withs (test to see if they work)
+      ).raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
+      .raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot)),
 
       new FunctionalCommand(
         // Reset controller on command start
@@ -47,7 +50,8 @@ public class ConeScoreMid extends SequentialCommandGroup {
         () -> crossSlide.isAtPosition(),
         // Require the crossSlide subsystem
         crossSlide
-      ),
+      ).raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
+      .raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot)),
 
 
        new FunctionalCommand(
@@ -61,8 +65,8 @@ public class ConeScoreMid extends SequentialCommandGroup {
         () -> intakePivot.isAtPosition(),
          // Require the intakePivot subsystem
          intakePivot
-       )
-      
+       ).raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
+       .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
     );
   }
 }
