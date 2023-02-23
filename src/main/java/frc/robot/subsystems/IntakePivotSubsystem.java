@@ -169,8 +169,18 @@ public class IntakePivotSubsystem extends SubsystemBase {
     closedLoopIntakePivot();
   }
 
+  public void setLevelt3CubeScore(){
+    positionSetpoint = 126.0;
+    closedLoopIntakePivot();
+  }
+
+  public void setLevelt2CubeScore(){
+    positionSetpoint = 123.0;
+    closedLoopIntakePivot();
+  }
+
   public void setPositonIntakeConeDoubleSubstation(){
-    positionSetpoint = 120; //may need to ajust
+    positionSetpoint = 106.8; //may need to ajust
     closedLoopIntakePivot();
   }
 

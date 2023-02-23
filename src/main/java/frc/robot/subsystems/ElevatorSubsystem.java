@@ -154,8 +154,18 @@ public class ElevatorSubsystem extends SubsystemBase {
     closedLoopElevator();
   }
 
+  public void setLevelt2CubeScore(){
+    heightSetpoint = 13.4;
+    closedLoopElevator();
+  }
+
+  public void setLevelt3CubeScore(){
+    heightSetpoint = 25.0;
+    closedLoopElevator();
+  }
+
   public void setHeightConeIntakeDoubleSubstation(){
-    heightSetpoint = 28.8;//may need to adjust have not checked
+    heightSetpoint = 28.38;//may need to adjust have not checked
     closedLoopElevator();
   }
 

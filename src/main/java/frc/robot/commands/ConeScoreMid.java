@@ -4,7 +4,10 @@
 
 package frc.robot.commands;
 
+import javax.management.InstanceAlreadyExistsException;
+
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -47,18 +50,18 @@ public class ConeScoreMid extends SequentialCommandGroup {
       ),
 
 
-      new FunctionalCommand(
+       new FunctionalCommand(
         // Reset controller on command start
         intakePivot::resetController,
         // Start movint intake pivot to score position
         () -> intakePivot.setLevelt2ConeScore(),
         // at the end of the command call the closed loop intake to hold the setpoint position
-        interrupted -> intakePivot.closedLoopIntakePivot(),
+        interrupted -> intakePivot.setLevelt2ConeScore(),
         // End the command when the intakePivot is at position
         () -> intakePivot.isAtPosition(),
-        // Require the intakePivot subsystem
-        intakePivot
-      )
+         // Require the intakePivot subsystem
+         intakePivot
+       )
       
     );
   }

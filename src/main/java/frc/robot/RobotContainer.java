@@ -107,6 +107,8 @@ public class RobotContainer {
 
     SmartDashboard.putData("Auto Cone High", new AutoConeHigh(elevator, crossSlide, intakePivot, intake));
 
+    SmartDashboard.putData("Hold Position", new HoldAtCurrentPosition(crossSlide, intakePivot, elevator));
+
 
 
 

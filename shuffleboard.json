@@ -1316,6 +1316,19 @@
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
+          },
+          "7,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Hold Position",
+              "_title": "SmartDashboard/Hold Position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
@@ -1732,7 +1745,7 @@
   "windowGeometry": {
     "x": 0.0,
     "y": 0.0,
-    "width": 1536.0,
-    "height": 917.0
+    "width": 1516.0,
+    "height": 856.0
   }
 }
