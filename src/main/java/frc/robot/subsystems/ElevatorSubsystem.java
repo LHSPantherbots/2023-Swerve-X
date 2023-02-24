@@ -150,7 +150,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void setLevelt2ConeScore(){
-    heightSetpoint = 18.6;
+    heightSetpoint = 13.7;
     closedLoopElevator();
   }
 

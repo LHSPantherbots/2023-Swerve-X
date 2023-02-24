@@ -1176,6 +1176,32 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "1,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Pitch",
+              "_title": "/SmartDashboard/Pitch",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Roll",
+              "_title": "/SmartDashboard/Roll",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
@@ -1737,14 +1763,27 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "6,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Auto Cube High",
+              "_title": "SmartDashboard/Auto Cube High",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
     }
   ],
   "windowGeometry": {
-    "x": 0.0,
-    "y": 0.0,
+    "x": 135.0,
+    "y": 43.0,
     "width": 1516.0,
     "height": 856.0
   }

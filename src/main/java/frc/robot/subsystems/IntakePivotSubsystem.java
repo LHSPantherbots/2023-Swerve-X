@@ -165,7 +165,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
   }
 
   public void setLevelt2ConeScore(){
-    positionSetpoint = 122.7;
+    positionSetpoint = 136.5;
     closedLoopIntakePivot();
   }
 

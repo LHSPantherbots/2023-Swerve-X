@@ -149,6 +149,9 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Gyro Angle", getHeading());
     SmartDashboard.putString("Pose", getPose().toString());
     SmartDashboard.putString("Rot 2d", getYaw().toString());
+
+    SmartDashboard.putNumber("Pitch", getPitch());
+    SmartDashboard.putNumber("Roll", getRoll());
   }
 
   /**
@@ -244,6 +247,14 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public double getHeading() {
     return getYaw().getDegrees();
+  }
+
+  public double getPitch() {
+    return m_gyro.getPitch();
+  }
+
+  public double getRoll(){
+    return m_gyro.getRoll();
   }
 
   public void resetAll() {

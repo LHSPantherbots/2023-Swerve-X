@@ -150,7 +150,7 @@ public class CrossSlideSubsystem extends SubsystemBase {
   }
 
   public void setLevelt2ConeScore(){
-    positionSetpoint = 0.5;
+    positionSetpoint = 0.1;
     closedLoopCrossSlide();
   }
 

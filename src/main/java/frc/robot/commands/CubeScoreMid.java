@@ -4,7 +4,10 @@
 
 package frc.robot.commands;
 
+import javax.management.InstanceAlreadyExistsException;
+
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CrossSlideSubsystem;
@@ -14,34 +17,35 @@ import frc.robot.subsystems.IntakePivotSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ConeIntakeDoubleSubstation extends SequentialCommandGroup {
-  /** Creates a new IntakeConeCommand. */
-  public ConeIntakeDoubleSubstation(CrossSlideSubsystem crossSlide, IntakePivotSubsystem intakePivot, ElevatorSubsystem elevatorSubsystem) {
+public class CubeScoreMid extends SequentialCommandGroup {
+  /** Creates a new IntakeCubeCommand. */
+  public CubeScoreMid(CrossSlideSubsystem crossSlide, IntakePivotSubsystem intakePivot, ElevatorSubsystem elevatorSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
+    addCommands( 
 
       new FunctionalCommand(
         // Reset controller on command start
         elevatorSubsystem::resetController,
         // Start moving intake to high position
-        () -> elevatorSubsystem.setHeightConeIntakeDoubleSubstation(),
+        () -> elevatorSubsystem.setLevelt2CubeScore(),
         // at the end of the command call the closed loop elevator to hold the setpoint position
-        interrupted -> elevatorSubsystem.stopElevator(),
+        interrupted -> elevatorSubsystem.setLevelt2CubeScore(),
         // End the command when the elevator is at position
         () -> elevatorSubsystem.isAtHeight(),
         // Require the elevator subsystem
         elevatorSubsystem
-      ).raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))
-      .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide)),
+      //Added these race withs (test to see if they work)
+      ).raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
+      .raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot)),
 
       new FunctionalCommand(
         // Reset controller on command start
         crossSlide::resetController,
         // run the crossSlide to the out position
-        () -> crossSlide.setPositionIntake(),
+        () -> crossSlide.setLevelt2CubeScore(),
         // at the end of the command call the closed loop cross slide to hold the setpoint
-        interrupted -> crossSlide.stopCrossSlide(),
+        interrupted -> crossSlide.setLevelt2CubeScore(),
         // End the command when intakePivot is at Position
         () -> crossSlide.isAtPosition(),
         // Require the crossSlide subsystem
@@ -49,25 +53,20 @@ public class ConeIntakeDoubleSubstation extends SequentialCommandGroup {
       ).raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
       .raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot)),
 
-      
 
-
-      new FunctionalCommand(
+       new FunctionalCommand(
         // Reset controller on command start
         intakePivot::resetController,
         // Start movint intake pivot to score position
-        () -> intakePivot.setPositonIntakeConeDoubleSubstation(),
+        () -> intakePivot.setLevelt2CubeScore(),
         // at the end of the command call the closed loop intake to hold the setpoint position
-        interrupted -> intakePivot.intakePivotStop(),
+        interrupted -> intakePivot.setLevelt2CubeScore(),
         // End the command when the intakePivot is at position
         () -> intakePivot.isAtPosition(),
-        // Require the intakePivot subsystem
-        intakePivot
-      ).raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
-      .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
-
-
-      
+         // Require the intakePivot subsystem
+         intakePivot
+       ).raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
+       .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
     );
   }
 }
