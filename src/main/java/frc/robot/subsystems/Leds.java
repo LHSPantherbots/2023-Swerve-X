@@ -43,6 +43,13 @@ public class Leds extends SubsystemBase{
     // This method will be called once per scheduler run
   }
 
+
+  public void ledsOff(){
+    for (int i = 0; i < m_ledBuffer.getLength(); i++){
+      m_ledBuffer.setRGB(i, 0, 0, 0);
+    }
+    m_led.setData(m_ledBuffer);
+  }
   public void rainbow() {
     // For every pixel
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {

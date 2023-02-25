@@ -16,6 +16,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -26,6 +27,10 @@ public class DriveSubsystem extends SubsystemBase {
   private double kF = 0.0; // 0.2;
 
   private Pigeon2 m_gyro = new Pigeon2(DriveConstants.kPigeonCAN_ID);
+
+  private double lastTimestamp = Timer.getFPGATimestamp();
+  private double lastAngle = 0.0;
+  private double autoBalanceAngle = 0.0;
 
   // Robot swerve modules
   private final SwerveModule m_frontLeft =
@@ -152,6 +157,9 @@ public class DriveSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("Pitch", getPitch());
     SmartDashboard.putNumber("Roll", getRoll());
+
+    SmartDashboard.putNumber("Roll Rate", getRollRate());
+    SmartDashboard.putBoolean("Is At Angle", isAtAutoBalanceAngle());
   }
 
   /**
@@ -240,6 +248,10 @@ public class DriveSubsystem extends SubsystemBase {
     return new Rotation2d(yawRadians);
   }
 
+  public void xWheels(){
+    drive(0.0, 0.0, 0.8, true);
+  }
+
   /**
    * Returns the heading of the robot.
    *
@@ -257,9 +269,31 @@ public class DriveSubsystem extends SubsystemBase {
     return m_gyro.getRoll();
   }
 
+  public boolean isAtAutoBalanceAngle(){
+    return (getRoll()<autoBalanceAngle);
+  }
+
+  public double getRollRate(){
+    double currentTimestamp = Timer.getFPGATimestamp();
+    double currentAngle = m_gyro.getRoll();
+
+    double rollRate = (currentAngle - lastAngle)/(currentTimestamp - lastTimestamp);
+
+    lastTimestamp = currentTimestamp;
+    lastAngle = currentAngle;
+
+    return rollRate;
+  }
+
   public void resetAll() {
     resetEncoders();
     zeroHeading();
+  }
+
+  public void restAll180(){
+    resetEncoders();
+    m_gyro.setYaw(180.0);
+
   }
 
   public double getHeadingRadians() {

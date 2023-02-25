@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class RobotStateSubsystem extends SubsystemBase {
   /** Creates a new RobotStateSubsystem. */
   private boolean coneMode = true; //defaults to cone mode
-  private boolean cubeMode = false;
 
   public RobotStateSubsystem() {}
 
@@ -18,24 +17,15 @@ public class RobotStateSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Cone Mode", getConeMode());
-    SmartDashboard.putBoolean("Cube Mode", getCubeMode());
 
   }
 
 
   public boolean getConeMode(){
     return coneMode;
-  } 
-
-  public boolean getCubeMode(){
-    return cubeMode;
   }
 
   public void setConeMode(boolean mode){
     coneMode = mode;
-  }
-
-  public void setCubeMode(boolean mode){
-    cubeMode = mode;
   }
 }

@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoConeHigh;
 import frc.robot.commands.AutoCubeHigh;
 import frc.robot.commands.ConeIntakeGround;
@@ -31,6 +32,7 @@ import frc.robot.commands.ConeScoreHigh;
 import frc.robot.commands.CubeIntakeGround;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.HoldAtCurrentPosition;
+import frc.robot.commands.IntakeHold;
 import frc.robot.commands.OLD_Code.ConeIntakeDoubleSubstation_OLD;
 import frc.robot.commands.OLD_Code.ConeScoreMid_OLD;
 import frc.robot.commands.OLD_Code.CubeScoreHigh_OLD;
@@ -100,6 +102,8 @@ public class RobotContainer {
     SmartDashboard.putData("Cone Intake Command", new ConeIntakeGround(crossSlide, intakePivot, elevator));
     SmartDashboard.putData("Stow All", new StowAll(crossSlide, intakePivot, elevator));
 
+    SmartDashboard.putData("LEDS Off", new RunCommand(leds::ledsOff, leds));
+    SmartDashboard.putData("Panther Streak LED", new RunCommand(leds::pantherStreak, leds));
     SmartDashboard.putData("Blue LED", new RunCommand(leds::blue, leds));
     SmartDashboard.putData("Red LED", new RunCommand(leds::red, leds));
     SmartDashboard.putData("Green LED", new RunCommand(leds::green,leds));
@@ -113,6 +117,10 @@ public class RobotContainer {
 
     SmartDashboard.putData("Hold Position", new HoldAtCurrentPosition(crossSlide, intakePivot, elevator));
     SmartDashboard.putData("Auto Cube High", new AutoCubeHigh(elevator, crossSlide, intakePivot, intake));
+
+    SmartDashboard.putData("Intake Hold", new IntakeHold(intake));
+
+    SmartDashboard.putData("Auto Balance", new AutoBalance(driveTrain));
 
  
 
@@ -175,7 +183,8 @@ public class RobotContainer {
         );
 
         intake.setDefaultCommand(
-          new RunCommand(intake::stopIntake, intake)
+          //new RunCommand(intake::stopIntake, intake)
+          new IntakeHold(intake)
         );
 
 
@@ -241,66 +250,25 @@ public class RobotContainer {
       .onFalse(new InstantCommand(limelight::setPipelineZero, limelight));
     
 
-/*     new JoystickButton(m_driverController, GamePadButtons.RB)
-    .onTrue(new InstantCommand(limelight::ledPipeline, limelight))
-    .onTrue(new InstantCommand(limelight::setPipelineThree, limelight))
-    .whileTrue(new RunCommand(() -> driveTrain.limeLightAim(
-                    -m_driverController.getLeftY()
-                    * DriveConstants.kMaxSpeedMetersPerSecond,
-                      -m_driverController.getLeftX()
-              * DriveConstants.kMaxSpeedMetersPerSecond), driveTrain))
-    .onFalse(new InstantCommand(limelight::setPipelineZero, limelight)); */
 
 
 
 
-    
-//Runs Intake both Driver and operator have these buttons currently if there is a change do to both
-  new JoystickButton(operatorController, GamePadButtons.X)
-  .whileTrue(new ConditionalCommand(new RunCommand(intake::intakeCone, intake), //runs if cone mode
-                                    new RunCommand(intake::intakeCube, intake), //runs if cube mode (or cone mode false)
-                                    () -> robotState.getConeMode()));
-  new JoystickButton(operatorController, GamePadButtons.Y)
-  .whileTrue(new ConditionalCommand(new RunCommand(intake::ejectCone, intake), //runs if cone mode
-                                    new RunCommand(intake::ejectCube, intake), //runs if cube mode (or cone mode false)
-                                    () -> robotState.getConeMode()));
-
-
-//  }
- // else{
-   // new JoystickButton(m_driverController, GamePadButtons.X)
-  //  .whileTrue(new RunCommand(intake::stopIntake, intake));
-  //}
-
-
-  
-  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  //GOOD YES
-  /* 
-  new POVButton(operatorController, GamePadButtons.Left)
-  .onTrue(new InstantCommand(intakePivot::resetController, intakePivot))
-  .onTrue(new RunCommand(intakePivot::setPositionStow, intakePivot));
-
-  new POVButton(operatorController, GamePadButtons.Down)
-  .onTrue(new InstantCommand(intakePivot::resetController, intakePivot))
-  .onTrue(new RunCommand(intakePivot::setPositionintakeCone, intakePivot));
-  */
-  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-  //OPERATOR CONTROLS
-
+//Operator Controls
 
 
   //Turns on Cone Mode
   new JoystickButton(operatorController, GamePadButtons.A)
-  .onTrue(new InstantCommand(() -> robotState.setConeMode(true), robotState))
-  .onTrue(new InstantCommand(() -> robotState.setCubeMode(false), robotState))
+  //.onTrue(new InstantCommand(() -> robotState.setConeMode(true), robotState))
+  //.onTrue(new InstantCommand(() -> robotState.setCubeMode(false), robotState))
+  .onTrue(new RunCommand(() -> robotState.setConeMode(true), robotState))
   .onTrue(new RunCommand(leds::yellow, leds));
 
 //Turns on Cube Mode
   new JoystickButton(operatorController, GamePadButtons.B)
-  .onTrue(new InstantCommand(() -> robotState.setConeMode(false), robotState))
-  .onTrue(new InstantCommand(() -> robotState.setCubeMode(true), robotState))
+  //.onTrue(new InstantCommand(() -> robotState.setConeMode(false), robotState))
+  //.onTrue(new InstantCommand(() -> robotState.setCubeMode(true), robotState))
+  .onTrue(new RunCommand(() -> robotState.setConeMode(false), robotState))
   .onTrue(new RunCommand(leds::purple, leds));
 
 //Runs Intake both Driver and operator have these buttons currently if there is a change do to both
@@ -342,21 +310,11 @@ public class RobotContainer {
   .whileTrue(new RunCommand(() -> intakePivot.manualintakePivot(-operatorController.getRightY()*.2), intakePivot))
   .onFalse(new HoldAtCurrentPosition(crossSlide, intakePivot, elevator));
 
-  /*
-    if (robotState.getConeMode()){
-    //Turns on Cone Mode
-    new JoystickButton(m_driverController, GamePadButtons.Y)
-    .whileTrue(new RunCommand(intake::ejectCone, intake));
+
   }
-  else if (robotState.getCubeMode()){
-    new JoystickButton(m_driverController, GamePadButtons.Y)
-    .whileTrue(new RunCommand(intake::ejectCube, intake));
-  }
-  else{
-    new JoystickButton(m_driverController, GamePadButtons.Y)
-    .whileTrue(new RunCommand(intake::stopIntake, intake));
-  }
-*/
+
+  public Command getInitCommand(){
+    return new InstantCommand(intake::resetEncoder, intake);
   }
 
   /**
@@ -365,7 +323,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
 
-/** 
+ 
   public Command getAutonomousCommand() {
     // Create config for trajectory
     TrajectoryConfig config =
@@ -375,16 +333,22 @@ public class RobotContainer {
             // Add kinematics to ensure max speed is actually obeyed
             .setKinematics(DriveConstants.kDriveKinematics);
 
+    TrajectoryConfig rev_config = new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+    .setReversed(true).setKinematics(DriveConstants.kDriveKinematics);
+            
+
     // An example trajectory to follow.  All units in meters.
     Trajectory exampleTrajectory =
         TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
+            new Pose2d(0, 0, new Rotation2d(Math.PI)),
             // Pass through these two interior waypoints, making an 's' curve path
-            List.of(new Translation2d(.5, .5), new Translation2d(1.0, -.5)),
+            List.of(new Translation2d(0.5,0)),
+            //List.of(new Translation2d(.5, .5), new Translation2d(1.0, -.5)),
             // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(1.5, 0, new Rotation2d(Math.PI)),
-            config);
+            new Pose2d(1.0, 0.0, new Rotation2d(Math.PI)),
+            //config);
+            rev_config);
 
     var thetaController =
         new ProfiledPIDController(
@@ -408,9 +372,14 @@ public class RobotContainer {
     driveTrain.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> driveTrain.drive(0, 0, 0, false));
+    return //new InstantCommand(driveTrain::restAll180, driveTrain)
+    //.andThen(
+      new InstantCommand(() -> driveTrain.resetOdometry(driveTrain.getPose()), driveTrain)
+    .andThen(swerveControllerCommand)
+    .andThen(new InstantCommand(driveTrain::restAll180, driveTrain))
+    .andThen(() -> driveTrain.drive(0, 0, 0, false));
   }
- */ 
+ 
 
 }
 
