@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CrossSlideSubsystem;
@@ -22,7 +23,7 @@ public class ConeScoreHigh extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands( 
       //Parallel makes both Finctional commands work at the same time.
-      new ParallelCommandGroup(
+      new ParallelDeadlineGroup(
         new FunctionalCommand(
           // Reset controller on command start
           elevatorSubsystem::resetController,
@@ -44,7 +45,8 @@ public class ConeScoreHigh extends SequentialCommandGroup {
           // at the end of the command call the closed loop cross slide to hold the setpoint
           interrupted -> crossSlide.closedLoopCrossSlide(),
           // End the command when intakePivot is at Position
-          () -> crossSlide.isAtPosition(),
+          () -> false, //runs until deadline is completed
+          //() -> crossSlide.isAtPosition(),
           // Require the crossSlide subsystem
           crossSlide
         )
