@@ -26,15 +26,15 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoConeHigh;
 import frc.robot.commands.AutoCubeHigh;
-import frc.robot.commands.ConeIntakeDoubleSubstation;
 import frc.robot.commands.ConeIntakeGround;
 import frc.robot.commands.ConeScoreHigh;
-import frc.robot.commands.ConeScoreMid;
 import frc.robot.commands.CubeIntakeGround;
-import frc.robot.commands.CubeScoreHigh;
-import frc.robot.commands.CubeScoreMid;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.HoldAtCurrentPosition;
+import frc.robot.commands.OLD_Code.ConeIntakeDoubleSubstation_OLD;
+import frc.robot.commands.OLD_Code.ConeScoreMid_OLD;
+import frc.robot.commands.OLD_Code.CubeScoreHigh_OLD;
+import frc.robot.commands.OLD_Code.CubeScoreMid_OLD;
 import frc.robot.commands.StowAll;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -104,7 +104,7 @@ public class RobotContainer {
     SmartDashboard.putData("Red LED", new RunCommand(leds::red, leds));
     SmartDashboard.putData("Green LED", new RunCommand(leds::green,leds));
 
-    SmartDashboard.putData("Cone Score: Mid ", new ConeScoreMid(crossSlide, intakePivot, elevator));
+    SmartDashboard.putData("Cone Score: Mid ", new ConeScoreMid_OLD(crossSlide, intakePivot, elevator));
     SmartDashboard.putData("Cone Score: High ", new ConeScoreHigh(crossSlide, intakePivot, elevator));
 
     SmartDashboard.putData("Eject Cone", new RunCommand(intake::ejectCone,intake));
@@ -323,23 +323,23 @@ public class RobotContainer {
                                     () -> robotState.getConeMode()));
 
   new POVButton(operatorController, GamePadButtons.Right)
-  .onTrue(new ConditionalCommand(new ConeScoreMid(crossSlide, intakePivot, elevator), //runs if cone mode
-                                new CubeScoreMid(crossSlide, intakePivot, elevator), //runs if cube mode (or cone mode false)
+  .onTrue(new ConditionalCommand(new ConeScoreMid_OLD(crossSlide, intakePivot, elevator), //runs if cone mode
+                                new CubeScoreMid_OLD(crossSlide, intakePivot, elevator), //runs if cube mode (or cone mode false)
                                   () -> robotState.getConeMode()));
 
 
   new POVButton(operatorController, GamePadButtons.Up)
   .onTrue(new ConditionalCommand(new ConeScoreHigh(crossSlide, intakePivot, elevator), //runs if cone mode
-                                  new CubeScoreHigh(crossSlide, intakePivot, elevator), //runs if cube mode (or cone mode false)
+                                  new CubeScoreHigh_OLD(crossSlide, intakePivot, elevator), //runs if cube mode (or cone mode false)
                                     () -> robotState.getConeMode()));
   
   new JoystickButton(operatorController, GamePadButtons.Select)
-  .onTrue(new ConeIntakeDoubleSubstation(crossSlide, intakePivot, elevator));
+  .onTrue(new ConeIntakeDoubleSubstation_OLD(crossSlide, intakePivot, elevator));
 
   new JoystickButton(operatorController, GamePadButtons.LB)
-  .whileTrue(new RunCommand(() -> elevator.manualElevator(-(operatorController.getRightTriggerAxis()-operatorController.getLeftTriggerAxis())*.1), elevator))
-  .whileTrue(new RunCommand(() -> crossSlide.manualCrossSlide(-operatorController.getLeftY()*.1), crossSlide))
-  .whileTrue(new RunCommand(() -> intakePivot.manualintakePivot(operatorController.getRightY()*.2), intakePivot))
+  .whileTrue(new RunCommand(() -> elevator.manualElevator((operatorController.getRightTriggerAxis()-operatorController.getLeftTriggerAxis())*.1), elevator))
+  .whileTrue(new RunCommand(() -> crossSlide.manualCrossSlide(operatorController.getLeftY()*.1), crossSlide))
+  .whileTrue(new RunCommand(() -> intakePivot.manualintakePivot(-operatorController.getRightY()*.2), intakePivot))
   .onFalse(new HoldAtCurrentPosition(crossSlide, intakePivot, elevator));
 
   /*

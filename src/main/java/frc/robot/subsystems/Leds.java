@@ -65,7 +65,7 @@ public class Leds extends SubsystemBase{
       m_ledBuffer.setRGB(i, 148, 0, 211);
     }
     for (int i = index; i < m_ledBuffer.getLength(); i += 2){
-      m_ledBuffer.setRGB(i, 255, 210, 0);
+      m_ledBuffer.setRGB(i, 255, 90, 0);
     }
 
     if (numLoops % 10 == 0){
@@ -109,7 +109,7 @@ public class Leds extends SubsystemBase{
   public void yellow() {
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
       // Sets the specified LED to the RGB values for green
-      m_ledBuffer.setRGB(i, 255, 210, 0);
+      m_ledBuffer.setRGB(i, 255, 190, 0);
    }
    
    m_led.setData(m_ledBuffer);
