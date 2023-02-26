@@ -18,7 +18,7 @@ public class AutoBalance extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RunCommand(() -> driveSubsystem.drive(-0.6, 0.0, 0.0, true), driveSubsystem)
+      new RunCommand(() -> driveSubsystem.drive(0.6, 0.0, 0.0, true), driveSubsystem)
       .until(() -> driveSubsystem.isAtAutoBalanceAngle())
       //.withTimeout(5)
       ,

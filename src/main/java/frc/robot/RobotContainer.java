@@ -23,10 +23,14 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoConeHigh;
 import frc.robot.commands.AutoCubeHigh;
+import frc.robot.commands.AutoHighScoreConeBalance;
+import frc.robot.commands.AutoHighScoreConeCubeIntake;
 import frc.robot.commands.ConeIntakeGround;
 import frc.robot.commands.ConeScoreHigh;
 import frc.robot.commands.CubeIntakeGround;
@@ -84,6 +88,8 @@ public class RobotContainer {
  XboxController operatorController = new XboxController(OIConstants.kOperatorControllerPort);
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  
+  public static SendableChooser<Command> autoChoice = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -122,7 +128,12 @@ public class RobotContainer {
 
     SmartDashboard.putData("Auto Balance", new AutoBalance(driveTrain));
 
- 
+    Shuffleboard.getTab("Autonomous").add(autoChoice);
+    autoChoice.addOption("Do Nothing", new RunCommand(()->driveTrain.drive(0, 0, 0, true)));
+    autoChoice.addOption("High Cone Balance", new AutoHighScoreConeBalance(driveTrain,elevator,crossSlide,intakePivot,intake));
+    autoChoice.addOption("High Cone Cube Intake", new AutoHighScoreConeCubeIntake(driveTrain,elevator,crossSlide,intakePivot,intake));
+  
+
 
 
 
@@ -326,58 +337,58 @@ public class RobotContainer {
  
   public Command getAutonomousCommand() {
     // Create config for trajectory
-    TrajectoryConfig config =
-        new TrajectoryConfig(
-                AutoConstants.kMaxSpeedMetersPerSecond,
-                AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(DriveConstants.kDriveKinematics);
+    // TrajectoryConfig config =
+    //     new TrajectoryConfig(
+    //             AutoConstants.kMaxSpeedMetersPerSecond,
+    //             AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+    //         // Add kinematics to ensure max speed is actually obeyed
+    //         .setKinematics(DriveConstants.kDriveKinematics);
 
-    TrajectoryConfig rev_config = new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-    .setReversed(true).setKinematics(DriveConstants.kDriveKinematics);
+    // TrajectoryConfig rev_config = new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+    // .setReversed(true).setKinematics(DriveConstants.kDriveKinematics);
             
 
-    // An example trajectory to follow.  All units in meters.
-    Trajectory exampleTrajectory =
-        TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(Math.PI)),
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(new Translation2d(0.5,0)),
-            //List.of(new Translation2d(.5, .5), new Translation2d(1.0, -.5)),
-            // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(1.0, 0.0, new Rotation2d(Math.PI)),
-            //config);
-            rev_config);
+    // // An example trajectory to follow.  All units in meters.
+    // Trajectory exampleTrajectory =
+    //     TrajectoryGenerator.generateTrajectory(
+    //         // Start at the origin facing the +X direction
+    //         new Pose2d(0, 0, new Rotation2d(Math.PI)),
+    //         // Pass through these two interior waypoints, making an 's' curve path
+    //         List.of(new Translation2d(0.5,0)),
+    //         //List.of(new Translation2d(.5, .5), new Translation2d(1.0, -.5)),
+    //         // End 3 meters straight ahead of where we started, facing forward
+    //         new Pose2d(1.0, 0.0, new Rotation2d(Math.PI)),
+    //         //config);
+    //         rev_config);
 
-    var thetaController =
-        new ProfiledPIDController(
-            AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+    // var thetaController =
+    //     new ProfiledPIDController(
+    //         AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
+    // thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    SwerveControllerCommand swerveControllerCommand =
-        new SwerveControllerCommand(
-            exampleTrajectory,
-            driveTrain::getPose, // Functional interface to feed supplier
-            DriveConstants.kDriveKinematics,
+    // SwerveControllerCommand swerveControllerCommand =
+    //     new SwerveControllerCommand(
+    //         exampleTrajectory,
+    //         driveTrain::getPose, // Functional interface to feed supplier
+    //         DriveConstants.kDriveKinematics,
 
-            // Position controllers
-            new PIDController(AutoConstants.kPXController, 0, 0),
-            new PIDController(AutoConstants.kPYController, 0, 0),
-            thetaController,
-            driveTrain::setModuleStates,
-            driveTrain);
+    //         // Position controllers
+    //         new PIDController(AutoConstants.kPXController, 0, 0),
+    //         new PIDController(AutoConstants.kPYController, 0, 0),
+    //         thetaController,
+    //         driveTrain::setModuleStates,
+    //         driveTrain);
 
-    // Reset odometry to the starting pose of the trajectory.
-    driveTrain.resetOdometry(exampleTrajectory.getInitialPose());
+    // // Reset odometry to the starting pose of the trajectory.
+    // driveTrain.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return //new InstantCommand(driveTrain::restAll180, driveTrain)
+    return autoChoice.getSelected();//new InstantCommand(driveTrain::restAll180, driveTrain)
     //.andThen(
-      new InstantCommand(() -> driveTrain.resetOdometry(driveTrain.getPose()), driveTrain)
-    .andThen(swerveControllerCommand)
-    .andThen(new InstantCommand(driveTrain::restAll180, driveTrain))
-    .andThen(() -> driveTrain.drive(0, 0, 0, false));
+  //    new InstantCommand(() -> driveTrain.resetOdometry(driveTrain.getPose()), driveTrain)
+  //  .andThen(swerveControllerCommand)
+  //  .andThen(new InstantCommand(driveTrain::restAll180, driveTrain))
+  //  .andThen(() -> driveTrain.drive(0, 0, 0, false));
   }
  
 

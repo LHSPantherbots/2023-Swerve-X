@@ -176,7 +176,7 @@ public class DriveSubsystem extends SubsystemBase {
    *
    * @param pose The pose to which to set the odometry.
    */
-  public void resetOdometry(Pose2d pose) {
+   public void resetOdometry(Pose2d pose) {
     m_odometry.resetPosition(
         getYaw(),
         new SwerveModulePosition[] {
@@ -187,6 +187,19 @@ public class DriveSubsystem extends SubsystemBase {
         },
         pose);
   }
+
+  public void resetOdometryReverse(Pose2d pose) {
+    m_odometry.resetPosition(
+        new Rotation2d(Math.PI),
+        new SwerveModulePosition[] {
+          m_frontLeft.getPosition(),
+          m_frontRight.getPosition(),
+          m_rearLeft.getPosition(),
+          m_rearRight.getPosition()
+        },
+        pose);
+  }
+
 
   /**
    * Method to drive the robot using joystick info.

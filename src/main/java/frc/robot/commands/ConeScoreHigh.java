@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -35,21 +36,24 @@ public class ConeScoreHigh extends SequentialCommandGroup {
           () -> elevatorSubsystem.isAtHeight(),
           // Require the elevator subsystem
           elevatorSubsystem
-        ).raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot)),
+        ).raceWith(new InstantCommand(intakePivot::resetController, intakePivot).andThen(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))),
 
-        new FunctionalCommand(
-          // Reset controller on command start
-          crossSlide::resetController,
-          // run the crossSlide to the out position
-          () -> crossSlide.setLevelt3ConeScore(),
-          // at the end of the command call the closed loop cross slide to hold the setpoint
-          interrupted -> crossSlide.closedLoopCrossSlide(),
-          // End the command when intakePivot is at Position
-          () -> false, //runs until deadline is completed
-          //() -> crossSlide.isAtPosition(),
-          // Require the crossSlide subsystem
-          crossSlide
-        )
+
+        new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide).withTimeout(0.75)
+        .andThen(
+          new FunctionalCommand(
+            // Reset controller on command start
+            crossSlide::resetController,
+            // run the crossSlide to the out position
+            () -> crossSlide.setLevelt3ConeScore(),
+            // at the end of the command call the closed loop cross slide to hold the setpoint
+            interrupted -> crossSlide.closedLoopCrossSlide(),
+            // End the command when intakePivot is at Position
+            () -> false, //runs until deadline is completed
+            //() -> crossSlide.isAtPosition(),
+            // Require the crossSlide subsystem
+            crossSlide
+          ))
       ),
 
       
