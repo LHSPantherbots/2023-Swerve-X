@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -36,10 +35,14 @@ public class ConeScoreHigh extends SequentialCommandGroup {
           () -> elevatorSubsystem.isAtHeight(),
           // Require the elevator subsystem
           elevatorSubsystem
-        ).raceWith(new InstantCommand(intakePivot::resetController, intakePivot).andThen(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))),
+        )
+        .raceWith(new InstantCommand(intakePivot::resetController, intakePivot)
+        .andThen(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))
+        ),
 
 
-        new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide).withTimeout(0.75)
+        new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide)
+        .withTimeout(0.75)
         .andThen(
           new FunctionalCommand(
             // Reset controller on command start
@@ -53,11 +56,9 @@ public class ConeScoreHigh extends SequentialCommandGroup {
             //() -> crossSlide.isAtPosition(),
             // Require the crossSlide subsystem
             crossSlide
-          ))
+          )
+        )
       ),
-
-      
-
 
       new FunctionalCommand(
         // Reset controller on command start
@@ -70,7 +71,8 @@ public class ConeScoreHigh extends SequentialCommandGroup {
         () -> intakePivot.isAtPosition(),
         // Require the intakePivot subsystem
         intakePivot
-      ).raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
+      )
+      .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
       .raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
     
     );

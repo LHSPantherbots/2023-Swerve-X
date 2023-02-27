@@ -31,6 +31,7 @@ import frc.robot.commands.AutoConeHigh;
 import frc.robot.commands.AutoCubeHigh;
 import frc.robot.commands.AutoHighScoreConeBalance;
 import frc.robot.commands.AutoHighScoreConeCubeIntake;
+import frc.robot.commands.AutoHighScoreCubeBalance;
 import frc.robot.commands.ConeIntakeGround;
 import frc.robot.commands.ConeScoreHigh;
 import frc.robot.commands.CubeIntakeGround;
@@ -131,6 +132,7 @@ public class RobotContainer {
     Shuffleboard.getTab("Autonomous").add(autoChoice);
     autoChoice.addOption("Do Nothing", new RunCommand(()->driveTrain.drive(0, 0, 0, true)));
     autoChoice.addOption("High Cone Balance", new AutoHighScoreConeBalance(driveTrain,elevator,crossSlide,intakePivot,intake));
+    autoChoice.addOption("High Cube Balance", new AutoHighScoreCubeBalance(driveTrain, elevator, crossSlide, intakePivot, intake));
     autoChoice.addOption("High Cone Cube Intake", new AutoHighScoreConeCubeIntake(driveTrain,elevator,crossSlide,intakePivot,intake));
   
 

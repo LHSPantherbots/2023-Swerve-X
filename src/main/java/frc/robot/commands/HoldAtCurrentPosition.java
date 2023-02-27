@@ -20,7 +20,6 @@ public class HoldAtCurrentPosition extends ParallelCommandGroup {
   public HoldAtCurrentPosition(CrossSlideSubsystem crossSlide, IntakePivotSubsystem intakePivot, ElevatorSubsystem elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    System.out.println("\u001B[31m"+"##############################Hold Command ran"+"\u001B[0m");
     addCommands( 
       new SequentialCommandGroup(
         new InstantCommand(() -> elevator.setHeightSetpoint(elevator.getElevatorHeight())), //Sets setpoint to current height

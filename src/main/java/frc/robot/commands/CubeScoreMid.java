@@ -4,11 +4,11 @@
 
 package frc.robot.commands;
 
-import javax.management.InstanceAlreadyExistsException;
+
 
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CrossSlideSubsystem;
@@ -24,7 +24,7 @@ public class CubeScoreMid extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands( 
-      new ParallelCommandGroup(
+      new ParallelDeadlineGroup(
         new FunctionalCommand(
           // Reset controller on command start
           elevatorSubsystem::resetController,
@@ -37,7 +37,10 @@ public class CubeScoreMid extends SequentialCommandGroup {
           // Require the elevator subsystem
           elevatorSubsystem
         //Added these race withs (test to see if they work)
-        )),
+        )
+        .raceWith(new InstantCommand(intakePivot::resetController, intakePivot)
+        .andThen(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))
+        ),
 
         new FunctionalCommand(
           // Reset controller on command start
@@ -47,14 +50,13 @@ public class CubeScoreMid extends SequentialCommandGroup {
           // at the end of the command call the closed loop cross slide to hold the setpoint
           interrupted -> crossSlide.setLevelt2CubeScore(),
           // End the command when intakePivot is at Position
-          () -> crossSlide.isAtPosition(),
+          () -> false,
           // Require the crossSlide subsystem
           crossSlide
-        ).raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot)
+        )
       ),
 
-
-       new FunctionalCommand(
+      new FunctionalCommand(
         // Reset controller on command start
         intakePivot::resetController,
         // Start movint intake pivot to score position
@@ -65,7 +67,8 @@ public class CubeScoreMid extends SequentialCommandGroup {
         () -> intakePivot.isAtPosition(),
          // Require the intakePivot subsystem
          intakePivot
-       ).raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
+       )
+       .raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
        .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
     );
   }

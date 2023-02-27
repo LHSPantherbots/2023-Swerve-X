@@ -23,102 +23,57 @@ public class ConeIntakeGround extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ConditionalCommand(
+        //If elevator is up then the intake pivot will stow prior to the elevator going down
+        new SequentialCommandGroup(
+          
         
-      new SequentialCommandGroup(
-        
-      
-      new FunctionalCommand(
-          // Reset controller on command start
-          intakePivot::resetController,
-          // Start movint intake pivot to score position
-          () -> intakePivot.setPositionStow(),
-          // at the end of the command call the closed loop intake to hold the setpoint position
-          interrupted -> intakePivot.intakePivotStop(),
-          // End the command when the intakePivot is at position
-          () -> intakePivot.isAtPosition(),
-          // Require the intakePivot subsystem
-          intakePivot
-        ).raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
-        .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide)),
-
-        new ParallelCommandGroup(
-
           new FunctionalCommand(
-            // Reset controller on command start
-            elevatorSubsystem::resetController,
-            // Start moving intake to high position
-            () -> elevatorSubsystem.setHeightStow(),
-            // at the end of the command call the closed loop elevator to hold the setpoint position
-            interrupted -> elevatorSubsystem.stopElevator(),
-            // End the command when the elevator is at position
-            () -> elevatorSubsystem.isAtHeight(),
-            // Require the elevator subsystem
-            elevatorSubsystem
-          ).raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot)),
-
-          new FunctionalCommand(
-            // Reset controller on command start
-            crossSlide::resetController,
-            // run the crossSlide to the out position
-            () -> crossSlide.setPositionIntake(),
-            // at the end of the command call the closed loop cross slide to hold the setpoint
-            interrupted -> crossSlide.stopCrossSlide(),
-            // End the command when intakePivot is at Position
-            () -> crossSlide.isAtPosition(),
-            // Require the crossSlide subsystem
-            crossSlide
+              // Reset controller on command start
+              intakePivot::resetController,
+              // Start movint intake pivot to score position
+              () -> intakePivot.setPositionStow(),
+              // at the end of the command call the closed loop intake to hold the setpoint position
+              interrupted -> intakePivot.intakePivotStop(),
+              // End the command when the intakePivot is at position
+              () -> intakePivot.isAtPosition(),
+              // Require the intakePivot subsystem
+              intakePivot
           )
-
-        ),
-
-
-        new FunctionalCommand(
-          // Reset controller on command start
-          intakePivot::resetController,
-          // Start movint intake pivot to score position
-          () -> intakePivot.setPositionintakeCone(),
-          // at the end of the command call the closed loop intake to hold the setpoint position
-          interrupted -> intakePivot.intakePivotStop(),
-          // End the command when the intakePivot is at position
-          () -> intakePivot.isAtPosition(),
-          // Require the intakePivot subsystem
-          intakePivot
-        ).raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
-        .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
-        
-        
-  ), 
-      
-      new SequentialCommandGroup(
-          new FunctionalCommand(
-            // Reset controller on command start
-            elevatorSubsystem::resetController,
-            // Start moving intake to high position
-            () -> elevatorSubsystem.setHeightStow(),
-            // at the end of the command call the closed loop elevator to hold the setpoint position
-            interrupted -> elevatorSubsystem.stopElevator(),
-            // End the command when the elevator is at position
-            () -> elevatorSubsystem.isAtHeight(),
-            // Require the elevator subsystem
-            elevatorSubsystem
-          ).raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))
+          .raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
           .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide)),
 
-          new FunctionalCommand(
-            // Reset controller on command start
-            crossSlide::resetController,
-            // run the crossSlide to the out position
-            () -> crossSlide.setPositionIntake(),
-            // at the end of the command call the closed loop cross slide to hold the setpoint
-            interrupted -> crossSlide.stopCrossSlide(),
-            // End the command when intakePivot is at Position
-            () -> crossSlide.isAtPosition(),
-            // Require the crossSlide subsystem
-            crossSlide
-          ).raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))
-          .raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem)),
+          new ParallelCommandGroup(
 
-          
+            new FunctionalCommand(
+              // Reset controller on command start
+              elevatorSubsystem::resetController,
+              // Start moving intake to high position
+              () -> elevatorSubsystem.setHeightStow(),
+              // at the end of the command call the closed loop elevator to hold the setpoint position
+              interrupted -> elevatorSubsystem.stopElevator(),
+              // End the command when the elevator is at position
+              () -> elevatorSubsystem.isAtHeight(),
+              // Require the elevator subsystem
+              elevatorSubsystem
+            )
+            .raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot)),
+
+            new FunctionalCommand(
+              // Reset controller on command start
+              crossSlide::resetController,
+              // run the crossSlide to the out position
+              () -> crossSlide.setPositionIntake(),
+              // at the end of the command call the closed loop cross slide to hold the setpoint
+              interrupted -> crossSlide.stopCrossSlide(),
+              // End the command when intakePivot is at Position
+              () -> crossSlide.isAtPosition(),
+              // Require the crossSlide subsystem
+              crossSlide
+            )
+            .raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator,elevatorSubsystem))
+            .raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))
+
+          ),
 
 
           new FunctionalCommand(
@@ -132,12 +87,66 @@ public class ConeIntakeGround extends SequentialCommandGroup {
             () -> intakePivot.isAtPosition(),
             // Require the intakePivot subsystem
             intakePivot
-          ).raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
-          .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
+          )
+          .raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
+          .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))        
+        ), 
+        
+        new SequentialCommandGroup(
+            new FunctionalCommand(
+              // Reset controller on command start
+              elevatorSubsystem::resetController,
+              // Start moving intake to high position
+              () -> elevatorSubsystem.setHeightStow(),
+              // at the end of the command call the closed loop elevator to hold the setpoint position
+              interrupted -> elevatorSubsystem.stopElevator(),
+              // End the command when the elevator is at position
+              () -> elevatorSubsystem.isAtHeight(),
+              // Require the elevator subsystem
+              elevatorSubsystem
+            )
+            .raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))
+            .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide)),
+
+            new FunctionalCommand(
+              // Reset controller on command start
+              crossSlide::resetController,
+              // run the crossSlide to the out position
+              () -> crossSlide.setPositionIntake(),
+              // at the end of the command call the closed loop cross slide to hold the setpoint
+              interrupted -> crossSlide.stopCrossSlide(),
+              // End the command when intakePivot is at Position
+              () -> crossSlide.isAtPosition(),
+              // Require the crossSlide subsystem
+              crossSlide
+            )
+            .raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))
+            .raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem)),
+
+            
 
 
-          
+            new FunctionalCommand(
+              // Reset controller on command start
+              intakePivot::resetController,
+              // Start movint intake pivot to score position
+              () -> intakePivot.setPositionintakeCone(),
+              // at the end of the command call the closed loop intake to hold the setpoint position
+              interrupted -> intakePivot.intakePivotStop(),
+              // End the command when the intakePivot is at position
+              () -> intakePivot.isAtPosition(),
+              // Require the intakePivot subsystem
+              intakePivot
+            )
+            .raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
+            .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
+
+
+            
         ),
-      ()->(elevatorSubsystem.getElevatorHeight() > 10.0)));
+        //Condition to test
+        ()->(elevatorSubsystem.getElevatorHeight() > 10.0)
+      )
+    );
   }
 }
