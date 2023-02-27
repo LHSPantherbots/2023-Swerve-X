@@ -10,6 +10,7 @@ import frc.robot.subsystems.IntakePivotSubsystem;
 public class IntakePivotStowCommand extends CommandBase {
   /** Creates a new IntakePivotStowCommand. */
   private final IntakePivotSubsystem m_intakePivot;
+
   public IntakePivotStowCommand(IntakePivotSubsystem intakePivot) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intakePivot = intakePivot;

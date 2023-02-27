@@ -17,58 +17,59 @@ import frc.robot.subsystems.IntakePivotSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class HoldAtCurrentPosition extends ParallelCommandGroup {
   /** Creates a new IntakeConeCommand. */
-  public HoldAtCurrentPosition(CrossSlideSubsystem crossSlide, IntakePivotSubsystem intakePivot, ElevatorSubsystem elevator) {
+  public HoldAtCurrentPosition(
+      CrossSlideSubsystem crossSlide,
+      IntakePivotSubsystem intakePivot,
+      ElevatorSubsystem elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands( 
-      new SequentialCommandGroup(
-        new InstantCommand(() -> elevator.setHeightSetpoint(elevator.getElevatorHeight())), //Sets setpoint to current height
-        new FunctionalCommand(
-          // Reset controller on command start
-          elevator::resetController,
-          // Turns on closed loop elevator to hold current position
-          () -> elevator.closedLoopElevator(),
-          // if interruped stops motors
-          interrupted -> elevator.stopElevator(),
-          // Does not end until interupted
-          () -> false,
-          // Require the elevator subsystem
-          elevator
-        )
-      ),
-      new SequentialCommandGroup(
-
-        new InstantCommand(() -> crossSlide.setPositionSetpoint(crossSlide.getCrossSlidePosition())), //Sets current position of cross slide
-        new FunctionalCommand(
-          // Reset controller on command start
-          crossSlide::resetController,
-          // holds current positoin of crosslide
-          () -> crossSlide.closedLoopCrossSlide(),
-          // at the end of the command call stops motors
-          interrupted -> crossSlide.stopCrossSlide(),
-          // Does not end until interupted
-          () -> false,
-          // Require the crossSlide subsystem
-          crossSlide
-        )
-      ),
-      new SequentialCommandGroup(
-        
-
-        new InstantCommand(() -> intakePivot.setPositionSetpoint(intakePivot.getintakePivotPosition())),
-        new FunctionalCommand(
-          // Reset controller on command start
-          intakePivot::resetController,
-          // Holds position
-          () -> intakePivot.closedLoopIntakePivot(),
-          // at the end of the command call stops motors
-          interrupted -> intakePivot.intakePivotStop(),
-          // Does not end until interupted
-          () -> false,
-          // Require the intakePivot subsystem
-          intakePivot
-        )
-      )   
-    );
+    addCommands(
+        new SequentialCommandGroup(
+            new InstantCommand(
+                () ->
+                    elevator.setHeightSetpoint(
+                        elevator.getElevatorHeight())), // Sets setpoint to current height
+            new FunctionalCommand(
+                // Reset controller on command start
+                elevator::resetController,
+                // Turns on closed loop elevator to hold current position
+                () -> elevator.closedLoopElevator(),
+                // if interruped stops motors
+                interrupted -> elevator.stopElevator(),
+                // Does not end until interupted
+                () -> false,
+                // Require the elevator subsystem
+                elevator)),
+        new SequentialCommandGroup(
+            new InstantCommand(
+                () ->
+                    crossSlide.setPositionSetpoint(
+                        crossSlide
+                            .getCrossSlidePosition())), // Sets current position of cross slide
+            new FunctionalCommand(
+                // Reset controller on command start
+                crossSlide::resetController,
+                // holds current positoin of crosslide
+                () -> crossSlide.closedLoopCrossSlide(),
+                // at the end of the command call stops motors
+                interrupted -> crossSlide.stopCrossSlide(),
+                // Does not end until interupted
+                () -> false,
+                // Require the crossSlide subsystem
+                crossSlide)),
+        new SequentialCommandGroup(
+            new InstantCommand(
+                () -> intakePivot.setPositionSetpoint(intakePivot.getintakePivotPosition())),
+            new FunctionalCommand(
+                // Reset controller on command start
+                intakePivot::resetController,
+                // Holds position
+                () -> intakePivot.closedLoopIntakePivot(),
+                // at the end of the command call stops motors
+                interrupted -> intakePivot.intakePivotStop(),
+                // Does not end until interupted
+                () -> false,
+                // Require the intakePivot subsystem
+                intakePivot)));
   }
 }

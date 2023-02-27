@@ -34,67 +34,64 @@ public class PathPlannerTest extends SequentialCommandGroup {
   Trajectory backupTrajectory = new Trajectory();
   SwerveControllerCommand backupSwerveCommand;
 
-
-
-
-  
-
-
   /** Creates a new HighScoreConeBalanceAuto. */
-  public PathPlannerTest(DriveSubsystem driveTrain, ElevatorSubsystem elevator, CrossSlideSubsystem crossslide, IntakePivotSubsystem intakepivot, IntakeSubsystem intake) {
+  public PathPlannerTest(
+      DriveSubsystem driveTrain,
+      ElevatorSubsystem elevator,
+      CrossSlideSubsystem crossslide,
+      IntakePivotSubsystem intakepivot,
+      IntakeSubsystem intake) {
 
-    TrajectoryConfig rev_config = new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-      .setReversed(true).setKinematics(DriveConstants.kDriveKinematics);
+    TrajectoryConfig rev_config =
+        new TrajectoryConfig(
+                AutoConstants.kMaxSpeedMetersPerSecond,
+                AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+            .setReversed(true)
+            .setKinematics(DriveConstants.kDriveKinematics);
 
-
-     // An example trajectory to follow.  All units in meters.
+    // An example trajectory to follow.  All units in meters.
     Trajectory exampleTrajectory =
-     TrajectoryGenerator.generateTrajectory(
-         // Start at the origin facing the +X direction
-         new Pose2d(0, 0, new Rotation2d(Math.PI)),
-         // Pass through these two interior waypoints, making an 's' curve path
-         List.of(new Translation2d(2.5,0)),
-         //List.of(new Translation2d(.5, .5), new Translation2d(1.0, -.5)),
-         // End 3 meters straight ahead of where we started, facing forward
-         new Pose2d(5.0, 0.0, new Rotation2d(Math.PI)),
-         //config);
-         rev_config);
+        TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(Math.PI)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            List.of(new Translation2d(2.5, 0)),
+            // List.of(new Translation2d(.5, .5), new Translation2d(1.0, -.5)),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(5.0, 0.0, new Rotation2d(Math.PI)),
+            // config);
+            rev_config);
 
-         var thetaController =
-         new ProfiledPIDController(
-             AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
-     thetaController.enableContinuousInput(-Math.PI, Math.PI);
- 
-     SwerveControllerCommand swerveControllerCommand =
-         new SwerveControllerCommand(
-             exampleTrajectory,
-             driveTrain::getPose, // Functional interface to feed supplier
-             DriveConstants.kDriveKinematics,
- 
-             // Position controllers
-             new PIDController(AutoConstants.kPXController, 0, 0),
-             new PIDController(AutoConstants.kPYController, 0, 0),
-             thetaController,
-             driveTrain::setModuleStates,
-             driveTrain);
- 
-     // Reset odometry to the starting pose of the trajectory.
-     driveTrain.resetOdometryReverse(exampleTrajectory.getInitialPose());
- 
+    var thetaController =
+        new ProfiledPIDController(
+            AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
+    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+
+    SwerveControllerCommand swerveControllerCommand =
+        new SwerveControllerCommand(
+            exampleTrajectory,
+            driveTrain::getPose, // Functional interface to feed supplier
+            DriveConstants.kDriveKinematics,
+
+            // Position controllers
+            new PIDController(AutoConstants.kPXController, 0, 0),
+            new PIDController(AutoConstants.kPYController, 0, 0),
+            thetaController,
+            driveTrain::setModuleStates,
+            driveTrain);
+
+    // Reset odometry to the starting pose of the trajectory.
+    driveTrain.resetOdometryReverse(exampleTrajectory.getInitialPose());
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-
-
-      new InstantCommand(() -> driveTrain.resetOdometryReverse(driveTrain.getPose()), driveTrain),
-      new AutoConeHigh(elevator, crossslide, intakepivot, intake),
-      swerveControllerCommand
-        .raceWith(new RunCommand(elevator::closedLoopElevator, elevator))
-        .raceWith(new RunCommand(crossslide::closedLoopCrossSlide, crossslide))
-        .raceWith(new RunCommand(intakepivot::closedLoopIntakePivot, intakepivot)),
-      new InstantCommand(driveTrain::restAll180, driveTrain)
-    );
-    
+        new InstantCommand(() -> driveTrain.resetOdometryReverse(driveTrain.getPose()), driveTrain),
+        new AutoConeHigh(elevator, crossslide, intakepivot, intake),
+        swerveControllerCommand
+            .raceWith(new RunCommand(elevator::closedLoopElevator, elevator))
+            .raceWith(new RunCommand(crossslide::closedLoopCrossSlide, crossslide))
+            .raceWith(new RunCommand(intakepivot::closedLoopIntakePivot, intakepivot)),
+        new InstantCommand(driveTrain::restAll180, driveTrain));
   }
 }

@@ -19,9 +19,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.RIO_Channels_CAN_MOTOR;
 
 public class CrossSlideSubsystem extends SubsystemBase {
-  
-  CANSparkMax crossSlide = new CANSparkMax(RIO_Channels_CAN_MOTOR.CROSS_SLIDE, MotorType.kBrushless);
- 
+
+  CANSparkMax crossSlide =
+      new CANSparkMax(RIO_Channels_CAN_MOTOR.CROSS_SLIDE, MotorType.kBrushless);
+
   RelativeEncoder crossSlideEncoder;
 
   private SparkMaxPIDController crossSlidePidController;
@@ -40,63 +41,51 @@ public class CrossSlideSubsystem extends SubsystemBase {
 
   public BooleanSupplier isAtPos = () -> this.isAtPosition();
 
-
   /** Creates a new CrossSlideSubsystem. */
   public CrossSlideSubsystem() {
     crossSlide.restoreFactoryDefaults();
 
-    //Set limit low when starting to keep from destroying itself before tuning;
+    // Set limit low when starting to keep from destroying itself before tuning;
     crossSlide.setSmartCurrentLimit(15);
 
-    //Adjust this value if the cross slide is accellerating too fast
+    // Adjust this value if the cross slide is accellerating too fast
     crossSlide.setClosedLoopRampRate(0.25);
 
     crossSlide.setIdleMode(IdleMode.kBrake);
 
-    //Flip these if the cross goes the wrong direction
+    // Flip these if the cross goes the wrong direction
     crossSlide.setInverted(false);
 
     crossSlideEncoder = crossSlide.getEncoder();
 
     crossSlidePidController = crossSlide.getPIDController();
 
-    m_constraints =
-      new TrapezoidProfile.Constraints(maxVel, maxAcc);
-    m_controller =
-      new ProfiledPIDController(kP, kI, kD, m_constraints, kDt);
-
+    m_constraints = new TrapezoidProfile.Constraints(maxVel, maxAcc);
+    m_controller = new ProfiledPIDController(kP, kI, kD, m_constraints, kDt);
 
     crossSlide.burnFlash();
 
     crossSlideEncoder.setPosition(0.0);
-
   }
-  
-
 
   @Override
   public void periodic() {
-     //Smart Dashboard Items
-     SmartDashboard.putNumber("Cross Slide Position", getCrossSlidePosition());
-     SmartDashboard.putBoolean("Cross Slide at Set Positon", isAtPosition());
-     SmartDashboard.putNumber("Cross Slide Positio Setpoint", getPositionSetpoint());
-    
- 
- 
+    // Smart Dashboard Items
+    SmartDashboard.putNumber("Cross Slide Position", getCrossSlidePosition());
+    SmartDashboard.putBoolean("Cross Slide at Set Positon", isAtPosition());
+    SmartDashboard.putNumber("Cross Slide Positio Setpoint", getPositionSetpoint());
   }
 
-
-
-  public double getCrossSlidePosition(){
+  public double getCrossSlidePosition() {
     return crossSlideEncoder.getPosition();
   }
 
-  public boolean isAtPosition(){
+  public boolean isAtPosition() {
     double error = getCrossSlidePosition() - positionSetpoint;
     return (Math.abs(error) < allowableError);
   }
 
-  public BooleanSupplier isPos(){
+  public BooleanSupplier isPos() {
     return () -> this.isAtPosition();
   }
 
@@ -104,65 +93,62 @@ public class CrossSlideSubsystem extends SubsystemBase {
   //   return isAtPosition();
   // }
 
-  public double getPositionSetpoint(){
+  public double getPositionSetpoint() {
     return positionSetpoint;
   }
 
-  public void setPositionSetpoint(double setPoint){
+  public void setPositionSetpoint(double setPoint) {
     positionSetpoint = setPoint;
   }
 
-  public void manualCrossSlide(double move){
+  public void manualCrossSlide(double move) {
     crossSlide.set(move);
   }
 
-  public void resetController(){
+  public void resetController() {
     m_controller.reset(crossSlideEncoder.getPosition());
   }
 
-  public void stopCrossSlide(){
+  public void stopCrossSlide() {
     crossSlide.set(0.0);
   }
 
-  public void closedLoopCrossSlide(){
+  public void closedLoopCrossSlide() {
     crossSlide.set(m_controller.calculate(crossSlideEncoder.getPosition(), positionSetpoint));
   }
 
-
-  public void setPositionStow(){
+  public void setPositionStow() {
     positionSetpoint = 0.2;
-    closedLoopCrossSlide();    
+    closedLoopCrossSlide();
   }
 
-  public void setPositionIntake(){
+  public void setPositionIntake() {
     positionSetpoint = 2.0;
     closedLoopCrossSlide();
   }
 
-  public void setPositionOut(){
+  public void setPositionOut() {
     positionSetpoint = 9.0;
     closedLoopCrossSlide();
   }
 
-  public void setLevelt3ConeScore(){
+  public void setLevelt3ConeScore() {
     positionSetpoint = 8.5;
     closedLoopCrossSlide();
   }
 
-  public void setLevelt2ConeScore(){
+  public void setLevelt2ConeScore() {
     positionSetpoint = 0.1;
     closedLoopCrossSlide();
   }
 
-  public void setLevelt2CubeScore(){
+  public void setLevelt2CubeScore() {
     positionSetpoint = 3.4;
     closedLoopCrossSlide();
   }
 
-  public void setLevelt3CubeScore(){
+  public void setLevelt3CubeScore() {
     positionSetpoint = 9.9;
     closedLoopCrossSlide();
   }
 }
-
-

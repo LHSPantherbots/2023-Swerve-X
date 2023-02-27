@@ -8,10 +8,7 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 
 import com.ctre.phoenix.sensors.Pigeon2;
-import com.pathplanner.lib.PathPlannerTrajectory;
-import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -21,10 +18,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 @SuppressWarnings("PMD.ExcessiveImports")
 public class DriveSubsystem extends SubsystemBase {
@@ -182,7 +176,7 @@ public class DriveSubsystem extends SubsystemBase {
    *
    * @param pose The pose to which to set the odometry.
    */
-   public void resetOdometry(Pose2d pose) {
+  public void resetOdometry(Pose2d pose) {
     m_odometry.resetPosition(
         getYaw(),
         new SwerveModulePosition[] {
@@ -205,7 +199,6 @@ public class DriveSubsystem extends SubsystemBase {
         },
         pose);
   }
-
 
   /**
    * Method to drive the robot using joystick info.
@@ -267,7 +260,7 @@ public class DriveSubsystem extends SubsystemBase {
     return new Rotation2d(yawRadians);
   }
 
-  public void xWheels(){
+  public void xWheels() {
     drive(0.0, 0.0, 0.8, true);
   }
 
@@ -284,19 +277,19 @@ public class DriveSubsystem extends SubsystemBase {
     return m_gyro.getPitch();
   }
 
-  public double getRoll(){
+  public double getRoll() {
     return m_gyro.getRoll();
   }
 
-  public boolean isAtAutoBalanceAngle(){
-    return (getRoll()<autoBalanceAngle);
+  public boolean isAtAutoBalanceAngle() {
+    return (getRoll() < autoBalanceAngle);
   }
 
-  public double getRollRate(){
+  public double getRollRate() {
     double currentTimestamp = Timer.getFPGATimestamp();
     double currentAngle = m_gyro.getRoll();
 
-    double rollRate = (currentAngle - lastAngle)/(currentTimestamp - lastTimestamp);
+    double rollRate = (currentAngle - lastAngle) / (currentTimestamp - lastTimestamp);
 
     lastTimestamp = currentTimestamp;
     lastAngle = currentAngle;
@@ -309,10 +302,9 @@ public class DriveSubsystem extends SubsystemBase {
     zeroHeading();
   }
 
-  public void restAll180(){
+  public void restAll180() {
     resetEncoders();
     m_gyro.setYaw(180.0);
-
   }
 
   public double getHeadingRadians() {
@@ -341,9 +333,4 @@ public class DriveSubsystem extends SubsystemBase {
       drive(xSpeed, ySpeed, 0.0, true);
     }
   }
-
-
-
-
-
 }
