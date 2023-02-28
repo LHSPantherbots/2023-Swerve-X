@@ -227,6 +227,25 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   /**
+     * Sets the states of all swerve modules based on input
+     * <code>ChassisSpeeds</code>
+     * 
+     * @param chassisSpeeds an object encapsulating desired dx, dy, and dθ of the
+     *                      robot
+     */
+    public void drive(ChassisSpeeds chassisSpeeds) {
+      SwerveModule[] swerveModules = {m_frontLeft, m_frontRight, m_rearLeft, m_rearRight};
+      SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+      SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, DriveConstants.kMaxSpeedMetersPerSecond);
+
+      for (int i = 0; i < 4; i++) {
+          SwerveModuleState currentState = swerveModules[i].getState();
+          SwerveModuleState.optimize(moduleStates[i], currentState.angle);
+          swerveModules[i].setDesiredState(moduleStates[i]);
+      }
+  }
+
+  /**
    * Sets the swerve ModuleStates.
    *
    * @param desiredStates The desired SwerveModule states.
