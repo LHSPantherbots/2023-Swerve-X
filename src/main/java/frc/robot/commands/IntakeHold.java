@@ -9,7 +9,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeHold extends CommandBase {
   private final IntakeSubsystem m_intake;
-  /** Creates a new IntakeHold. */
+  // Holds intake wheels in place to keep from loosing game pieces
   public IntakeHold(IntakeSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intake = intake;
