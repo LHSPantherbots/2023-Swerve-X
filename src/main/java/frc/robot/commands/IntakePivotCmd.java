@@ -7,10 +7,19 @@ import frc.robot.util.Position;
 public class IntakePivotCmd extends CommandBase {
     Position position;
     IntakePivotSubsystem intakePivot;
+    boolean finishes;
 
     public IntakePivotCmd(Position position, IntakePivotSubsystem intakePivot) {
         this.intakePivot = intakePivot;
         this.position = position;
+        this.finishes = true;
+        addRequirements(intakePivot);
+    }
+
+    public IntakePivotCmd(Position position, IntakePivotSubsystem intakePivot, boolean finishes) {
+        this.intakePivot = intakePivot;
+        this.position = position;
+        this.finishes = finishes;
         addRequirements(intakePivot);
     }
 
@@ -42,6 +51,9 @@ public class IntakePivotCmd extends CommandBase {
             case CONE_SCORE_HIGH:
                 this.intakePivot.setLevelt3ConeScore();
                 break;
+            case HOLD:
+                this.intakePivot.closedLoopIntakePivot();
+                break;
         }
     }
 
@@ -57,6 +69,10 @@ public class IntakePivotCmd extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return this.intakePivot.isAtPosition();
+        if(finishes){
+            return this.intakePivot.isAtPosition();
+        }else{
+            return false;
+        }
     }
 }
