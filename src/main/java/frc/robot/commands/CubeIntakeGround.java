@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -16,12 +18,47 @@ import frc.robot.util.Position;
 public class CubeIntakeGround extends SequentialCommandGroup {
   /** Creates a new IntakeCubeCommand. */
   public CubeIntakeGround(CrossSlideSubsystem crossSlide, IntakePivotSubsystem intakePivot,
-      ElevatorSubsystem elevatorSubsystem) {
+      ElevatorSubsystem elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new ElevatorCmd(Position.CUBE_INTAKE, elevatorSubsystem),
-        new CrossSlideCmd(Position.CUBE_INTAKE, crossSlide),
-        new IntakePivotCmd(Position.CUBE_INTAKE, intakePivot));
+        new ConditionalCommand(
+          //if elevator is up
+          new SequentialCommandGroup(
+            new ParallelRaceGroup(
+              new IntakePivotCmd(Position.STOW, intakePivot),
+              new CrossSlideCmd(Position.STOW, crossSlide, false),
+              new ElevatorCmd(Position.HOLD, elevator, false)
+            ),
+            new ParallelRaceGroup(
+              new ElevatorCmd(Position.CUBE_INTAKE, elevator),
+              new CrossSlideCmd(Position.CUBE_INTAKE, crossSlide, false),
+              new IntakePivotCmd(Position.STOW, intakePivot, false)
+            ),
+            new ParallelRaceGroup(
+              new IntakePivotCmd(Position.CUBE_INTAKE, intakePivot),
+              new ElevatorCmd(Position.CUBE_INTAKE, elevator, false),
+              new CrossSlideCmd(Position.CUBE_INTAKE, crossSlide, false)
+            )
+          )
+        ,
+        // If elevator is down
+          new SequentialCommandGroup(
+            new ParallelRaceGroup(
+              new ElevatorCmd(Position.CUBE_INTAKE, elevator),
+              new CrossSlideCmd(Position.CUBE_INTAKE, crossSlide, false),
+              new IntakePivotCmd(Position.STOW, intakePivot, false)
+            ),
+            new ParallelRaceGroup(
+              new IntakePivotCmd(Position.CUBE_INTAKE, intakePivot),
+              new ElevatorCmd(Position.CUBE_INTAKE, elevator, false),
+              new CrossSlideCmd(Position.CUBE_INTAKE, crossSlide, false)
+            )
+          )
+        , 
+        //checks elevator position
+        ()->(elevator.getElevatorHeight() > 10.0)
+        )
+    );
   }
 }
