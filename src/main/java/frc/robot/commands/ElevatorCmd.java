@@ -7,10 +7,19 @@ import frc.robot.util.Position;
 public class ElevatorCmd extends CommandBase {
     Position position;
     ElevatorSubsystem elevator;
+    boolean finishes;
 
     public ElevatorCmd(Position position, ElevatorSubsystem elevator) {
         this.position = position;
         this.elevator = elevator;
+        this.finishes = true;
+        addRequirements(elevator);
+    }
+
+    public ElevatorCmd(Position position, ElevatorSubsystem elevator, boolean finishes) {
+        this.position = position;
+        this.elevator = elevator;
+        this.finishes = finishes;
         addRequirements(elevator);
     }
 
@@ -42,6 +51,9 @@ public class ElevatorCmd extends CommandBase {
             case CONE_SCORE_HIGH:
                 this.elevator.setLevelt3ConeScore();
                 break;
+            case HOLD:
+                this.elevator.closedLoopElevator();
+                break;
         }
     }
 
@@ -59,7 +71,11 @@ public class ElevatorCmd extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return this.elevator.isAtHeight();
+        if(finishes){
+            return this.elevator.isAtHeight();
+        }else{
+            return false;
+        }
     }
 
 }
