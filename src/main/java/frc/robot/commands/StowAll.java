@@ -26,7 +26,7 @@ public class StowAll extends SequentialCommandGroup {
         new ParallelRaceGroup(
           new IntakePivotCmd(Position.STOW, intakePivot),
           new ElevatorCmd(Position.HOLD, elevator, false),
-          new CrossSlideCmd(Position.HOLD, crossSlide, false)
+          new CrossSlideCmd(Position.STOW, crossSlide, false)
         ),
         new ParallelRaceGroup(
           new ElevatorCmd(Position.STOW, elevator),

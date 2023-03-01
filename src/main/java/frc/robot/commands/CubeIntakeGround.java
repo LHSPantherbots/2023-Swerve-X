@@ -43,18 +43,13 @@ public class CubeIntakeGround extends SequentialCommandGroup {
           )
         ,
         // If elevator is down
-          new SequentialCommandGroup(
-            new ParallelRaceGroup(
-              new ElevatorCmd(Position.CUBE_INTAKE, elevator),
-              new CrossSlideCmd(Position.CUBE_INTAKE, crossSlide, false),
-              new IntakePivotCmd(Position.STOW, intakePivot, false)
-            ),
-            new ParallelRaceGroup(
-              new IntakePivotCmd(Position.CUBE_INTAKE, intakePivot),
-              new ElevatorCmd(Position.CUBE_INTAKE, elevator, false),
-              new CrossSlideCmd(Position.CUBE_INTAKE, crossSlide, false)
-            )
+
+          new ParallelRaceGroup(
+            new IntakePivotCmd(Position.CUBE_INTAKE, intakePivot),
+            new ElevatorCmd(Position.CUBE_INTAKE, elevator, false),
+            new CrossSlideCmd(Position.CUBE_INTAKE, crossSlide, false)
           )
+          
         , 
         //checks elevator position
         ()->(elevator.getElevatorHeight() > 10.0)

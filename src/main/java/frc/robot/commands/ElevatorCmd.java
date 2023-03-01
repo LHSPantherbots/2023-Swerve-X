@@ -31,10 +31,10 @@ public class ElevatorCmd extends CommandBase {
                 this.elevator.setHeightStow();
                 break;
             case CUBE_INTAKE:
-                this.elevator.setHeightLow();
+                this.elevator.setHeightStow();
                 break;
             case CONE_INTAKE:
-                this.elevator.setHeightLow();
+                this.elevator.setHeightStow();
                 break;
             case CONE_STATION_INTAKE:
                 this.elevator.setHeightConeIntakeDoubleSubstation();
