@@ -15,6 +15,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -25,6 +26,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakePivotSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.util.Position;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -89,12 +91,20 @@ public class AutoHighScoreConeBalance extends SequentialCommandGroup {
 
       new InstantCommand(() -> driveTrain.resetOdometryReverse(driveTrain.getPose()), driveTrain),
       new AutoConeHigh(elevator, crossslide, intakepivot, intake),
-      swerveControllerCommand
-        .raceWith(new RunCommand(elevator::closedLoopElevator, elevator))
-        .raceWith(new RunCommand(crossslide::closedLoopCrossSlide, crossslide))
-        .raceWith(new RunCommand(intakepivot::closedLoopIntakePivot, intakepivot)),
+      new ParallelRaceGroup(
+        swerveControllerCommand,
+        new ElevatorCmd(Position.HOLD, elevator, false),
+        new CrossSlideCmd(Position.HOLD, crossslide, false),
+        new IntakePivotCmd(Position.HOLD, intakepivot, false)
+      ),
       new InstantCommand(driveTrain::restAll180, driveTrain),
-      new AutoBalance(driveTrain));
-    
+      new ParallelRaceGroup(
+        new AutoBalance(driveTrain),
+        new ElevatorCmd(Position.HOLD, elevator, false),
+        new CrossSlideCmd(Position.HOLD, crossslide, false),
+        new IntakePivotCmd(Position.HOLD, intakepivot, false)
+      )
+    );
+  
   }
 }
