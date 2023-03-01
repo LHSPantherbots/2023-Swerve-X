@@ -2,11 +2,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.CrossSlideSubsystem;
+import frc.robot.util.Position;
 
-public class CrossSlideCmd extends CommandBase{
+public class CrossSlideCmd extends CommandBase {
     CrossSlideSubsystem crosSlide;
-    String position;
-    public CrossSlideCmd(String position, CrossSlideSubsystem crossSlide) {
+    Position position;
+
+    public CrossSlideCmd(Position position, CrossSlideSubsystem crossSlide) {
         this.crosSlide = crossSlide;
         this.position = position;
         addRequirements(crossSlide);
@@ -15,22 +17,34 @@ public class CrossSlideCmd extends CommandBase{
     @Override
     public void initialize() {
         this.crosSlide.resetController();
-        if (this.position == "stow") {
-            this.crosSlide.setPositionStow();
-        } else if (this.position == "intake") {
-            this.crosSlide.setPositionIntake();
-        } else if (this.position == "out") {
-            this.crosSlide.setPositionOut();
-        } else if (this.position == "Cone3") {
-            this.crosSlide.setLevelt3ConeScore();
-        } else if (this.position == "Cone2") {
-            this.crosSlide.setLevelt2ConeScore();
-        } else if (this.position == "Cube3") {
-            this.crosSlide.setLevelt3CubeScore();
-        } else if (this.position == "Cube2") {
-            this.crosSlide.setLevelt2CubeScore();
+        switch (this.position) {
+            case STOW:
+                this.crosSlide.setPositionStow();
+                ;
+                break;
+            case CUBE_INTAKE:
+                this.crosSlide.setPositionIntake();
+                break;
+            case CONE_INTAKE:
+                this.crosSlide.setPositionIntake();
+                break;
+            case CONE_STATION_INTAKE:
+                this.crosSlide.setPositionIntake();
+                break;
+            case CUBE_SCORE_MID:
+                this.crosSlide.setLevelt2CubeScore();
+                break;
+            case CUBE_SCORE_HIGH:
+                this.crosSlide.setLevelt3CubeScore();
+                break;
+            case CONE_SCORE_MID:
+                this.crosSlide.setLevelt2ConeScore();
+                break;
+            case CONE_SCORE_HIGH:
+                this.crosSlide.setLevelt3ConeScore();
+                break;
         }
-        
+
     }
 
     @Override

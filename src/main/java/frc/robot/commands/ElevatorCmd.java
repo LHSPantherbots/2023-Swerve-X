@@ -2,11 +2,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.util.Position;
 
 public class ElevatorCmd extends CommandBase {
-    String position;
+    Position position;
     ElevatorSubsystem elevator;
-    public ElevatorCmd(String position, ElevatorSubsystem elevator) {
+
+    public ElevatorCmd(Position position, ElevatorSubsystem elevator) {
         this.position = position;
         this.elevator = elevator;
         addRequirements(elevator);
@@ -15,24 +17,31 @@ public class ElevatorCmd extends CommandBase {
     @Override
     public void initialize() {
         this.elevator.resetController();
-        if (this.position == "High") {
-            this.elevator.setHeightHigh();
-        } else if (this.position == "Mid") {
-            this.elevator.setHeightMid();
-        } else if (this.position == "Low") {
-            this.elevator.setHeightLow();
-        } else if (this.position == "stow") {
-            this.elevator.setHeightStow();
-        } else if (this.position == "Cone3") {
-            this.elevator.setLevelt3ConeScore();
-        } else if (this.position == "Cone2") {
-            this.elevator.setLevelt2ConeScore();
-        } else if (this.position == "Cube3") {
-            this.elevator.setLevelt3CubeScore();
-        } else if (this.position == "Cube2") {
-            this.elevator.setLevelt2CubeScore();
-        } else if (this.position == "DoubleSubstation") {
-            this.elevator.setHeightConeIntakeDoubleSubstation();
+        switch (this.position) {
+            case STOW:
+                this.elevator.setHeightStow();
+                break;
+            case CUBE_INTAKE:
+                this.elevator.setHeightLow();
+                break;
+            case CONE_INTAKE:
+                this.elevator.setHeightLow();
+                break;
+            case CONE_STATION_INTAKE:
+                this.elevator.setHeightConeIntakeDoubleSubstation();
+                break;
+            case CUBE_SCORE_MID:
+                this.elevator.setLevelt2CubeScore();
+                break;
+            case CUBE_SCORE_HIGH:
+                this.elevator.setLevelt3CubeScore();
+                break;
+            case CONE_SCORE_MID:
+                this.elevator.setLevelt2ConeScore();
+                break;
+            case CONE_SCORE_HIGH:
+                this.elevator.setLevelt3ConeScore();
+                break;
         }
     }
 
@@ -52,5 +61,5 @@ public class ElevatorCmd extends CommandBase {
     public boolean isFinished() {
         return this.elevator.isAtHeight();
     }
-    
+
 }
