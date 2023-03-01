@@ -33,10 +33,13 @@ import frc.robot.commands.AutoHighScoreConeBalance;
 import frc.robot.commands.AutoHighScoreConeCubeIntake;
 import frc.robot.commands.ConeIntakeGround;
 import frc.robot.commands.ConeScoreHigh;
+import frc.robot.commands.CrossSlideCmd;
 import frc.robot.commands.CubeIntakeGround;
+import frc.robot.commands.ElevatorCmd;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.HoldAtCurrentPosition;
 import frc.robot.commands.IntakeHold;
+import frc.robot.commands.IntakePivotCmd;
 import frc.robot.commands.OLD_Code.ConeIntakeDoubleSubstation_OLD;
 import frc.robot.commands.OLD_Code.ConeScoreMid_OLD;
 import frc.robot.commands.OLD_Code.CubeScoreHigh_OLD;
@@ -51,6 +54,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Leds;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.RobotStateSubsystem;
+import frc.robot.util.Position;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
@@ -145,52 +149,15 @@ public class RobotContainer {
           );
 
         elevator.setDefaultCommand(
-          //new RunCommand(() -> elevator.manualElevator(-operatorController.getLeftY()*.1), elevator)
-          new FunctionalCommand(
-            // Reset controller on command start
-            elevator::resetController,
-            // Start moving intake to high position
-            () -> elevator.closedLoopElevator(),
-            // at the end of the command call the closed loop elevator to hold the setpoint position
-            interrupted -> elevator.stopElevator(),
-            // End the command when the elevator is at position
-            () -> false,
-            // Require the elevator subsystem
-            elevator
-          
-          )
+          new ElevatorCmd(Position.HOLD, elevator, false)
         );
 
         crossSlide.setDefaultCommand(
-          //new RunCommand(() -> crossSlide.manualCrossSlide(-operatorController.getLeftX()*.1), crossSlide)
-          new FunctionalCommand(
-            // Reset controller on command start
-            crossSlide::resetController,
-            // Start moving intake to high position
-            () -> crossSlide.closedLoopCrossSlide(),
-            // at the end of the command call the closed loop elevator to hold the setpoint position
-            interrupted -> crossSlide.stopCrossSlide(),
-            // End the command when the elevator is at position
-            () -> false,
-            // Require the elevator subsystem
-            crossSlide
-          )
+          new CrossSlideCmd(Position.HOLD, crossSlide, false)
         );
 
         intakePivot.setDefaultCommand(
-          //new RunCommand(() -> intakePivot.manualintakePivot(operatorController.getRightY()*.2), intakePivot)
-          new FunctionalCommand(
-            // Reset controller on command start
-            intakePivot::resetController,
-            // Start moving intake to high position
-            () -> intakePivot.closedLoopIntakePivot(),
-            // at the end of the command call the closed loop elevator to hold the setpoint position
-            interrupted -> intakePivot.intakePivotStop(),
-            // End the command when the elevator is at position
-            () -> false,
-            // Require the elevator subsystem
-            intakePivot
-          )
+          new IntakePivotCmd(Position.HOLD, intakePivot, false)
         );
 
         intake.setDefaultCommand(
