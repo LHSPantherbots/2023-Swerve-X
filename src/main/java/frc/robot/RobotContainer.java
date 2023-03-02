@@ -149,7 +149,7 @@ public class RobotContainer {
         "PPDriveAndRot",
         new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
     autoChoice.addOption(
-        "PPAutoScoreTwoBalance", 
+        "PPAutoScoreTwoBalance",
         new AutoScoreTwoBalance(elevator, crossSlide, intakePivot, intake, driveTrain));
 
     // Configure the button bindings
