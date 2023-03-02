@@ -303,7 +303,6 @@ public class DriveSubsystem extends SubsystemBase {
    * @return the robot's heading in degrees, from -180 to 180
    */
   public double getHeading() {
-  public double getHeading() {
     return getYaw().getDegrees();
   }
 
