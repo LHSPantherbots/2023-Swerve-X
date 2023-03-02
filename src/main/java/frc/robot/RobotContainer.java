@@ -29,16 +29,13 @@ import frc.robot.commands.CubeIntakeGround;
 import frc.robot.commands.CubeScoreHigh;
 import frc.robot.commands.CubeScoreMid;
 import frc.robot.commands.ElevatorCmd;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.HoldAtCurrentPosition;
 import frc.robot.commands.IntakeHold;
 import frc.robot.commands.IntakePivotCmd;
-import frc.robot.commands.OLD_Code.ConeScoreMid_OLD;
 import frc.robot.commands.StowAll;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakePivotSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Leds;
@@ -70,14 +67,11 @@ public class RobotContainer {
   public static final CrossSlideSubsystem crossSlide = new CrossSlideSubsystem();
   public static final IntakePivotSubsystem intakePivot = new IntakePivotSubsystem();
   public static final IntakeSubsystem intake = new IntakeSubsystem();
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
   XboxController operatorController = new XboxController(OIConstants.kOperatorControllerPort);
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   public static SendableChooser<Command> autoChoice = new SendableChooser<>();
 
@@ -126,7 +120,7 @@ public class RobotContainer {
     SmartDashboard.putData("Green LED", new RunCommand(leds::green, leds));
 
     SmartDashboard.putData(
-        "Cone Score: Mid ", new ConeScoreMid_OLD(crossSlide, intakePivot, elevator));
+        "Cone Score: Mid ", new ConeScoreMid(crossSlide, intakePivot, elevator));
     SmartDashboard.putData(
         "Cone Score: High ", new ConeScoreHigh(crossSlide, intakePivot, elevator));
 
