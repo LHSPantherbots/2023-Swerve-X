@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 @SuppressWarnings("PMD.ExcessiveImports")
 public class DriveSubsystem extends SubsystemBase {
   // limelight vision may need to be tuned
+  // limelight vision may need to be tuned
   private double kP = 0.120;
   private double kF = 0.0; // 0.2;
 
@@ -75,8 +76,21 @@ public class DriveSubsystem extends SubsystemBase {
   // The gyro sensor
   // private final Gyro m_gyro = new ADXRS450_Gyro();
 
+  // The gyro sensor
+  // private final Gyro m_gyro = new ADXRS450_Gyro();
+
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
+
+    new Thread(
+            () -> {
+              try {
+                Thread.sleep(1000);
+                zeroHeading();
+              } catch (Exception e) {
+              }
+            })
+        .start();
 
     new Thread(
             () -> {
@@ -100,7 +114,20 @@ public class DriveSubsystem extends SubsystemBase {
           m_rearLeft.getPosition(),
           m_rearRight.getPosition()
         });
+    // Update the odometry in the periodic block
+    m_odometry.update(
+        getYaw(),
+        new SwerveModulePosition[] {
+          m_frontLeft.getPosition(),
+          m_frontRight.getPosition(),
+          m_rearLeft.getPosition(),
+          m_rearRight.getPosition()
+        });
 
+    // Shuffleboard.getTab("Drivetrian")
+    // .add("Test", 0)
+    // .withWidget(BuiltInWidgets.kGyro) // specify the widget here
+    // .getEntry("SmartDashboard/Front Left Angle");
     // Shuffleboard.getTab("Drivetrian")
     // .add("Test", 0)
     // .withWidget(BuiltInWidgets.kGyro) // specify the widget here
@@ -109,7 +136,12 @@ public class DriveSubsystem extends SubsystemBase {
     // Add values to smartdashborad
     // SmartDashboard.putNumber("Front Left Abs Angle",
     // m_frontLeft.getModuleAbsoluteAngle());
+    // Add values to smartdashborad
+    // SmartDashboard.putNumber("Front Left Abs Angle",
+    // m_frontLeft.getModuleAbsoluteAngle());
     SmartDashboard.putNumber("Front Left Angle", m_frontLeft.getModuleAngle());
+    // SmartDashboard.putNumber("Front Right Abs Angle",
+    // m_frontRight.getModuleAbsoluteAngle());
     // SmartDashboard.putNumber("Front Right Abs Angle",
     // m_frontRight.getModuleAbsoluteAngle());
     SmartDashboard.putNumber("Front Right Angle", m_frontRight.getModuleAngle());
@@ -270,6 +302,7 @@ public class DriveSubsystem extends SubsystemBase {
    *
    * @return the robot's heading in degrees, from -180 to 180
    */
+  public double getHeading() {
   public double getHeading() {
     return getYaw().getDegrees();
   }

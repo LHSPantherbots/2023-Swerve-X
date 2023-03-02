@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.GamePadButtons;
@@ -175,22 +174,21 @@ public class RobotContainer {
 
 
 
-        // Set the default drive command to split-stick arcade drive
-        driveTrain.setDefaultCommand(
-          // A split-stick arcade command, with forward/backward controlled by the left
-          // hand, and turning controlled by the right.
-          new RunCommand(
-              () ->
-                  driveTrain.drive(
-                    -m_driverController.getLeftY()
-                    * DriveConstants.kMaxSpeedMetersPerSecond,
-                      -m_driverController.getLeftX()
-              * DriveConstants.kMaxSpeedMetersPerSecond,
-                     // -m_driverController.getRightX()
-                     -(m_driverController.getRightTriggerAxis()-m_driverController.getLeftTriggerAxis())
-              * DriveConstants.kMaxSpeedMetersPerSecond,
-                      
-                      true), driveTrain));
+    // Set the default drive command to split-stick arcade drive
+    driveTrain.setDefaultCommand(
+        // A split-stick arcade command, with forward/backward controlled by the left
+        // hand, and turning controlled by the right.
+        new RunCommand(
+            () ->
+                driveTrain.drive(
+                    -m_driverController.getLeftY() * DriveConstants.kMaxSpeedMetersPerSecond,
+                    -m_driverController.getLeftX() * DriveConstants.kMaxSpeedMetersPerSecond,
+                    // -m_driverController.getRightX()
+                    -(m_driverController.getRightTriggerAxis()
+                            - m_driverController.getLeftTriggerAxis())
+                        * DriveConstants.kMaxSpeedMetersPerSecond,
+                    true),
+            driveTrain));
   }
 
   /**

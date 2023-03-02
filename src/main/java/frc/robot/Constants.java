@@ -17,10 +17,10 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final class DriveConstants {
-        public static final boolean invertGyro = false;
-        //public static final int kIntakeTalonPort = 30;
-        public static final int kPigeonCAN_ID = 30;
+  public static final class DriveConstants {
+    public static final boolean invertGyro = false;
+    // public static final int kIntakeTalonPort = 30;
+    public static final int kPigeonCAN_ID = 30;
 
         public static final int kFrontLeftDriveMotorPort = 1;
         public static final int kRearLeftDriveMotorPort = 2;
@@ -101,33 +101,33 @@ public final class Constants {
         public static final int kOperatorControllerPort = 1;
     }
 
-    public static final class GamePadButtons{
-        // Basic buttons
-        public static final int A = 1;
-        public static final int B = 2;
-        public static final int X = 3;
-        public static final int Y = 4;
-        public static final int RB = 6;
-        public static final int LB = 5;
-        public static final int Select = 7;
-        public static final int Start = 8;
-        public static final int LeftJ = 9;
-        public static final int RightJ = 10;
+  public static final class GamePadButtons {
+    // Basic buttons
+    public static final int A = 1;
+    public static final int B = 2;
+    public static final int X = 3;
+    public static final int Y = 4;
+    public static final int RB = 6;
+    public static final int LB = 5;
+    public static final int Select = 7;
+    public static final int Start = 8;
+    public static final int LeftJ = 9;
+    public static final int RightJ = 10;
 
-        //POV buttons
-        public static final int Up = 0;  
-        public static final int Down = 180;   
-        public static final int Left = 270;
-        public static final int Right = 90; 
+    // POV buttons
+    public static final int Up = 0;
+    public static final int Down = 180;
+    public static final int Left = 270;
+    public static final int Right = 90;
 
-        //Axis
-        public static final int leftY = 1;
-        public static final int leftX = 0;
-        public static final int rightY = 5;
-        public static final int rightX = 4;
-        public static final int leftTrigger = 2;
-        public static final int rightTrigger = 3;
-    }
+    // Axis
+    public static final int leftY = 1;
+    public static final int leftX = 0;
+    public static final int rightY = 5;
+    public static final int rightX = 4;
+    public static final int leftTrigger = 2;
+    public static final int rightTrigger = 3;
+  }
 
     public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = 1;
