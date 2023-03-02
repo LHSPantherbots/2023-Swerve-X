@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CrossSlideSubsystem;
@@ -17,21 +16,20 @@ import frc.robot.util.Position;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ConeIntakeDoubleSubstation extends SequentialCommandGroup {
   /** Creates a new IntakeConeCommand. */
-  public ConeIntakeDoubleSubstation(CrossSlideSubsystem crossSlide, IntakePivotSubsystem intakePivot,
+  public ConeIntakeDoubleSubstation(
+      CrossSlideSubsystem crossSlide,
+      IntakePivotSubsystem intakePivot,
       ElevatorSubsystem elevatorSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ParallelRaceGroup(
-          new ElevatorCmd(Position.CONE_STATION_INTAKE, elevatorSubsystem),
-          new CrossSlideCmd(Position.CONE_STATION_INTAKE, crossSlide, false),
-          new IntakePivotCmd(Position.STOW, intakePivot, false)
-        ),
+            new ElevatorCmd(Position.CONE_STATION_INTAKE, elevatorSubsystem),
+            new CrossSlideCmd(Position.CONE_STATION_INTAKE, crossSlide, false),
+            new IntakePivotCmd(Position.STOW, intakePivot, false)),
         new ParallelRaceGroup(
-          new IntakePivotCmd(Position.CONE_STATION_INTAKE, intakePivot),        
-          new ElevatorCmd(Position.CONE_STATION_INTAKE, elevatorSubsystem, false),
-          new CrossSlideCmd(Position.CONE_STATION_INTAKE, crossSlide, false)
-        )
-    );
+            new IntakePivotCmd(Position.CONE_STATION_INTAKE, intakePivot),
+            new ElevatorCmd(Position.CONE_STATION_INTAKE, elevatorSubsystem, false),
+            new CrossSlideCmd(Position.CONE_STATION_INTAKE, crossSlide, false)));
   }
 }

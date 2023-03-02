@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CrossSlideSubsystem;
@@ -17,22 +16,20 @@ import frc.robot.util.Position;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class CubeScoreMid extends SequentialCommandGroup {
   /** Creates a new IntakeCubeCommand. */
-  public CubeScoreMid(CrossSlideSubsystem crossSlide, IntakePivotSubsystem intakePivot,
+  public CubeScoreMid(
+      CrossSlideSubsystem crossSlide,
+      IntakePivotSubsystem intakePivot,
       ElevatorSubsystem elevatorSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ParallelRaceGroup(
-          new ElevatorCmd(Position.CUBE_SCORE_MID, elevatorSubsystem),
-          new CrossSlideCmd(Position.CUBE_SCORE_MID, crossSlide, false),
-          new IntakePivotCmd(Position.STOW, intakePivot, false)
-        ),
+            new ElevatorCmd(Position.CUBE_SCORE_MID, elevatorSubsystem),
+            new CrossSlideCmd(Position.CUBE_SCORE_MID, crossSlide, false),
+            new IntakePivotCmd(Position.STOW, intakePivot, false)),
         new ParallelRaceGroup(
-          new ElevatorCmd(Position.CUBE_SCORE_MID, elevatorSubsystem, false),
-          new CrossSlideCmd(Position.CUBE_SCORE_MID, crossSlide, false),
-          new IntakePivotCmd(Position.CUBE_SCORE_MID, intakePivot)
-        )
-
-      );
+            new ElevatorCmd(Position.CUBE_SCORE_MID, elevatorSubsystem, false),
+            new CrossSlideCmd(Position.CUBE_SCORE_MID, crossSlide, false),
+            new IntakePivotCmd(Position.CUBE_SCORE_MID, intakePivot)));
   }
 }

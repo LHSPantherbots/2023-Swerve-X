@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CrossSlideSubsystem;
@@ -17,21 +16,20 @@ import frc.robot.util.Position;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ConeScoreHigh extends SequentialCommandGroup {
   /** Creates a new IntakeConeCommand. */
-  public ConeScoreHigh(CrossSlideSubsystem crossSlide, IntakePivotSubsystem intakePivot,
+  public ConeScoreHigh(
+      CrossSlideSubsystem crossSlide,
+      IntakePivotSubsystem intakePivot,
       ElevatorSubsystem elevatorSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ParallelRaceGroup(
-          new ElevatorCmd(Position.CONE_SCORE_HIGH, elevatorSubsystem),
-          new CrossSlideCmd(Position.CONE_SCORE_HIGH, crossSlide, false),
-          new IntakePivotCmd(Position.STOW, intakePivot, false)
-        ),
+            new ElevatorCmd(Position.CONE_SCORE_HIGH, elevatorSubsystem),
+            new CrossSlideCmd(Position.CONE_SCORE_HIGH, crossSlide, false),
+            new IntakePivotCmd(Position.STOW, intakePivot, false)),
         new ParallelRaceGroup(
-          new IntakePivotCmd(Position.CONE_SCORE_HIGH, intakePivot),        
-          new ElevatorCmd(Position.CONE_SCORE_HIGH, elevatorSubsystem, false),
-          new CrossSlideCmd(Position.CONE_SCORE_HIGH, crossSlide, false)
-        )
-    );
+            new IntakePivotCmd(Position.CONE_SCORE_HIGH, intakePivot),
+            new ElevatorCmd(Position.CONE_SCORE_HIGH, elevatorSubsystem, false),
+            new CrossSlideCmd(Position.CONE_SCORE_HIGH, crossSlide, false)));
   }
 }

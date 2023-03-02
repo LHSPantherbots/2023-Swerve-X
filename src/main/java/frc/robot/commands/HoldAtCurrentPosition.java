@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -18,22 +17,29 @@ import frc.robot.util.Position;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class HoldAtCurrentPosition extends ParallelCommandGroup {
   /** Creates a new IntakeConeCommand. */
-  public HoldAtCurrentPosition(CrossSlideSubsystem crossSlide, IntakePivotSubsystem intakePivot, ElevatorSubsystem elevator) {
+  public HoldAtCurrentPosition(
+      CrossSlideSubsystem crossSlide,
+      IntakePivotSubsystem intakePivot,
+      ElevatorSubsystem elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands( 
-      new SequentialCommandGroup(
-        new InstantCommand(() -> elevator.setHeightSetpoint(elevator.getElevatorHeight())), //Sets setpoint to current height
-        new ElevatorCmd(Position.HOLD, elevator, false)
-      ),
-      new SequentialCommandGroup(
-        new InstantCommand(() -> crossSlide.setPositionSetpoint(crossSlide.getCrossSlidePosition())), //Sets current position of cross slide
-        new CrossSlideCmd(Position.HOLD, crossSlide, false)
-      ),
-      new SequentialCommandGroup(
-        new InstantCommand(() -> intakePivot.setPositionSetpoint(intakePivot.getintakePivotPosition())),
-        new IntakePivotCmd(Position.HOLD, intakePivot, false)
-      )   
-    );
+    addCommands(
+        new SequentialCommandGroup(
+            new InstantCommand(
+                () ->
+                    elevator.setHeightSetpoint(
+                        elevator.getElevatorHeight())), // Sets setpoint to current height
+            new ElevatorCmd(Position.HOLD, elevator, false)),
+        new SequentialCommandGroup(
+            new InstantCommand(
+                () ->
+                    crossSlide.setPositionSetpoint(
+                        crossSlide
+                            .getCrossSlidePosition())), // Sets current position of cross slide
+            new CrossSlideCmd(Position.HOLD, crossSlide, false)),
+        new SequentialCommandGroup(
+            new InstantCommand(
+                () -> intakePivot.setPositionSetpoint(intakePivot.getintakePivotPosition())),
+            new IntakePivotCmd(Position.HOLD, intakePivot, false)));
   }
 }

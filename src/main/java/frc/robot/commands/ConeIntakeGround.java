@@ -17,44 +17,36 @@ import frc.robot.util.Position;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ConeIntakeGround extends SequentialCommandGroup {
   /** Creates a new IntakeCONECommand. */
-  public ConeIntakeGround(CrossSlideSubsystem crossSlide, IntakePivotSubsystem intakePivot,
+  public ConeIntakeGround(
+      CrossSlideSubsystem crossSlide,
+      IntakePivotSubsystem intakePivot,
       ElevatorSubsystem elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ConditionalCommand(
-          //if elevator is up
-          new SequentialCommandGroup(
-            new ParallelRaceGroup(
-              new IntakePivotCmd(Position.STOW, intakePivot),
-              new CrossSlideCmd(Position.STOW, crossSlide, false),
-              new ElevatorCmd(Position.HOLD, elevator, false)
-            ),
-            new ParallelRaceGroup(
-              new ElevatorCmd(Position.CONE_INTAKE, elevator),
-              new CrossSlideCmd(Position.CONE_INTAKE, crossSlide, false),
-              new IntakePivotCmd(Position.STOW, intakePivot, false)
-            ),
-            new ParallelRaceGroup(
-              new IntakePivotCmd(Position.CONE_INTAKE, intakePivot),
-              new ElevatorCmd(Position.CONE_INTAKE, elevator, false),
-              new CrossSlideCmd(Position.CONE_INTAKE, crossSlide, false)
-            )
-          )
-        ,
-        // If elevator is down
+            // if elevator is up
+            new SequentialCommandGroup(
+                new ParallelRaceGroup(
+                    new IntakePivotCmd(Position.STOW, intakePivot),
+                    new CrossSlideCmd(Position.STOW, crossSlide, false),
+                    new ElevatorCmd(Position.HOLD, elevator, false)),
+                new ParallelRaceGroup(
+                    new ElevatorCmd(Position.CONE_INTAKE, elevator),
+                    new CrossSlideCmd(Position.CONE_INTAKE, crossSlide, false),
+                    new IntakePivotCmd(Position.STOW, intakePivot, false)),
+                new ParallelRaceGroup(
+                    new IntakePivotCmd(Position.CONE_INTAKE, intakePivot),
+                    new ElevatorCmd(Position.CONE_INTAKE, elevator, false),
+                    new CrossSlideCmd(Position.CONE_INTAKE, crossSlide, false))),
+            // If elevator is down
 
+            new ParallelRaceGroup(
+                new IntakePivotCmd(Position.CONE_INTAKE, intakePivot),
+                new ElevatorCmd(Position.CONE_INTAKE, elevator, false),
+                new CrossSlideCmd(Position.CONE_INTAKE, crossSlide, false)),
 
-          new ParallelRaceGroup(
-            new IntakePivotCmd(Position.CONE_INTAKE, intakePivot),
-            new ElevatorCmd(Position.CONE_INTAKE, elevator, false),
-            new CrossSlideCmd(Position.CONE_INTAKE, crossSlide, false)
-          )
-          
-        , 
-        //checks elevator position
-        ()->(elevator.getElevatorHeight() > 10.0)
-        )
-    );
+            // checks elevator position
+            () -> (elevator.getElevatorHeight() > 10.0)));
   }
 }

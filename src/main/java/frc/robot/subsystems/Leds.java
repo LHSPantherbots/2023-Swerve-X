@@ -13,12 +13,12 @@ public class Leds extends SubsystemBase {
   // Store what the last hue of the first pixel is
   private int m_rainbowFirstPixelHue;
 
-    private int bluePulseBrightness = 0;
-    private int greenPulseBrightness = 0;
-    private int redPulseBrightness = 0;
-    private int blueStreakLED = 0;
-    private int numLoops = 0;
-    private int index = 0;
+  private int bluePulseBrightness = 0;
+  private int greenPulseBrightness = 0;
+  private int redPulseBrightness = 0;
+  private int blueStreakLED = 0;
+  private int numLoops = 0;
+  private int index = 0;
 
   public Leds() {
     // PWM port 9
@@ -28,7 +28,7 @@ public class Leds extends SubsystemBase {
     // Reuse buffer
     // Default to a length of 60, start empty output
     // Length is expensive to set, so only set it once, then just update data
-    m_ledBuffer = new AddressableLEDBuffer(200);//200 for new bot
+    m_ledBuffer = new AddressableLEDBuffer(200); // 200 for new bot
     m_led.setLength(m_ledBuffer.getLength());
 
     // Set the data
@@ -41,13 +41,13 @@ public class Leds extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-
-  public void ledsOff(){
-    for (int i = 0; i < m_ledBuffer.getLength(); i++){
+  public void ledsOff() {
+    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
       m_ledBuffer.setRGB(i, 0, 0, 0);
     }
     m_led.setData(m_ledBuffer);
   }
+
   public void rainbow() {
     // For every pixel
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
@@ -65,15 +65,15 @@ public class Leds extends SubsystemBase {
     m_led.setData(m_ledBuffer);
   }
 
-  public void pantherStreak(){
-    for (int i = 0; i < m_ledBuffer.getLength(); i++){
+  public void pantherStreak() {
+    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
       m_ledBuffer.setRGB(i, 148, 0, 211);
     }
-    for (int i = index; i < m_ledBuffer.getLength(); i += 2){
+    for (int i = index; i < m_ledBuffer.getLength(); i += 2) {
       m_ledBuffer.setRGB(i, 255, 90, 0);
     }
 
-    if (numLoops % 10 == 0){
+    if (numLoops % 10 == 0) {
       index++;
       index %= 2;
       numLoops = 0;
@@ -115,9 +115,9 @@ public class Leds extends SubsystemBase {
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
       // Sets the specified LED to the RGB values for green
       m_ledBuffer.setRGB(i, 255, 128, 0);
-   }
-   
-   m_led.setData(m_ledBuffer);
+    }
+
+    m_led.setData(m_ledBuffer);
   }
 
   public void purple() {
@@ -168,26 +168,25 @@ public class Leds extends SubsystemBase {
     m_led.setData(m_ledBuffer);
   }
 
-  public void orangePulse(){
+  public void orangePulse() {
 
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
       // Sets the specified LED to the RGB values for orange
       m_ledBuffer.setRGB(i, redPulseBrightness, greenPulseBrightness, 0);
-      }
+    }
 
-    //increase brightness
+    // increase brightness
     redPulseBrightness += 5;
     greenPulseBrightness += 1;
 
-    //Check bounds
+    // Check bounds
     redPulseBrightness %= 255;
     greenPulseBrightness %= 51;
 
     m_led.setData(m_ledBuffer);
+  }
 
-    }
-
-  public void blueStreak(){
+  public void blueStreak() {
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
       // Sets the specified LED to the RGB values for blue
       m_ledBuffer.setRGB(i, 0, 0, 255);

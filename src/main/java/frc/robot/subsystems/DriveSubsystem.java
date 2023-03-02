@@ -208,7 +208,7 @@ public class DriveSubsystem extends SubsystemBase {
    *
    * @param pose The pose to which to set the odometry.
    */
-   public void resetOdometry(Pose2d pose) {
+  public void resetOdometry(Pose2d pose) {
     m_odometry.resetPosition(
         getYaw(),
         new SwerveModulePosition[] {
@@ -231,7 +231,6 @@ public class DriveSubsystem extends SubsystemBase {
         },
         pose);
   }
-
 
   /**
    * Method to drive the robot using joystick info.
@@ -293,7 +292,7 @@ public class DriveSubsystem extends SubsystemBase {
     return new Rotation2d(yawRadians);
   }
 
-  public void xWheels(){
+  public void xWheels() {
     drive(0.0, 0.0, 0.8, true);
   }
 
@@ -310,19 +309,19 @@ public class DriveSubsystem extends SubsystemBase {
     return m_gyro.getPitch();
   }
 
-  public double getRoll(){
+  public double getRoll() {
     return m_gyro.getRoll();
   }
 
-  public boolean isAtAutoBalanceAngle(){
-    return (getRoll()<autoBalanceAngle);
+  public boolean isAtAutoBalanceAngle() {
+    return (getRoll() < autoBalanceAngle);
   }
 
-  public double getRollRate(){
+  public double getRollRate() {
     double currentTimestamp = Timer.getFPGATimestamp();
     double currentAngle = m_gyro.getRoll();
 
-    double rollRate = (currentAngle - lastAngle)/(currentTimestamp - lastTimestamp);
+    double rollRate = (currentAngle - lastAngle) / (currentTimestamp - lastTimestamp);
 
     lastTimestamp = currentTimestamp;
     lastAngle = currentAngle;
@@ -335,10 +334,9 @@ public class DriveSubsystem extends SubsystemBase {
     zeroHeading();
   }
 
-  public void restAll180(){
+  public void restAll180() {
     resetEncoders();
     m_gyro.setYaw(180.0);
-
   }
 
   public double getHeadingRadians() {

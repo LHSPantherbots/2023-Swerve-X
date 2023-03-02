@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CrossSlideSubsystem;
@@ -18,13 +17,16 @@ import frc.robot.subsystems.IntakeSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoDriveAndRot extends SequentialCommandGroup {
   /** Creates a new AutoCubeHigh. */
-  public AutoDriveAndRot(ElevatorSubsystem elevator, CrossSlideSubsystem crossslide, IntakePivotSubsystem intakepivot,
-      IntakeSubsystem intake, DriveSubsystem driveSubsystem) {
+  public AutoDriveAndRot(
+      ElevatorSubsystem elevator,
+      CrossSlideSubsystem crossslide,
+      IntakePivotSubsystem intakepivot,
+      IntakeSubsystem intake,
+      DriveSubsystem driveSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new PPAuto("DriveAndRot"),
-        new RunCommand(() -> driveSubsystem.drive(0, 0, 0, true), driveSubsystem)
-    );
+        new RunCommand(() -> driveSubsystem.drive(0, 0, 0, true), driveSubsystem));
   }
 }

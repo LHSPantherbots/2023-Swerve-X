@@ -16,7 +16,6 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants.AutoConstants;
@@ -36,75 +35,71 @@ public class AutoHighScoreConeBalance extends SequentialCommandGroup {
   Trajectory backupTrajectory = new Trajectory();
   SwerveControllerCommand backupSwerveCommand;
 
-
-
-
-  
-
-
   /** Creates a new HighScoreConeBalanceAuto. */
-  public AutoHighScoreConeBalance(DriveSubsystem driveTrain, ElevatorSubsystem elevator, CrossSlideSubsystem crossslide, IntakePivotSubsystem intakepivot, IntakeSubsystem intake) {
+  public AutoHighScoreConeBalance(
+      DriveSubsystem driveTrain,
+      ElevatorSubsystem elevator,
+      CrossSlideSubsystem crossslide,
+      IntakePivotSubsystem intakepivot,
+      IntakeSubsystem intake) {
 
-    TrajectoryConfig rev_config = new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-      .setReversed(true).setKinematics(DriveConstants.kDriveKinematics);
+    TrajectoryConfig rev_config =
+        new TrajectoryConfig(
+                AutoConstants.kMaxSpeedMetersPerSecond,
+                AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+            .setReversed(true)
+            .setKinematics(DriveConstants.kDriveKinematics);
 
-
-     // An example trajectory to follow.  All units in meters.
+    // An example trajectory to follow.  All units in meters.
     Trajectory exampleTrajectory =
-     TrajectoryGenerator.generateTrajectory(
-         // Start at the origin facing the +X direction
-         new Pose2d(0, 0, new Rotation2d(Math.PI)),
-         // Pass through these two interior waypoints, making an 's' curve path
-         List.of(new Translation2d(0.5,0)),
-         //List.of(new Translation2d(.5, .5), new Translation2d(1.0, -.5)),
-         // End 3 meters straight ahead of where we started, facing forward
-         new Pose2d(1.5, 0.0, new Rotation2d(Math.PI)),
-         //config);
-         rev_config);
+        TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(Math.PI)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            List.of(new Translation2d(0.5, 0)),
+            // List.of(new Translation2d(.5, .5), new Translation2d(1.0, -.5)),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(1.5, 0.0, new Rotation2d(Math.PI)),
+            // config);
+            rev_config);
 
-         var thetaController =
-         new ProfiledPIDController(
-             AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
-     thetaController.enableContinuousInput(-Math.PI, Math.PI);
- 
-     SwerveControllerCommand swerveControllerCommand =
-         new SwerveControllerCommand(
-             exampleTrajectory,
-             driveTrain::getPose, // Functional interface to feed supplier
-             DriveConstants.kDriveKinematics,
- 
-             // Position controllers
-             new PIDController(AutoConstants.kPXController, 0, 0),
-             new PIDController(AutoConstants.kPYController, 0, 0),
-             thetaController,
-             driveTrain::setModuleStates,
-             driveTrain);
- 
-     // Reset odometry to the starting pose of the trajectory.
-     //driveTrain.resetOdometry(exampleTrajectory.getInitialPose());
+    var thetaController =
+        new ProfiledPIDController(
+            AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
+    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+
+    SwerveControllerCommand swerveControllerCommand =
+        new SwerveControllerCommand(
+            exampleTrajectory,
+            driveTrain::getPose, // Functional interface to feed supplier
+            DriveConstants.kDriveKinematics,
+
+            // Position controllers
+            new PIDController(AutoConstants.kPXController, 0, 0),
+            new PIDController(AutoConstants.kPYController, 0, 0),
+            thetaController,
+            driveTrain::setModuleStates,
+            driveTrain);
+
+    // Reset odometry to the starting pose of the trajectory.
+    // driveTrain.resetOdometry(exampleTrajectory.getInitialPose());
     driveTrain.resetOdometryReverse(exampleTrajectory.getInitialPose());
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-
-
-      new InstantCommand(() -> driveTrain.resetOdometryReverse(driveTrain.getPose()), driveTrain),
-      new AutoConeHigh(elevator, crossslide, intakepivot, intake),
-      new ParallelRaceGroup(
-        swerveControllerCommand,
-        new ElevatorCmd(Position.HOLD, elevator, false),
-        new CrossSlideCmd(Position.HOLD, crossslide, false),
-        new IntakePivotCmd(Position.HOLD, intakepivot, false)
-      ),
-      new InstantCommand(driveTrain::restAll180, driveTrain),
-      new ParallelRaceGroup(
-        new AutoBalance(driveTrain),
-        new ElevatorCmd(Position.HOLD, elevator, false),
-        new CrossSlideCmd(Position.HOLD, crossslide, false),
-        new IntakePivotCmd(Position.HOLD, intakepivot, false)
-      )
-    );
-  
+        new InstantCommand(() -> driveTrain.resetOdometryReverse(driveTrain.getPose()), driveTrain),
+        new AutoConeHigh(elevator, crossslide, intakepivot, intake),
+        new ParallelRaceGroup(
+            swerveControllerCommand,
+            new ElevatorCmd(Position.HOLD, elevator, false),
+            new CrossSlideCmd(Position.HOLD, crossslide, false),
+            new IntakePivotCmd(Position.HOLD, intakepivot, false)),
+        new InstantCommand(driveTrain::restAll180, driveTrain),
+        new ParallelRaceGroup(
+            new AutoBalance(driveTrain),
+            new ElevatorCmd(Position.HOLD, elevator, false),
+            new CrossSlideCmd(Position.HOLD, crossslide, false),
+            new IntakePivotCmd(Position.HOLD, intakepivot, false)));
   }
 }

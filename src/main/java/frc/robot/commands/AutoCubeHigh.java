@@ -17,7 +17,10 @@ import frc.robot.subsystems.IntakeSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoCubeHigh extends SequentialCommandGroup {
   /** Creates a new AutoCubeHigh. */
-  public AutoCubeHigh(ElevatorSubsystem elevator, CrossSlideSubsystem crossslide, IntakePivotSubsystem intakepivot,
+  public AutoCubeHigh(
+      ElevatorSubsystem elevator,
+      CrossSlideSubsystem crossslide,
+      IntakePivotSubsystem intakepivot,
       IntakeSubsystem intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
@@ -25,8 +28,6 @@ public class AutoCubeHigh extends SequentialCommandGroup {
         new CubeScoreHigh(crossslide, intakepivot, elevator),
         new RunCommand(intake::ejectCube, intake).withTimeout(1.0),
         new InstantCommand(intake::stopIntake, intake),
-        new StowAll(crossslide, intakepivot, elevator)
-
-    );
+        new StowAll(crossslide, intakepivot, elevator));
   }
 }

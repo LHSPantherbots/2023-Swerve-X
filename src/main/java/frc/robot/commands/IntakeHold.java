@@ -13,7 +13,7 @@ public class IntakeHold extends CommandBase {
   public IntakeHold(IntakeSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intake = intake;
-    
+
     addRequirements(m_intake);
   }
 
