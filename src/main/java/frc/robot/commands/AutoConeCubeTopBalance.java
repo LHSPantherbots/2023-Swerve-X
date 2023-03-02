@@ -10,9 +10,9 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakePivotSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class AutoScoreTwoBalance extends SequentialCommandGroup {
+public class AutoConeCubeTopBalance extends SequentialCommandGroup {
 
-  public AutoScoreTwoBalance(
+  public AutoConeCubeTopBalance(
       ElevatorSubsystem elevator,
       CrossSlideSubsystem crossslide,
       IntakePivotSubsystem intakepivot,
