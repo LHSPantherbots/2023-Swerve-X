@@ -150,10 +150,10 @@ public class RobotContainer {
         "PPDriveAndRot",
         new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
     autoChoice.addOption(
-        "AutoConeCubeTopBalance", 
+        "AutoConeCubeTopBalance",
         new AutoConeCubeTopBalance(elevator, crossSlide, intakePivot, intake, driveTrain));
     autoChoice.addOption(
-        "AutoConeCubeBottomBalance", 
+        "AutoConeCubeBottomBalance",
         new AutoConeCubeBottomBalance(elevator, crossSlide, intakePivot, intake, driveTrain));
 
     // Configure the button bindings
