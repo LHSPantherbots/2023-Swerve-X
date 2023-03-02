@@ -20,6 +20,7 @@ import frc.robot.commands.AutoCubeHigh;
 import frc.robot.commands.AutoDriveAndRot;
 import frc.robot.commands.AutoHighScoreConeBalance;
 import frc.robot.commands.AutoHighScoreConeCubeIntake;
+import frc.robot.commands.AutoScoreTwoBalance;
 import frc.robot.commands.ConeIntakeDoubleSubstation;
 import frc.robot.commands.ConeIntakeGround;
 import frc.robot.commands.ConeScoreHigh;
@@ -149,6 +150,9 @@ public class RobotContainer {
     autoChoice.addOption(
         "PPDriveAndRot",
         new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
+    autoChoice.addOption(
+        "PPAutoScoreTwoBalance", 
+        new AutoScoreTwoBalance(elevator, crossSlide, intakePivot, intake, driveTrain));
 
     // Configure the button bindings
     configureButtonBindings();
