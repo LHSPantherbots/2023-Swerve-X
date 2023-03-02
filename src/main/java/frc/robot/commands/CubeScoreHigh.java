@@ -24,7 +24,11 @@ public class CubeScoreHigh extends SequentialCommandGroup {
     addCommands(
       new ParallelRaceGroup(
         new ElevatorCmd(Position.CUBE_SCORE_HIGH, elevatorSubsystem),
-        new CrossSlideCmd(Position.CUBE_SCORE_HIGH, crossSlide, false),
+        new SequentialCommandGroup(
+          new CrossSlideCmd(Position.STOW, crossSlide, false)
+          .withTimeout(0.25),
+          new CrossSlideCmd(Position.CUBE_SCORE_HIGH, crossSlide, false)
+        ),
         new IntakePivotCmd(Position.STOW, intakePivot, false)
       ),
       new ParallelRaceGroup(

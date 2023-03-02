@@ -31,10 +31,14 @@ import frc.robot.commands.AutoConeHigh;
 import frc.robot.commands.AutoCubeHigh;
 import frc.robot.commands.AutoHighScoreConeBalance;
 import frc.robot.commands.AutoHighScoreConeCubeIntake;
+import frc.robot.commands.ConeIntakeDoubleSubstation;
 import frc.robot.commands.ConeIntakeGround;
 import frc.robot.commands.ConeScoreHigh;
+import frc.robot.commands.ConeScoreMid;
 import frc.robot.commands.CrossSlideCmd;
 import frc.robot.commands.CubeIntakeGround;
+import frc.robot.commands.CubeScoreHigh;
+import frc.robot.commands.CubeScoreMid;
 import frc.robot.commands.ElevatorCmd;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.HoldAtCurrentPosition;
@@ -269,18 +273,18 @@ public class RobotContainer {
                                     () -> robotState.getConeMode()));
 
   new POVButton(operatorController, GamePadButtons.Right)
-  .onTrue(new ConditionalCommand(new ConeScoreMid_OLD(crossSlide, intakePivot, elevator), //runs if cone mode
-                                new CubeScoreMid_OLD(crossSlide, intakePivot, elevator), //runs if cube mode (or cone mode false)
+  .onTrue(new ConditionalCommand(new ConeScoreMid(crossSlide, intakePivot, elevator), //runs if cone mode
+                                new CubeScoreMid(crossSlide, intakePivot, elevator), //runs if cube mode (or cone mode false)
                                   () -> robotState.getConeMode()));
 
 
   new POVButton(operatorController, GamePadButtons.Up)
   .onTrue(new ConditionalCommand(new ConeScoreHigh(crossSlide, intakePivot, elevator), //runs if cone mode
-                                  new CubeScoreHigh_OLD(crossSlide, intakePivot, elevator), //runs if cube mode (or cone mode false)
+                                  new CubeScoreHigh(crossSlide, intakePivot, elevator), //runs if cube mode (or cone mode false)
                                     () -> robotState.getConeMode()));
   
   new JoystickButton(operatorController, GamePadButtons.Select)
-  .onTrue(new ConeIntakeDoubleSubstation_OLD(crossSlide, intakePivot, elevator));
+  .onTrue(new ConeIntakeDoubleSubstation(crossSlide, intakePivot, elevator));
 
   new JoystickButton(operatorController, GamePadButtons.LB)
   .whileTrue(new RunCommand(() -> elevator.manualElevator((operatorController.getRightTriggerAxis()-operatorController.getLeftTriggerAxis())*.1), elevator))
