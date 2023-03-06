@@ -14,14 +14,11 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoBalance;
-import frc.robot.commands.AutoConeCubeBottomBalance;
 import frc.robot.commands.AutoConeHigh;
 import frc.robot.commands.AutoCubeHigh;
-import frc.robot.commands.AutoDriveAndRot;
 import frc.robot.commands.AutoHighScoreConeBalance;
 import frc.robot.commands.AutoHighScoreConeCubeIntake;
 import frc.robot.commands.AutoHighScoreCubeBalance;
-import frc.robot.commands.AutoConeCubeTopBalance;
 import frc.robot.commands.ConeIntakeDoubleSubstation;
 import frc.robot.commands.ConeIntakeGround;
 import frc.robot.commands.ConeScoreHigh;
@@ -144,19 +141,19 @@ public class RobotContainer {
     autoChoice.addOption(
         "High Cone Balance",
         new AutoHighScoreConeBalance(driveTrain, elevator, crossSlide, intakePivot, intake));
-    autoChoice.addOption("High Cube Balance", 
-        new AutoHighScoreCubeBalance(driveTrain, elevator,crossSlide,intakePivot, intake));
+    autoChoice.addOption(
+        "High Cube Balance",
+        new AutoHighScoreCubeBalance(driveTrain, elevator, crossSlide, intakePivot, intake));
     autoChoice.addOption(
         "High Cone Drive to Center",
         new AutoHighScoreConeCubeIntake(driveTrain, elevator, crossSlide, intakePivot, intake));
     autoChoice.addOption(
-        "Auto Cone Hight",
-        new AutoConeHigh(elevator, crossSlide, intakePivot, intake));
+        "Auto Cone Hight", new AutoConeHigh(elevator, crossSlide, intakePivot, intake));
     //    new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
-    //autoChoice.addOption(
+    // autoChoice.addOption(
     //    "AutoConeCubeTopBalance",
     //    new AutoConeCubeTopBalance(elevator, crossSlide, intakePivot, intake, driveTrain));
-    //autoChoice.addOption(
+    // autoChoice.addOption(
     //    "AutoConeCubeBottomBalance",
     //    new AutoConeCubeBottomBalance(elevator, crossSlide, intakePivot, intake, driveTrain));
 

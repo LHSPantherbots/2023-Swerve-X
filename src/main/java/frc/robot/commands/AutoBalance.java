@@ -21,11 +21,11 @@ public class AutoBalance extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ParallelRaceGroup(
-          new RunCommand(() -> driveSubsystem.drive(0.6, 0.0, 0.0, true), driveSubsystem)
-              .until(() -> driveSubsystem.isAtAutoBalanceAngle()),
-          new ElevatorCmd(Position.HOLD, elevator, false).withTimeout(6.0)
-          // .withTimeout(5)
-        ),
+            new RunCommand(() -> driveSubsystem.drive(0.6, 0.0, 0.0, true), driveSubsystem)
+                .until(() -> driveSubsystem.isAtAutoBalanceAngle()),
+            new ElevatorCmd(Position.HOLD, elevator, false).withTimeout(6.0)
+            // .withTimeout(5)
+            ),
         new RunCommand(driveSubsystem::xWheels, driveSubsystem));
   }
 }

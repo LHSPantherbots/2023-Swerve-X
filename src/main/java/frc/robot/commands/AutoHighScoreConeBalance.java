@@ -59,7 +59,7 @@ public class AutoHighScoreConeBalance extends SequentialCommandGroup {
             List.of(new Translation2d(0.5, 0)),
             // List.of(new Translation2d(.5, .5), new Translation2d(1.0, -.5)),
             // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(2.2, 0.0, new Rotation2d(Math.PI)),//2.0
+            new Pose2d(2.2, 0.0, new Rotation2d(Math.PI)), // 2.0
             // config);
             rev_config);
 
@@ -98,7 +98,7 @@ public class AutoHighScoreConeBalance extends SequentialCommandGroup {
         new InstantCommand(driveTrain::restAll180, driveTrain),
         new ParallelRaceGroup(
             new AutoBalance(driveTrain, elevator),
-            //new ElevatorCmd(Position.HOLD, elevator, false),
+            // new ElevatorCmd(Position.HOLD, elevator, false),
             new CrossSlideCmd(Position.HOLD, crossslide, false),
             new IntakePivotCmd(Position.HOLD, intakepivot, false)));
   }

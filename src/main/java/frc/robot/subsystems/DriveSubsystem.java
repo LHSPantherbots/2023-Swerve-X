@@ -31,7 +31,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   private double lastTimestamp = Timer.getFPGATimestamp();
   private double lastAngle = 0.0;
-  private double autoBalanceAngle = 8.0; // was 0.0 check that when back is up that the robot is at a positive roll angle
+  private double autoBalanceAngle =
+      8.0; // was 0.0 check that when back is up that the robot is at a positive roll angle
 
   // Robot swerve modules
   private final SwerveModule m_frontLeft =
