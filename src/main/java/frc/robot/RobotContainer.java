@@ -20,6 +20,7 @@ import frc.robot.commands.AutoCubeHigh;
 import frc.robot.commands.AutoDriveAndRot;
 import frc.robot.commands.AutoHighScoreConeBalance;
 import frc.robot.commands.AutoHighScoreConeCubeIntake;
+import frc.robot.commands.AutoHighScoreCubeBalance;
 import frc.robot.commands.AutoConeCubeTopBalance;
 import frc.robot.commands.ConeIntakeDoubleSubstation;
 import frc.robot.commands.ConeIntakeGround;
@@ -136,25 +137,28 @@ public class RobotContainer {
 
     SmartDashboard.putData("Intake Hold", new IntakeHold(intake));
 
-    SmartDashboard.putData("Auto Balance", new AutoBalance(driveTrain));
+    SmartDashboard.putData("Auto Balance", new AutoBalance(driveTrain, elevator));
 
     Shuffleboard.getTab("Autonomous").add(autoChoice);
     autoChoice.addOption("Do Nothing", new RunCommand(() -> driveTrain.drive(0, 0, 0, true)));
     autoChoice.addOption(
         "High Cone Balance",
         new AutoHighScoreConeBalance(driveTrain, elevator, crossSlide, intakePivot, intake));
+    autoChoice.addOption("High Cube Balance", 
+        new AutoHighScoreCubeBalance(driveTrain, elevator,crossSlide,intakePivot, intake));
     autoChoice.addOption(
-        "High Cone Cube Intake",
+        "High Cone Drive to Center",
         new AutoHighScoreConeCubeIntake(driveTrain, elevator, crossSlide, intakePivot, intake));
     autoChoice.addOption(
-        "PPDriveAndRot",
-        new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
-    autoChoice.addOption(
-        "AutoConeCubeTopBalance",
-        new AutoConeCubeTopBalance(elevator, crossSlide, intakePivot, intake, driveTrain));
-    autoChoice.addOption(
-        "AutoConeCubeBottomBalance",
-        new AutoConeCubeBottomBalance(elevator, crossSlide, intakePivot, intake, driveTrain));
+        "Auto Cone Hight",
+        new AutoConeHigh(elevator, crossSlide, intakePivot, intake));
+    //    new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
+    //autoChoice.addOption(
+    //    "AutoConeCubeTopBalance",
+    //    new AutoConeCubeTopBalance(elevator, crossSlide, intakePivot, intake, driveTrain));
+    //autoChoice.addOption(
+    //    "AutoConeCubeBottomBalance",
+    //    new AutoConeCubeBottomBalance(elevator, crossSlide, intakePivot, intake, driveTrain));
 
     // Configure the button bindings
     configureButtonBindings();

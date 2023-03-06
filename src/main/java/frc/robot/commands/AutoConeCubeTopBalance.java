@@ -32,7 +32,7 @@ public class AutoConeCubeTopBalance extends SequentialCommandGroup {
         new AutoCubeHigh(elevator, crossslide, intakepivot, intake),
         new ParallelRaceGroup(
             new StowAll(crossslide, intakepivot, elevator), new PPAuto("TopToChargeStation")),
-        new RunCommand(() -> driveTrain.drive(0.6, 0.0, 0.0, true), driveTrain)
+        new RunCommand(() -> driveTrain.drive(0.7, 0.0, 0.0, true), driveTrain)
             .until(() -> driveTrain.isAtAutoBalanceAngle()),
         new RunCommand(driveTrain::xWheels, driveTrain));
   }

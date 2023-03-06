@@ -30,13 +30,13 @@ import frc.robot.util.Position;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoHighScoreConeBalance extends SequentialCommandGroup {
+public class AutoHighScoreCubeBalance extends SequentialCommandGroup {
 
   Trajectory backupTrajectory = new Trajectory();
   SwerveControllerCommand backupSwerveCommand;
 
   /** Creates a new HighScoreConeBalanceAuto. */
-  public AutoHighScoreConeBalance(
+  public AutoHighScoreCubeBalance(
       DriveSubsystem driveTrain,
       ElevatorSubsystem elevator,
       CrossSlideSubsystem crossslide,
@@ -59,7 +59,7 @@ public class AutoHighScoreConeBalance extends SequentialCommandGroup {
             List.of(new Translation2d(0.5, 0)),
             // List.of(new Translation2d(.5, .5), new Translation2d(1.0, -.5)),
             // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(2.2, 0.0, new Rotation2d(Math.PI)),//2.0
+            new Pose2d(1.5, 0.0, new Rotation2d(Math.PI)),
             // config);
             rev_config);
 
@@ -89,7 +89,7 @@ public class AutoHighScoreConeBalance extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new InstantCommand(() -> driveTrain.resetOdometryReverse(driveTrain.getPose()), driveTrain),
-        new AutoConeHigh(elevator, crossslide, intakepivot, intake),
+        new AutoCubeHigh(elevator, crossslide, intakepivot, intake),
         new ParallelRaceGroup(
             swerveControllerCommand,
             new ElevatorCmd(Position.HOLD, elevator, false),
