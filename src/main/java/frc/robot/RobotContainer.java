@@ -31,6 +31,7 @@ import frc.robot.commands.ElevatorCmd;
 import frc.robot.commands.HoldAtCurrentPosition;
 import frc.robot.commands.IntakeHold;
 import frc.robot.commands.IntakePivotCmd;
+import frc.robot.commands.PPEventTest;
 import frc.robot.commands.StowAll;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -149,6 +150,8 @@ public class RobotContainer {
         new AutoHighScoreConeCubeIntake(driveTrain, elevator, crossSlide, intakePivot, intake));
     autoChoice.addOption(
         "Auto Cone Hight", new AutoConeHigh(elevator, crossSlide, intakePivot, intake));
+    autoChoice.addOption(
+        "EventTest", new PPEventTest(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     //    new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
     // autoChoice.addOption(
     //    "AutoConeCubeTopBalance",

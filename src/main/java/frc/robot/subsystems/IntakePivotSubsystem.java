@@ -36,8 +36,8 @@ public class IntakePivotSubsystem extends SubsystemBase {
   private double kI = 0.0;
   private double kD = 0.0;
   private double kIz = 0.0;
-  private double maxVel = 100.0; // 100.0; //deg/sec
-  private double maxAcc = 250.0; // 250.0; //deg/sec/sed
+  private double maxVel = 800.0; // 100.0; //deg/sec
+  private double maxAcc = 800.0; // 250.0; //deg/sec/sed
   private double karbFF = 0.0; // Scaling Constant for arbitrary feed forward.
   private double allowableError = 2.0;
   private double positionSetpoint = 180.0;
@@ -138,7 +138,8 @@ public class IntakePivotSubsystem extends SubsystemBase {
   }
 
   public void setPositionintakeCube() {
-    positionSetpoint = 75.0;
+    // positionSetpoint = 86.0;
+    positionSetpoint = 80;
     closedLoopIntakePivot();
   }
 
