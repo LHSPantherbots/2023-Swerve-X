@@ -22,18 +22,23 @@ import frc.robot.subsystems.Leds;
 
 public class PPEventTest extends SequentialCommandGroup {
 
-    public PPEventTest(
-        ElevatorSubsystem elevator,
-        CrossSlideSubsystem crossslide,
-        IntakePivotSubsystem intakepivot,
-        IntakeSubsystem intake,
-        DriveSubsystem drivesubsystem,
-        Leds led
-    ) {
-        PathPlannerTrajectory path = PathPlanner.loadPath("EventTest", new PathConstraints(3, 2), false);
-        HashMap<String, Command> eventMap = new HashMap<>();
-        // eventMap.put("event1", new RunCommand(led::bluePulse, led));
-        eventMap.put("event1", new CubeIntakeGround(crossslide, intakepivot, elevator).alongWith(new RunCommand(intake::intakeCube, intake).withTimeout(1.0)).andThen(new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake))));
+  public PPEventTest(
+      ElevatorSubsystem elevator,
+      CrossSlideSubsystem crossslide,
+      IntakePivotSubsystem intakepivot,
+      IntakeSubsystem intake,
+      DriveSubsystem drivesubsystem,
+      Leds led) {
+    PathPlannerTrajectory path =
+        PathPlanner.loadPath("EventTest", new PathConstraints(3, 2), false);
+    HashMap<String, Command> eventMap = new HashMap<>();
+    // eventMap.put("event1", new RunCommand(led::bluePulse, led));
+    eventMap.put(
+        "event1",
+        new CubeIntakeGround(crossslide, intakepivot, elevator)
+            .alongWith(new RunCommand(intake::intakeCube, intake).withTimeout(1.0))
+            .andThen(
+                new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake))));
 
     SwerveAutoBuilder autoBuilder =
         new SwerveAutoBuilder(
@@ -43,19 +48,18 @@ public class PPEventTest extends SequentialCommandGroup {
             new PIDConstants(
                 5.0, 0.0,
                 0.0), // PID constants to correct for translation error (used to create the X and Y
-                      // PID controllers)
+            // PID controllers)
             new PIDConstants(
                 3.0, 0.0,
                 0.0), // PID constants to correct for rotation error (used to create the rotation
-                      // controller),
+            // controller),
             drivesubsystem::setModuleStates,
-            eventMap, drivesubsystem);
-        addCommands(
-            new InstantCommand(() -> drivesubsystem.resetOdometry(path.getInitialPose())),
-            new AutoConeHigh(elevator, crossslide, intakepivot, intake),
-            autoBuilder.fullAuto(path),
-            new SpitCubeHigh(elevator, crossslide, intakepivot, intake)
-        );
-    }
-    
+            eventMap,
+            drivesubsystem);
+    addCommands(
+        new InstantCommand(() -> drivesubsystem.resetOdometry(path.getInitialPose())),
+        new AutoConeHigh(elevator, crossslide, intakepivot, intake),
+        autoBuilder.fullAuto(path),
+        new SpitCubeHigh(elevator, crossslide, intakepivot, intake));
+  }
 }

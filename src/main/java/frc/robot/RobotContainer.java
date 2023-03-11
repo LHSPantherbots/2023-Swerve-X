@@ -157,13 +157,20 @@ public class RobotContainer {
     autoChoice.addOption(
         "EventTest", new PPEventTest(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
-        "LoadStationSideCubePickupDock", new LoadStationSideCubePickupDock(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+        "LoadStationSideCubePickupDock",
+        new LoadStationSideCubePickupDock(
+            elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
-        "PowerCordSideCubePickupDock", new PowerCordSideCubePickupDock(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+        "PowerCordSideCubePickupDock",
+        new PowerCordSideCubePickupDock(
+            elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
-        "PowerCordSideCubePickupScore", new PowerCordSideCubePickupScore(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+        "PowerCordSideCubePickupScore",
+        new PowerCordSideCubePickupScore(
+            elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
-        "FullSendChargeStation", new FullSendChargeStation(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+        "FullSendChargeStation",
+        new FullSendChargeStation(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     //    new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
     // autoChoice.addOption(
     //    "AutoConeCubeTopBalance",

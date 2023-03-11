@@ -16,9 +16,11 @@ import frc.robot.util.Position;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoBalance extends SequentialCommandGroup {
   double xSpeed;
+
   public AutoBalance(DriveSubsystem driveSubsystem, ElevatorSubsystem elevator) {
     this(driveSubsystem, elevator, false);
-  };
+  }
+  ;
   /** Creates a new AutoBalance. */
   public AutoBalance(DriveSubsystem driveSubsystem, ElevatorSubsystem elevator, Boolean reversed) {
     if (reversed) {

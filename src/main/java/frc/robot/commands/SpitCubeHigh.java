@@ -11,23 +11,18 @@ import frc.robot.util.Position;
 
 public class SpitCubeHigh extends SequentialCommandGroup {
 
-    public SpitCubeHigh(
-        ElevatorSubsystem elevator,
+  public SpitCubeHigh(
+      ElevatorSubsystem elevator,
       CrossSlideSubsystem crossslide,
       IntakePivotSubsystem intakepivot,
-      IntakeSubsystem intake
-    ) {
-        addCommands(
-            new ParallelRaceGroup(
-                new ElevatorCmd(Position.CUBE_SCORE_HIGH, elevator),
-                new SequentialCommandGroup(
-                    new CrossSlideCmd(Position.STOW, crossslide, false).withTimeout(0.25),
-                    new CrossSlideCmd(Position.CUBE_SCORE_HIGH, crossslide, false)
-                ),
-                new IntakePivotCmd(Position.STOW, intakepivot, false)
-            ),
-            new RunCommand(intake::ejectCube, intake).withTimeout(0.5)
-        );
-    }
-    
+      IntakeSubsystem intake) {
+    addCommands(
+        new ParallelRaceGroup(
+            new ElevatorCmd(Position.CUBE_SCORE_HIGH, elevator),
+            new SequentialCommandGroup(
+                new CrossSlideCmd(Position.STOW, crossslide, false).withTimeout(0.25),
+                new CrossSlideCmd(Position.CUBE_SCORE_HIGH, crossslide, false)),
+            new IntakePivotCmd(Position.STOW, intakepivot, false)),
+        new RunCommand(intake::ejectCube, intake).withTimeout(0.5));
+  }
 }
