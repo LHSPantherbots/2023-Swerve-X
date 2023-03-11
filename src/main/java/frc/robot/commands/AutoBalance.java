@@ -15,13 +15,22 @@ import frc.robot.util.Position;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoBalance extends SequentialCommandGroup {
-  /** Creates a new AutoBalance. */
+  double xSpeed;
   public AutoBalance(DriveSubsystem driveSubsystem, ElevatorSubsystem elevator) {
+    this(driveSubsystem, elevator, false);
+  };
+  /** Creates a new AutoBalance. */
+  public AutoBalance(DriveSubsystem driveSubsystem, ElevatorSubsystem elevator, Boolean reversed) {
+    if (reversed) {
+      this.xSpeed = -0.6;
+    } else {
+      this.xSpeed = 0.6;
+    }
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ParallelRaceGroup(
-            new RunCommand(() -> driveSubsystem.drive(0.6, 0.0, 0.0, true), driveSubsystem)
+            new RunCommand(() -> driveSubsystem.drive(this.xSpeed, 0.0, 0.0, true), driveSubsystem)
                 .until(() -> driveSubsystem.isAtAutoBalanceAngle()),
             new ElevatorCmd(Position.HOLD, elevator, false).withTimeout(6.0)
             // .withTimeout(5)

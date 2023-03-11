@@ -981,7 +981,460 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "titleType": 0,
-        "tiles": {}
+        "tiles": {
+          "0,0": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[4]",
+              "_title": "Ungrouped/PIDController[4]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Counter[0]/Value",
+              "_title": "Ungrouped/Counter[0]/Value",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[16]",
+              "_title": "Ungrouped/PIDController[16]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[13]",
+              "_title": "Ungrouped/PIDController[13]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[15]",
+              "_title": "Ungrouped/PIDController[15]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/ElevatorSubsystem",
+              "_title": "ElevatorSubsystem",
+              "_glyph": 149,
+              "_showGlyph": false,
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[20]",
+              "_title": "Ungrouped/PIDController[20]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Counter[1]/Value",
+              "_title": "Ungrouped/Counter[1]/Value",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Scheduler/Ids",
+              "_title": "Ungrouped/Scheduler/Ids",
+              "_glyph": 149,
+              "_showGlyph": false,
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          },
+          "11,0": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[11]",
+              "_title": "Ungrouped/PIDController[11]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Voltage View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/AnalogInput[0]",
+              "_title": "Ungrouped/AnalogInput[0]",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Range/Min": 0.0,
+              "Range/Max": 5.0,
+              "Range/Center": 0.0,
+              "Visuals/Orientation": "HORIZONTAL",
+              "Visuals/Number of tick marks": 5
+            }
+          },
+          "12,0": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[6]",
+              "_title": "Ungrouped/PIDController[6]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,2": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/IntakeSubsystem",
+              "_title": "IntakeSubsystem",
+              "_glyph": 149,
+              "_showGlyph": false,
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          },
+          "7,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Voltage View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/AnalogInput[1]",
+              "_title": "Ungrouped/AnalogInput[1]",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Range/Min": 0.0,
+              "Range/Max": 5.0,
+              "Range/Center": 0.0,
+              "Visuals/Orientation": "HORIZONTAL",
+              "Visuals/Number of tick marks": 5
+            }
+          },
+          "1,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Analog Encoder[3]/Distance",
+              "_title": "Ungrouped/Analog Encoder[3]/Distance",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Analog Encoder[3]/Distance Per Rotation",
+              "_title": "Ungrouped/Analog Encoder[3]/Distance Per Rotation",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,2": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[8]",
+              "_title": "Ungrouped/PIDController[8]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "11,2": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/IntakePivotSubsystem",
+              "_title": "IntakePivotSubsystem",
+              "_glyph": 149,
+              "_showGlyph": false,
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          },
+          "0,3": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[7]",
+              "_title": "Ungrouped/PIDController[7]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "1,3": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[10]",
+              "_title": "Ungrouped/PIDController[10]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[18]",
+              "_title": "Ungrouped/PIDController[18]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[17]",
+              "_title": "Ungrouped/PIDController[17]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Counter[3]/Value",
+              "_title": "Ungrouped/Counter[3]/Value",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Voltage View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/AnalogInput[3]",
+              "_title": "Ungrouped/AnalogInput[3]",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Range/Min": 0.0,
+              "Range/Max": 5.0,
+              "Range/Center": 0.0,
+              "Visuals/Orientation": "HORIZONTAL",
+              "Visuals/Number of tick marks": 5
+            }
+          },
+          "9,4": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[5]",
+              "_title": "Ungrouped/PIDController[5]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "10,4": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[2]",
+              "_title": "Ungrouped/PIDController[2]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]/p",
+              "_title": "Ungrouped/PIDController[1]/p",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "1,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]/i",
+              "_title": "Ungrouped/PIDController[1]/i",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]/d",
+              "_title": "Ungrouped/PIDController[1]/d",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]/setpoint",
+              "_title": "Ungrouped/PIDController[1]/setpoint",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Analog Encoder[0]/Distance",
+              "_title": "Ungrouped/Analog Encoder[0]/Distance",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Analog Encoder[0]/Distance Per Rotation",
+              "_title": "Ungrouped/Analog Encoder[0]/Distance Per Rotation",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[9]/p",
+              "_title": "Ungrouped/PIDController[9]/p",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          }
+        }
       }
     },
     {
@@ -1299,7 +1752,7 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "6,0": {
+          "0,4": {
             "size": [
               2,
               1
@@ -1312,7 +1765,7 @@
               "_showGlyph": false
             }
           },
-          "6,1": {
+          "4,3": {
             "size": [
               2,
               1
@@ -1325,7 +1778,7 @@
               "_showGlyph": false
             }
           },
-          "7,2": {
+          "0,3": {
             "size": [
               2,
               1
@@ -1338,7 +1791,7 @@
               "_showGlyph": false
             }
           },
-          "7,3": {
+          "2,3": {
             "size": [
               2,
               1
@@ -1371,7 +1824,7 @@
               "Visible data/SmartDashboard/Intake Pivot Absolute Encoder Velocity": true
             }
           },
-          "3,4": {
+          "2,4": {
             "size": [
               1,
               1
@@ -1384,7 +1837,7 @@
               "_showGlyph": false
             }
           },
-          "5,3": {
+          "0,5": {
             "size": [
               1,
               1
@@ -1397,7 +1850,7 @@
               "_showGlyph": false
             }
           },
-          "5,4": {
+          "1,5": {
             "size": [
               1,
               1
@@ -1410,7 +1863,7 @@
               "_showGlyph": false
             }
           },
-          "8,0": {
+          "4,4": {
             "size": [
               1,
               1
@@ -1425,7 +1878,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "7,4": {
+          "2,5": {
             "size": [
               1,
               1
@@ -1434,6 +1887,61 @@
               "_type": "Command",
               "_source0": "network_table:///SmartDashboard/Hold Position",
               "_title": "SmartDashboard/Hold Position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,0": {
+            "size": [
+              7,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Intake Motor Current",
+              "_title": "SmartDashboard/Intake Motor Current",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": false,
+              "Y-axis/Upper bound": 50.0,
+              "Y-axis/Lower bound": 0.0,
+              "Y-axis/Unit": "Amps",
+              "Visible data/SmartDashboard/Intake Motor Current": true
+            }
+          },
+          "6,3": {
+            "size": [
+              7,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Intake Pivot Position Setpoint",
+              "_source1": "network_table:///SmartDashboard/Intake Pivot Absolute Encoder Position",
+              "_title": "SmartDashboard/Intake Pivot Absolute Encoder Position",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": false,
+              "Y-axis/Upper bound": 200.0,
+              "Y-axis/Lower bound": 60.0,
+              "Y-axis/Unit": "deg",
+              "Visible data/SmartDashboard/Intake Pivot Absolute Encoder Position": true,
+              "Visible data/SmartDashboard/Intake Pivot Position Setpoint": true
+            }
+          },
+          "3,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Pivot Position Setpoint",
+              "_title": "SmartDashboard/Intake Pivot Position Setpoint",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -1957,6 +2465,6 @@
     "x": -8.0,
     "y": -8.0,
     "width": 1936.0,
-    "height": 1048.0
+    "height": 1056.0
   }
 }
