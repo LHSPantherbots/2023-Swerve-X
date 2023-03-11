@@ -29,8 +29,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   private double kI = 0.0;
   private double kD = 0.0;
   private double kIz = 0.0;
-  private double maxVel = 90.0;
-  private double maxAcc = 90.0;
+  private double maxVel = 120.0;
+  private double maxAcc = 100.0;
   private double allowableError = 1.0;
   private double heightSetpoint = 0.0;
   private double lastSetpoint = 0.0;

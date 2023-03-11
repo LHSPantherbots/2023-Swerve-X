@@ -26,7 +26,7 @@ public class AutoConeHigh extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ConeScoreHigh(crossslide, intakepivot, elevator),
-        new RunCommand(intake::ejectCone, intake).withTimeout(1.0),
+        new RunCommand(intake::ejectCone, intake).withTimeout(0.5),
         new InstantCommand(intake::stopIntake, intake),
         new StowAll(crossslide, intakepivot, elevator));
   }

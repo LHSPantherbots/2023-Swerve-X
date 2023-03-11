@@ -32,12 +32,12 @@ public class IntakePivotSubsystem extends SubsystemBase {
   private final TrapezoidProfile.Constraints m_constraints;
   private final ProfiledPIDController m_controller;
 
-  private double kP = 0.01;
+  private double kP = 0.02;
   private double kI = 0.0;
   private double kD = 0.0;
   private double kIz = 0.0;
-  private double maxVel = 800.0; // 100.0; //deg/sec
-  private double maxAcc = 800.0; // 250.0; //deg/sec/sed
+  private double maxVel = 500.0; // 100.0; //deg/sec
+  private double maxAcc = 600.0; // 250.0; //deg/sec/sed
   private double karbFF = 0.0; // Scaling Constant for arbitrary feed forward.
   private double allowableError = 2.0;
   private double positionSetpoint = 180.0;
@@ -50,7 +50,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
     intakePivot.restoreFactoryDefaults();
 
     // Set limit low when starting to keep from destroying itself before tuning;
-    intakePivot.setSmartCurrentLimit(15);
+    intakePivot.setSmartCurrentLimit(40);
 
     // Adjust this value if the intake pivot is accellerating too fast
     intakePivot.setClosedLoopRampRate(0.25);
@@ -139,7 +139,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
 
   public void setPositionintakeCube() {
     // positionSetpoint = 86.0;
-    positionSetpoint = 80;
+    positionSetpoint = 75;
     closedLoopIntakePivot();
   }
 
