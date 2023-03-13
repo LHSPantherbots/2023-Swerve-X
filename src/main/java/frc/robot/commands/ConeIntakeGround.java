@@ -68,11 +68,7 @@ public class ConeIntakeGround extends SequentialCommandGroup {
                             // End the command when intakePivot is at Position
                             () -> crossSlide.isAtPosition(),
                             // Require the crossSlide subsystem
-                            crossSlide)
-                        .raceWith(
-                            new RunCommand(
-                                elevatorSubsystem::closedLoopElevator, elevatorSubsystem))
-                        .raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))),
+                            crossSlide)),
                 new FunctionalCommand(
                         // Reset controller on command start
                         intakePivot::resetController,

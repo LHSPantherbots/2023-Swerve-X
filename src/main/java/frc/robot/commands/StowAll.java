@@ -41,7 +41,23 @@ public class StowAll extends SequentialCommandGroup {
                 intakePivot)
             .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
             .raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem)),
-        new ParallelDeadlineGroup(
+
+            new FunctionalCommand(
+                // Reset controller on command start
+                crossSlide::resetController,
+                // run the crossSlide to the stow position
+                () -> crossSlide.setPositionStow(),
+                // at the end of the command call the closed loop cross slide to hold the
+                // setpoint
+                interrupted -> crossSlide.closedLoopCrossSlide(),
+                // End the command when intakePivot is at Position
+                () -> false,
+                // Require the crossSlide subsystem
+                crossSlide)
+            .raceWith(new InstantCommand(intakePivot::resetController, intakePivot))
+            .andThen(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))
+            .raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem)),
+
             new FunctionalCommand(
                 // Reset controller on command start
                 elevatorSubsystem::resetController,
@@ -52,21 +68,10 @@ public class StowAll extends SequentialCommandGroup {
                 // End the command when elevator is at Position
                 () -> elevatorSubsystem.isAtHeight(),
                 // Require the elevator subsystem
-                elevatorSubsystem),
-            new FunctionalCommand(
-                    // Reset controller on command start
-                    crossSlide::resetController,
-                    // run the crossSlide to the stow position
-                    () -> crossSlide.setPositionStow(),
-                    // at the end of the command call the closed loop cross slide to hold the
-                    // setpoint
-                    interrupted -> crossSlide.closedLoopCrossSlide(),
-                    // End the command when intakePivot is at Position
-                    () -> false,
-                    // Require the crossSlide subsystem
-                    crossSlide)
-                .raceWith(new InstantCommand(intakePivot::resetController, intakePivot))
-                .andThen(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot)))
+                elevatorSubsystem)
+                .raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))
+                .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
+
 
         // new RunCommand(intakePivot::setPositionStow, intakePivot).withTimeout(1.0),
         // new InstantCommand(crossSlide::resetController, crossSlide),

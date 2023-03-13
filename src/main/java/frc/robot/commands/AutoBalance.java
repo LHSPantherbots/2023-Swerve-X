@@ -18,12 +18,13 @@ public class AutoBalance extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
-    new ParallelRaceGroup(
+      addCommands(
         new RunCommand(() -> driveSubsystem.drive(0.6, 0.0, 0.0, true), driveSubsystem)
-            .until(() -> driveSubsystem.isAtAutoBalanceAngle())
+            .until(() -> driveSubsystem.isAtAutoBalanceAngle()),
 
         // .withTimeout(5)
-        ,
-        new RunCommand(driveSubsystem::xWheels, driveSubsystem));
+        
+        new RunCommand(driveSubsystem::xWheels, driveSubsystem)
+      );
   }
 }
