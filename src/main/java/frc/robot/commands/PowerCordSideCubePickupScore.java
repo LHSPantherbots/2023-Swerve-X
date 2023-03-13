@@ -47,11 +47,11 @@ public class PowerCordSideCubePickupScore extends SequentialCommandGroup {
             new PIDConstants(
                 5.0, 0.0,
                 0.0), // PID constants to correct for translation error (used to create the X and Y
-                      // PID controllers)
+            // PID controllers)
             new PIDConstants(
                 3.0, 0.0,
                 0.0), // PID constants to correct for rotation error (used to create the rotation
-                      // controller),
+            // controller),
             drivesubsystem::setModuleStates,
             eventMap,
             drivesubsystem);

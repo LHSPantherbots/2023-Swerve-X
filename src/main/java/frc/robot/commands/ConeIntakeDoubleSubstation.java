@@ -25,7 +25,7 @@ public class ConeIntakeDoubleSubstation extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     addCommands(
-        //new ParallelRaceGroup(
+        // new ParallelRaceGroup(
         //    new ElevatorCmd(Position.CONE_STATION_INTAKE, elevatorSubsystem),
         //    new CrossSlideCmd(Position.CONE_STATION_INTAKE, crossSlide, false),
         //    new IntakePivotCmd(Position.STOW, intakePivot, false)),
@@ -33,9 +33,7 @@ public class ConeIntakeDoubleSubstation extends SequentialCommandGroup {
             new IntakePivotCmd(Position.CONE_STATION_INTAKE, intakePivot, false),
             new ElevatorCmd(Position.CONE_STATION_INTAKE, elevatorSubsystem, true),
             new CrossSlideCmd(Position.CONE_STATION_INTAKE, crossSlide, false)));
-    
+
     RobotContainer.robotState.setPosition(Position.CONE_STATION_INTAKE);
   }
-
-  
 }

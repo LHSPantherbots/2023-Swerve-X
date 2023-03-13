@@ -11,6 +11,7 @@ import frc.robot.util.Position;
 public class RobotStateSubsystem extends SubsystemBase {
   /** Creates a new RobotStateSubsystem. */
   private boolean coneMode = true; // defaults to cone mode
+
   private Position position = Position.STOW;
 
   public RobotStateSubsystem() {}
@@ -29,11 +30,11 @@ public class RobotStateSubsystem extends SubsystemBase {
     coneMode = mode;
   }
 
-  public Position getPosition(){
+  public Position getPosition() {
     return this.position;
   }
 
-  public void setPosition(Position position){
+  public void setPosition(Position position) {
     this.position = position;
   }
 }
