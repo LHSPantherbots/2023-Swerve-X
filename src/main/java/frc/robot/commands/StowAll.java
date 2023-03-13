@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CrossSlideSubsystem;
@@ -41,8 +40,7 @@ public class StowAll extends SequentialCommandGroup {
                 intakePivot)
             .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
             .raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem)),
-
-            new FunctionalCommand(
+        new FunctionalCommand(
                 // Reset controller on command start
                 crossSlide::resetController,
                 // run the crossSlide to the stow position
@@ -57,8 +55,7 @@ public class StowAll extends SequentialCommandGroup {
             .raceWith(new InstantCommand(intakePivot::resetController, intakePivot))
             .andThen(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))
             .raceWith(new RunCommand(elevatorSubsystem::closedLoopElevator, elevatorSubsystem)),
-
-            new FunctionalCommand(
+        new FunctionalCommand(
                 // Reset controller on command start
                 elevatorSubsystem::resetController,
                 // run the elevator to the stow position
@@ -69,9 +66,8 @@ public class StowAll extends SequentialCommandGroup {
                 () -> elevatorSubsystem.isAtHeight(),
                 // Require the elevator subsystem
                 elevatorSubsystem)
-                .raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))
-                .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
-
+            .raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot))
+            .raceWith(new RunCommand(crossSlide::closedLoopCrossSlide, crossSlide))
 
         // new RunCommand(intakePivot::setPositionStow, intakePivot).withTimeout(1.0),
         // new InstantCommand(crossSlide::resetController, crossSlide),

@@ -8,7 +8,6 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.GamePadButtons;
 import frc.robot.Constants.OIConstants;
 
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -258,7 +257,7 @@ public class RobotContainer {
                             * 2.0
                             * DriveConstants
                                 .kMaxSpeedMetersPerSecond, // Doubled the rotation because it was
-                                                           // not turning at reduced speed
+                        // not turning at reduced speed
                         true),
                 driveTrain))
         .whileTrue(new RunCommand(leds::orangePulse, leds));

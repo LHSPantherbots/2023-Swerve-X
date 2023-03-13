@@ -51,17 +51,17 @@ public class CubeIntakeGround extends SequentialCommandGroup {
                             elevatorSubsystem)
                         .raceWith(new RunCommand(intakePivot::closedLoopIntakePivot, intakePivot)),
                     new FunctionalCommand(
-                            // Reset controller on command start
-                            crossSlide::resetController,
-                            // run the crossSlide to the out position
-                            () -> crossSlide.setPositionIntake(),
-                            // at the end of the command call the closed loop cross slide to hold
-                            // the setpoint
-                            interrupted -> crossSlide.stopCrossSlide(),
-                            // End the command when intakePivot is at Position
-                            () -> crossSlide.isAtPosition(),
-                            // Require the crossSlide subsystem
-                            crossSlide)),
+                        // Reset controller on command start
+                        crossSlide::resetController,
+                        // run the crossSlide to the out position
+                        () -> crossSlide.setPositionIntake(),
+                        // at the end of the command call the closed loop cross slide to hold
+                        // the setpoint
+                        interrupted -> crossSlide.stopCrossSlide(),
+                        // End the command when intakePivot is at Position
+                        () -> crossSlide.isAtPosition(),
+                        // Require the crossSlide subsystem
+                        crossSlide)),
                 new FunctionalCommand(
                         // Reset controller on command start
                         intakePivot::resetController,
