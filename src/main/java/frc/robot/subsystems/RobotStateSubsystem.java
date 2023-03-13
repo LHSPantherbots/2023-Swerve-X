@@ -6,10 +6,12 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.util.Position;
 
 public class RobotStateSubsystem extends SubsystemBase {
   /** Creates a new RobotStateSubsystem. */
   private boolean coneMode = true; // defaults to cone mode
+  private Position position = Position.STOW;
 
   public RobotStateSubsystem() {}
 
@@ -25,5 +27,13 @@ public class RobotStateSubsystem extends SubsystemBase {
 
   public void setConeMode(boolean mode) {
     coneMode = mode;
+  }
+
+  public Position getPosition(){
+    return this.position;
+  }
+
+  public void setPosition(Position position){
+    this.position = position;
   }
 }

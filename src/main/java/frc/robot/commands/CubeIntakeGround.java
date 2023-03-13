@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakePivotSubsystem;
@@ -48,5 +49,6 @@ public class CubeIntakeGround extends SequentialCommandGroup {
 
             // checks elevator position
             () -> (elevator.getElevatorHeight() > 10.0)));
+    RobotContainer.robotState.setPosition(Position.CUBE_INTAKE);
   }
 }

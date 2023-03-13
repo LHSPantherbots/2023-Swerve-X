@@ -153,7 +153,7 @@ public class RobotContainer {
         "High Cone Drive to Center",
         new AutoHighScoreConeCubeIntake(driveTrain, elevator, crossSlide, intakePivot, intake));
     autoChoice.addOption(
-        "Auto Cone Hight", new AutoConeHigh(elevator, crossSlide, intakePivot, intake));
+        "Auto Cone High", new AutoConeHigh(elevator, crossSlide, intakePivot, intake));
     autoChoice.addOption(
         "EventTest", new PPEventTest(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
