@@ -59,7 +59,7 @@ public class AutoHighScoreCubeBalance extends SequentialCommandGroup {
             List.of(new Translation2d(0.5, 0)),
             // List.of(new Translation2d(.5, .5), new Translation2d(1.0, -.5)),
             // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(1.5, 0.0, new Rotation2d(Math.PI)),
+            new Pose2d(2.2, 0.0, new Rotation2d(Math.PI)),
             // config);
             rev_config);
 
