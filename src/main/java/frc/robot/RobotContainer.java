@@ -155,7 +155,9 @@ public class RobotContainer {
     autoChoice.addOption(
         "Auto Cone High", new AutoConeHigh(elevator, crossSlide, intakePivot, intake));
     autoChoice.addOption(
-        "Load Station Side Cone High - Cube Pickup Score", new LoadStationSideCubePickupScore(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+        "Load Station Side Cone High - Cube Pickup Score",
+        new LoadStationSideCubePickupScore(
+            elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
         "LoadStationSideConeHighCubePickupDock",
         new LoadStationSideCubePickupDock(
