@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakePivotSubsystem;
@@ -32,6 +31,6 @@ public class CubeScoreMid extends SequentialCommandGroup {
             new ElevatorCmd(Position.CUBE_SCORE_MID, elevatorSubsystem, false),
             new CrossSlideCmd(Position.CUBE_SCORE_MID, crossSlide, false),
             new IntakePivotCmd(Position.CUBE_SCORE_MID, intakePivot)));
-    //RobotContainer.robotState.setPosition(Position.CUBE_SCORE_MID);
+    // RobotContainer.robotState.setPosition(Position.CUBE_SCORE_MID);
   }
 }

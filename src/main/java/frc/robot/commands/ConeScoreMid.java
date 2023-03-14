@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakePivotSubsystem;
@@ -32,6 +31,6 @@ public class ConeScoreMid extends SequentialCommandGroup {
             new IntakePivotCmd(Position.CONE_SCORE_MID, intakePivot),
             new ElevatorCmd(Position.CONE_SCORE_MID, elevatorSubsystem, false),
             new CrossSlideCmd(Position.CONE_SCORE_MID, crossSlide, false)));
-    //RobotContainer.robotState.setPosition(Position.CONE_SCORE_MID);
+    // RobotContainer.robotState.setPosition(Position.CONE_SCORE_MID);
   }
 }

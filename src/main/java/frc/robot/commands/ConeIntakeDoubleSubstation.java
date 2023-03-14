@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakePivotSubsystem;
@@ -34,6 +33,6 @@ public class ConeIntakeDoubleSubstation extends SequentialCommandGroup {
             new ElevatorCmd(Position.CONE_STATION_INTAKE, elevatorSubsystem, true),
             new CrossSlideCmd(Position.CONE_STATION_INTAKE, crossSlide, false)));
 
-    //RobotContainer.robotState.setPosition(Position.CONE_STATION_INTAKE);
+    // RobotContainer.robotState.setPosition(Position.CONE_STATION_INTAKE);
   }
 }
