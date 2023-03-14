@@ -20,9 +20,9 @@ import frc.robot.subsystems.IntakePivotSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Leds;
 
-public class PPEventTest extends SequentialCommandGroup {
+public class LoadStationSideCubePickupScore extends SequentialCommandGroup {
 
-  public PPEventTest(
+  public LoadStationSideCubePickupScore(
       ElevatorSubsystem elevator,
       CrossSlideSubsystem crossslide,
       IntakePivotSubsystem intakepivot,
@@ -30,7 +30,7 @@ public class PPEventTest extends SequentialCommandGroup {
       DriveSubsystem drivesubsystem,
       Leds led) {
     PathPlannerTrajectory path =
-        PathPlanner.loadPath("EventTest", new PathConstraints(3, 2), false);
+        PathPlanner.loadPath("LoadStationSideCubePickupScore", new PathConstraints(3, 2), false);
     HashMap<String, Command> eventMap = new HashMap<>();
     // eventMap.put("event1", new RunCommand(led::bluePulse, led));
     eventMap.put(

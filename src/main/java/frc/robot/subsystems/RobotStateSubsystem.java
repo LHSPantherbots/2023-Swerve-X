@@ -20,6 +20,7 @@ public class RobotStateSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Cone Mode", getConeMode());
+    SmartDashboard.putString("Position", getPosition().toString());
   }
 
   public boolean getConeMode() {

@@ -32,6 +32,6 @@ public class ConeScoreHigh extends SequentialCommandGroup {
             new IntakePivotCmd(Position.CONE_SCORE_HIGH, intakePivot),
             new ElevatorCmd(Position.CONE_SCORE_HIGH, elevatorSubsystem, false),
             new CrossSlideCmd(Position.CONE_SCORE_HIGH, crossSlide, false)));
-    RobotContainer.robotState.setPosition(Position.CONE_SCORE_HIGH);
+    //RobotContainer.robotState.setPosition(Position.CONE_SCORE_HIGH);
   }
 }

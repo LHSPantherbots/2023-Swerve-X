@@ -26,15 +26,15 @@ public class StowAll extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new ConditionalCommand( // Lifts the pivot
+        //new ConditionalCommand( // Lifts the pivot
             // if this is at the double subsatatoin them retract all simultaniously otherwise pull
             // in pivot then elevator and cross slide
 
-            new ParallelRaceGroup(
-                new ElevatorCmd(Position.STOW, elevator),
-                new CrossSlideCmd(Position.STOW, crossSlide, false),
-                new IntakePivotCmd(Position.STOW, intakePivot, false)),
-            new SequentialCommandGroup(
+            // new ParallelRaceGroup(
+            //     new ElevatorCmd(Position.STOW, elevator),
+            //     new CrossSlideCmd(Position.STOW, crossSlide, false),
+            //     new IntakePivotCmd(Position.STOW, intakePivot, false)),
+            // new SequentialCommandGroup(
                 // Lifts the pivot
                 new ParallelRaceGroup(
                     new IntakePivotCmd(Position.STOW, intakePivot),
@@ -43,9 +43,9 @@ public class StowAll extends SequentialCommandGroup {
                 new ParallelRaceGroup(
                     new ElevatorCmd(Position.STOW, elevator),
                     new CrossSlideCmd(Position.STOW, crossSlide, false),
-                    new IntakePivotCmd(Position.STOW, intakePivot, false))),
-            () -> (RobotContainer.robotState.getPosition() == Position.CONE_STATION_INTAKE)));
+                    new IntakePivotCmd(Position.STOW, intakePivot, false)));
+        //    () -> (RobotContainer.robotState.getPosition() == Position.CONE_STATION_INTAKE));
 
-    RobotContainer.robotState.setPosition(Position.STOW);
+    //RobotContainer.robotState.setPosition(Position.STOW);
   }
 }

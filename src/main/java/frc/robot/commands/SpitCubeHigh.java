@@ -25,6 +25,6 @@ public class SpitCubeHigh extends SequentialCommandGroup {
                 new CrossSlideCmd(Position.CUBE_SCORE_HIGH, crossslide, false)),
             new IntakePivotCmd(Position.STOW, intakepivot, false)),
         new RunCommand(intake::ejectCube, intake).withTimeout(0.5));
-    RobotContainer.robotState.setPosition(Position.CUBE_SCORE_HIGH);
+    //RobotContainer.robotState.setPosition(Position.CUBE_SCORE_HIGH);
   }
 }

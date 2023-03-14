@@ -49,6 +49,6 @@ public class CubeIntakeGround extends SequentialCommandGroup {
 
             // checks elevator position
             () -> (elevator.getElevatorHeight() > 10.0)));
-    RobotContainer.robotState.setPosition(Position.CUBE_INTAKE);
+    //RobotContainer.robotState.setPosition(Position.CUBE_INTAKE);
   }
 }

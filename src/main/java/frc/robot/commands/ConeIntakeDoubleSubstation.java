@@ -34,6 +34,6 @@ public class ConeIntakeDoubleSubstation extends SequentialCommandGroup {
             new ElevatorCmd(Position.CONE_STATION_INTAKE, elevatorSubsystem, true),
             new CrossSlideCmd(Position.CONE_STATION_INTAKE, crossSlide, false)));
 
-    RobotContainer.robotState.setPosition(Position.CONE_STATION_INTAKE);
+    //RobotContainer.robotState.setPosition(Position.CONE_STATION_INTAKE);
   }
 }
