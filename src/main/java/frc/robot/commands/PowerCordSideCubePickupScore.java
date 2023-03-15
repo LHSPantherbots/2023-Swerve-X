@@ -59,6 +59,7 @@ public class PowerCordSideCubePickupScore extends SequentialCommandGroup {
         new InstantCommand(() -> drivesubsystem.resetOdometry(path.getInitialPose())),
         new AutoConeHigh(elevator, crossslide, intakepivot, intake),
         autoBuilder.fullAuto(path),
-        new SpitCubeHigh(elevator, crossslide, intakepivot, intake));
+        new SpitCubeHigh(elevator, crossslide, intakepivot, intake),
+        new InstantCommand(drivesubsystem::restAll180, drivesubsystem));
   }
 }

@@ -337,7 +337,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void restAll180() {
     resetEncoders();
-    m_gyro.setYaw(180.0);
+    double currYaw = m_gyro.getYaw();
+    m_gyro.setYaw(currYaw - 180.0);
   }
 
   public double getHeadingRadians() {

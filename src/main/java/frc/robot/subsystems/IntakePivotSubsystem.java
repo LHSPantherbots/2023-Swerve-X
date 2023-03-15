@@ -32,13 +32,13 @@ public class IntakePivotSubsystem extends SubsystemBase {
   private final TrapezoidProfile.Constraints m_constraints;
   private final ProfiledPIDController m_controller;
 
-  private double kP = 0.02;
+  private double kP = 0.015; //0.02
   private double kI = 0.0;
   private double kD = 0.0;
   private double kIz = 0.0;
   private double maxVel = 500.0; // 100.0; //deg/sec
   private double maxAcc = 600.0; // 250.0; //deg/sec/sed
-  private double karbFF = 0.0; // Scaling Constant for arbitrary feed forward.
+  private double karbFF = 0.014; // Scaling Constant for arbitrary feed forward.
   private double allowableError = 2.0;
   private double positionSetpoint = 180.0;
   private double lastSetpoint = 0.0;
@@ -83,12 +83,13 @@ public class IntakePivotSubsystem extends SubsystemBase {
         "Intake Pivot Feed Forward Voltage Output", calculateArbitraryFeedforward());
     SmartDashboard.putNumber("Intake Motor Voltage", intakePivot.getAppliedOutput());
     SmartDashboard.putNumber("Intake Motor Current", intakePivot.getOutputCurrent());
+    
   }
 
   // Currently not used but keeping this incase it is needed
   public double calculateArbitraryFeedforward() {
     double output =
-        karbFF * Math.cos(Math.toRadians(intakePivotAbsoluteEncoder.getAbsolutePosition()));
+        karbFF * Math.sin(Math.toRadians(intakePivotAbsoluteEncoder.getAbsolutePosition()));
     return output;
   }
 
@@ -110,7 +111,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
   }
 
   public void manualintakePivot(double move) {
-    intakePivot.set(move);
+    intakePivot.set(move + calculateArbitraryFeedforward());
   }
 
   public void intakePivotStop() {
@@ -124,7 +125,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
   public void closedLoopIntakePivot() {
 
     intakePivot.set(
-        m_controller.calculate(intakePivotAbsoluteEncoder.getAbsolutePosition(), positionSetpoint));
+        calculateArbitraryFeedforward() + m_controller.calculate(intakePivotAbsoluteEncoder.getAbsolutePosition(), positionSetpoint));
   }
 
   public void setPositionStow() {

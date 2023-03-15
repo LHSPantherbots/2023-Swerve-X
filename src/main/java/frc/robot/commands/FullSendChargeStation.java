@@ -11,8 +11,10 @@ import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -30,12 +32,12 @@ public class FullSendChargeStation extends SequentialCommandGroup {
       DriveSubsystem drivesubsystem,
       Leds led) {
     PathPlannerTrajectory path =
-        PathPlanner.loadPath("FullSendChargeStation", new PathConstraints(3, 2), false);
+        PathPlanner.loadPath("FullSendChargeStation", new PathConstraints(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared), false);
     HashMap<String, Command> eventMap = new HashMap<>();
     // eventMap.put("event1", new RunCommand(led::bluePulse, led));
-    // eventMap.put("event1", new CubeIntakeGround(crossslide, intakepivot, elevator).alongWith(new
-    // RunCommand(intake::intakeCube, intake).withTimeout(1.5)).andThen(new StowAll(crossslide,
-    // intakepivot, elevator).alongWith(new IntakeHold(intake))));
+    eventMap.put("event1", new CubeIntakeGround(crossslide, intakepivot, elevator).alongWith(new
+    RunCommand(intake::intakeCube, intake).withTimeout(1.5)).andThen(new StowAll(crossslide,
+    intakepivot, elevator).alongWith(new IntakeHold(intake))));
 
     SwerveAutoBuilder autoBuilder =
         new SwerveAutoBuilder(
@@ -55,7 +57,7 @@ public class FullSendChargeStation extends SequentialCommandGroup {
             drivesubsystem);
     addCommands(
         new InstantCommand(() -> drivesubsystem.resetOdometry(path.getInitialPose())),
-        // new AutoConeHigh(elevator, crossslide, intakepivot, intake),
+        new AutoConeHigh(elevator, crossslide, intakepivot, intake),
         autoBuilder.fullAuto(path),
         new ParallelCommandGroup(
             new AutoBalance(drivesubsystem, elevator, true),

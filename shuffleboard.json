@@ -1863,7 +1863,7 @@
               "_showGlyph": false
             }
           },
-          "4,4": {
+          "3,4": {
             "size": [
               1,
               1
@@ -1942,6 +1942,32 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Intake Pivot Position Setpoint",
               "_title": "SmartDashboard/Intake Pivot Position Setpoint",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Motor Voltage",
+              "_title": "SmartDashboard/Intake Motor Voltage",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Pivot Feed Forward Voltage Output",
+              "_title": "SmartDashboard/Intake Pivot Feed Forward Voltage Output",
               "_glyph": 148,
               "_showGlyph": false
             }
