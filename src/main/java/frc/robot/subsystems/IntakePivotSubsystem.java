@@ -32,7 +32,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
   private final TrapezoidProfile.Constraints m_constraints;
   private final ProfiledPIDController m_controller;
 
-  private double kP = 0.015; //0.02
+  private double kP = 0.015; // 0.02
   private double kI = 0.0;
   private double kD = 0.0;
   private double kIz = 0.0;
@@ -83,7 +83,6 @@ public class IntakePivotSubsystem extends SubsystemBase {
         "Intake Pivot Feed Forward Voltage Output", calculateArbitraryFeedforward());
     SmartDashboard.putNumber("Intake Motor Voltage", intakePivot.getAppliedOutput());
     SmartDashboard.putNumber("Intake Motor Current", intakePivot.getOutputCurrent());
-    
   }
 
   // Currently not used but keeping this incase it is needed
@@ -125,7 +124,9 @@ public class IntakePivotSubsystem extends SubsystemBase {
   public void closedLoopIntakePivot() {
 
     intakePivot.set(
-        calculateArbitraryFeedforward() + m_controller.calculate(intakePivotAbsoluteEncoder.getAbsolutePosition(), positionSetpoint));
+        calculateArbitraryFeedforward()
+            + m_controller.calculate(
+                intakePivotAbsoluteEncoder.getAbsolutePosition(), positionSetpoint));
   }
 
   public void setPositionStow() {

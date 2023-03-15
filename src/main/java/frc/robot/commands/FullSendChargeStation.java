@@ -32,12 +32,20 @@ public class FullSendChargeStation extends SequentialCommandGroup {
       DriveSubsystem drivesubsystem,
       Leds led) {
     PathPlannerTrajectory path =
-        PathPlanner.loadPath("FullSendChargeStation", new PathConstraints(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared), false);
+        PathPlanner.loadPath(
+            "FullSendChargeStation",
+            new PathConstraints(
+                AutoConstants.kMaxSpeedMetersPerSecond,
+                AutoConstants.kMaxAccelerationMetersPerSecondSquared),
+            false);
     HashMap<String, Command> eventMap = new HashMap<>();
     // eventMap.put("event1", new RunCommand(led::bluePulse, led));
-    eventMap.put("event1", new CubeIntakeGround(crossslide, intakepivot, elevator).alongWith(new
-    RunCommand(intake::intakeCube, intake).withTimeout(1.5)).andThen(new StowAll(crossslide,
-    intakepivot, elevator).alongWith(new IntakeHold(intake))));
+    eventMap.put(
+        "event1",
+        new CubeIntakeGround(crossslide, intakepivot, elevator)
+            .alongWith(new RunCommand(intake::intakeCube, intake).withTimeout(1.5))
+            .andThen(
+                new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake))));
 
     SwerveAutoBuilder autoBuilder =
         new SwerveAutoBuilder(
