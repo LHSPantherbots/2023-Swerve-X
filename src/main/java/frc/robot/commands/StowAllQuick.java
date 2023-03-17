@@ -34,10 +34,6 @@ public class StowAllQuick extends SequentialCommandGroup {
             new ElevatorCmd(Position.STOW, elevator),
             new CrossSlideCmd(Position.STOW, crossSlide, false),
             new IntakePivotCmd(Position.STOW, intakePivot, false)),
-        new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.STOW))
-
-            
-            );
-
+        new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.STOW)));
   }
 }

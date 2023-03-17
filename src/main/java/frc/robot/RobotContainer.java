@@ -37,7 +37,6 @@ import frc.robot.commands.LoadStationSideCubePickupScore;
 import frc.robot.commands.PowerCordSideCubePickupDock;
 import frc.robot.commands.PowerCordSideCubePickupScore;
 import frc.robot.commands.StowAll;
-import frc.robot.commands.StowAllQuick;
 import frc.robot.commands.StowAllSelect;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.DriveSubsystem;

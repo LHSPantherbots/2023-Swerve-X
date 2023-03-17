@@ -17,21 +17,16 @@ import frc.robot.subsystems.IntakePivotSubsystem;
 public class StowAllSelect extends SequentialCommandGroup {
   /** Creates a new AutoStowSelect. */
   public StowAllSelect(
-    CrossSlideSubsystem crossSlide,
-    IntakePivotSubsystem intakePivot,
-    ElevatorSubsystem elevator
+      CrossSlideSubsystem crossSlide,
+      IntakePivotSubsystem intakePivot,
+      ElevatorSubsystem elevator) {
 
-
-  ) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ConditionalCommand(
-        new StowAllQuick(crossSlide, intakePivot, elevator),
-        new StowAll(crossSlide, intakePivot, elevator),
-        () -> RobotContainer.robotState.isQuickStowSafe())
-
-
-    );
+        new ConditionalCommand(
+            new StowAllQuick(crossSlide, intakePivot, elevator),
+            new StowAll(crossSlide, intakePivot, elevator),
+            () -> RobotContainer.robotState.isQuickStowSafe()));
   }
 }

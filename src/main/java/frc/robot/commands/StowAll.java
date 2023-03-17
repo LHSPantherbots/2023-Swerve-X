@@ -26,7 +26,6 @@ public class StowAll extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-
         new ParallelRaceGroup(
             new IntakePivotCmd(Position.STOW, intakePivot),
             new ElevatorCmd(Position.HOLD, elevator, false),
@@ -35,9 +34,6 @@ public class StowAll extends SequentialCommandGroup {
             new ElevatorCmd(Position.STOW, elevator),
             new CrossSlideCmd(Position.STOW, crossSlide, false),
             new IntakePivotCmd(Position.STOW, intakePivot, false)),
-        new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.STOW))
-            
-        );
-
+        new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.STOW)));
   }
 }
