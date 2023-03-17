@@ -56,6 +56,7 @@ public class LoadStationSideCubePickupDock extends SequentialCommandGroup {
             // controller),
             drivesubsystem::setModuleStates,
             eventMap,
+            true,
             drivesubsystem);
     addCommands(
         new InstantCommand(() -> drivesubsystem.resetOdometry(path.getInitialPose())),

@@ -5,8 +5,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakePivotSubsystem;
@@ -47,7 +49,11 @@ public class ConeIntakeGround extends SequentialCommandGroup {
                 new CrossSlideCmd(Position.CONE_INTAKE, crossSlide, false)),
 
             // checks elevator position
-            () -> (elevator.getElevatorHeight() > 10.0)));
+            () -> (elevator.getElevatorHeight() > 10.0)),
+            new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.CONE_INTAKE))
+            
+            
+            );
     // RobotContainer.robotState.setPosition(Position.CONE_INTAKE);
   }
 }

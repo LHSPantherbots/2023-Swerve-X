@@ -16,26 +16,28 @@ import frc.robot.util.Position;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class CubeScoreMid extends SequentialCommandGroup {
-  /** Creates a new IntakeCubeCommand. */
-  public CubeScoreMid(
+public class StowAllQuick extends SequentialCommandGroup {
+  // Stows all subsytems for driving.  Lifts the intake pivot then drops the elevator and pulls in
+  // the crosslide at the same time
+  public StowAllQuick(
       CrossSlideSubsystem crossSlide,
       IntakePivotSubsystem intakePivot,
-      ElevatorSubsystem elevatorSubsystem) {
+      ElevatorSubsystem elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+        // new ConditionalCommand( // Lifts the pivot
+        // if this is at the double subsatatoin them retract all simultaniously otherwise pull
+        // in pivot then elevator and cross slide
+
         new ParallelRaceGroup(
-            new ElevatorCmd(Position.CUBE_SCORE_MID, elevatorSubsystem),
-            new CrossSlideCmd(Position.CUBE_SCORE_MID, crossSlide, false),
+            new ElevatorCmd(Position.STOW, elevator),
+            new CrossSlideCmd(Position.STOW, crossSlide, false),
             new IntakePivotCmd(Position.STOW, intakePivot, false)),
-        new ParallelRaceGroup(
-            new ElevatorCmd(Position.CUBE_SCORE_MID, elevatorSubsystem, false),
-            new CrossSlideCmd(Position.CUBE_SCORE_MID, crossSlide, false),
-            new IntakePivotCmd(Position.CUBE_SCORE_MID, intakePivot)),
-            new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.CUBE_SCORE_MID))
+        new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.STOW))
+
             
             );
-    // RobotContainer.robotState.setPosition(Position.CUBE_SCORE_MID);
+
   }
 }

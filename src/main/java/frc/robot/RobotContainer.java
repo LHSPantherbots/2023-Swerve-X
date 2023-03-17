@@ -37,6 +37,8 @@ import frc.robot.commands.LoadStationSideCubePickupScore;
 import frc.robot.commands.PowerCordSideCubePickupDock;
 import frc.robot.commands.PowerCordSideCubePickupScore;
 import frc.robot.commands.StowAll;
+import frc.robot.commands.StowAllQuick;
+import frc.robot.commands.StowAllSelect;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -298,7 +300,7 @@ public class RobotContainer {
                 () -> robotState.getConeMode()));
 
     new POVButton(operatorController, GamePadButtons.Left)
-        .onTrue(new StowAll(crossSlide, intakePivot, elevator));
+        .onTrue(new StowAllSelect(crossSlide, intakePivot, elevator));
 
     new POVButton(operatorController, GamePadButtons.Down)
         .onTrue(

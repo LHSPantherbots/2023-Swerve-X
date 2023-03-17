@@ -21,6 +21,7 @@ public class RobotStateSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Cone Mode", getConeMode());
     SmartDashboard.putString("Position", getPosition().toString());
+    SmartDashboard.putBoolean("Quick Stow Safe", isQuickStowSafe());
   }
 
   public boolean getConeMode() {
@@ -37,5 +38,14 @@ public class RobotStateSubsystem extends SubsystemBase {
 
   public void setPosition(Position position) {
     this.position = position;
+  }
+
+  public boolean isQuickStowSafe(){
+
+    if (this.position == Position.CONE_STATION_INTAKE){
+      return true;
+    }else{
+      return false;
+    }
   }
 }

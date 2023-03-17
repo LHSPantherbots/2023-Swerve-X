@@ -4,8 +4,10 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakePivotSubsystem;
@@ -24,16 +26,7 @@ public class StowAll extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        // new ConditionalCommand( // Lifts the pivot
-        // if this is at the double subsatatoin them retract all simultaniously otherwise pull
-        // in pivot then elevator and cross slide
 
-        // new ParallelRaceGroup(
-        //     new ElevatorCmd(Position.STOW, elevator),
-        //     new CrossSlideCmd(Position.STOW, crossSlide, false),
-        //     new IntakePivotCmd(Position.STOW, intakePivot, false)),
-        // new SequentialCommandGroup(
-        // Lifts the pivot
         new ParallelRaceGroup(
             new IntakePivotCmd(Position.STOW, intakePivot),
             new ElevatorCmd(Position.HOLD, elevator, false),
@@ -41,9 +34,10 @@ public class StowAll extends SequentialCommandGroup {
         new ParallelRaceGroup(
             new ElevatorCmd(Position.STOW, elevator),
             new CrossSlideCmd(Position.STOW, crossSlide, false),
-            new IntakePivotCmd(Position.STOW, intakePivot, false)));
-    //    () -> (RobotContainer.robotState.getPosition() == Position.CONE_STATION_INTAKE));
+            new IntakePivotCmd(Position.STOW, intakePivot, false)),
+        new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.STOW))
+            
+        );
 
-    // RobotContainer.robotState.setPosition(Position.STOW);
   }
 }

@@ -55,6 +55,7 @@ public class LoadStationSideCubePickupScore extends SequentialCommandGroup {
             // controller),
             drivesubsystem::setModuleStates,
             eventMap,
+            true,
             drivesubsystem);
     addCommands(
         new InstantCommand(() -> drivesubsystem.resetOdometry(path.getInitialPose())),
