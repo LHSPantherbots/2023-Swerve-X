@@ -33,9 +33,8 @@ public class CubeScoreMid extends SequentialCommandGroup {
             new ElevatorCmd(Position.CUBE_SCORE_MID, elevatorSubsystem, false),
             new CrossSlideCmd(Position.CUBE_SCORE_MID, crossSlide, false),
             new IntakePivotCmd(Position.CUBE_SCORE_MID, intakePivot)),
-            new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.CUBE_SCORE_MID))
-            
-            );
+        new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.CUBE_SCORE_MID)));
+
     // RobotContainer.robotState.setPosition(Position.CUBE_SCORE_MID);
   }
 }

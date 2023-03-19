@@ -40,11 +40,11 @@ public class RobotStateSubsystem extends SubsystemBase {
     this.position = position;
   }
 
-  public boolean isQuickStowSafe(){
+  public boolean isQuickStowSafe() {
 
-    if (this.position == Position.CONE_STATION_INTAKE){
+    if (this.position == Position.CONE_STATION_INTAKE) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }

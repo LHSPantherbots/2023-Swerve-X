@@ -35,10 +35,8 @@ public class CubeScoreHigh extends SequentialCommandGroup {
             new IntakePivotCmd(Position.CUBE_SCORE_HIGH, intakePivot),
             new ElevatorCmd(Position.CUBE_SCORE_HIGH, elevatorSubsystem, false),
             new CrossSlideCmd(Position.CUBE_SCORE_HIGH, crossSlide, false)),
-            new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.CUBE_SCORE_HIGH))
-            
-            
-            );
+        new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.CUBE_SCORE_HIGH)));
+
     // RobotContainer.robotState.setPosition(Position.CUBE_SCORE_HIGH);
   }
 }

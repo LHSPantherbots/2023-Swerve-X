@@ -33,9 +33,8 @@ public class ConeScoreMid extends SequentialCommandGroup {
             new IntakePivotCmd(Position.CONE_SCORE_MID, intakePivot),
             new ElevatorCmd(Position.CONE_SCORE_MID, elevatorSubsystem, false),
             new CrossSlideCmd(Position.CONE_SCORE_MID, crossSlide, false)),
-            new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.CONE_SCORE_MID))
-            
-            );
+        new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.CONE_SCORE_MID)));
+
     // RobotContainer.robotState.setPosition(Position.CONE_SCORE_MID);
   }
 }

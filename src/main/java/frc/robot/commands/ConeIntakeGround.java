@@ -50,10 +50,8 @@ public class ConeIntakeGround extends SequentialCommandGroup {
 
             // checks elevator position
             () -> (elevator.getElevatorHeight() > 10.0)),
-            new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.CONE_INTAKE))
-            
-            
-            );
+        new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.CONE_INTAKE)));
+
     // RobotContainer.robotState.setPosition(Position.CONE_INTAKE);
   }
 }
