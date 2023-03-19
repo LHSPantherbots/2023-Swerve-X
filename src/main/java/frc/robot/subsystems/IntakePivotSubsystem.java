@@ -141,7 +141,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
 
   public void setPositionintakeCube() {
     // positionSetpoint = 86.0;
-    positionSetpoint = 75;
+    positionSetpoint = 80.0;//75
     closedLoopIntakePivot();
   }
 
@@ -171,7 +171,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
   }
 
   public void setPositonIntakeConeDoubleSubstation() {
-    positionSetpoint = 106.8; // may need to ajust
+    positionSetpoint = 106.8; // may need to ajust//106.8
     closedLoopIntakePivot();
   }
 }
