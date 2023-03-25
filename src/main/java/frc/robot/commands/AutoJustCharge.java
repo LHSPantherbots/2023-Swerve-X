@@ -22,15 +22,15 @@ import frc.robot.subsystems.DriveSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoNothing extends SequentialCommandGroup {
+public class AutoJustCharge extends SequentialCommandGroup {
   double xSpeed;
 
-  public AutoNothing(DriveSubsystem driveSubsystem) {
+  public AutoJustCharge(DriveSubsystem driveSubsystem) {
     this(driveSubsystem, false);
   }
   ;
   /** Creates a new AutoBalance. */
-  public AutoNothing(DriveSubsystem driveSubsystem, Boolean reversed) {
+  public AutoJustCharge(DriveSubsystem driveSubsystem, Boolean reversed) {
     if (reversed) {
       this.xSpeed = -0.6;
     } else {
@@ -40,7 +40,7 @@ public class AutoNothing extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     PathPlannerTrajectory path =
-        PathPlanner.loadPath("AutoNothing", new PathConstraints(3, 2), false);
+        PathPlanner.loadPath("AutoJustCharge", new PathConstraints(3, 2), false);
     HashMap<String, Command> eventMap = new HashMap<>();
 
     SwerveAutoBuilder autoBuilder =

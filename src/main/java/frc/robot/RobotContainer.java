@@ -19,6 +19,7 @@ import frc.robot.commands.AutoCubeHigh;
 import frc.robot.commands.AutoHighScoreConeBalance;
 import frc.robot.commands.AutoHighScoreConeCubeIntake;
 import frc.robot.commands.AutoHighScoreCubeBalance;
+import frc.robot.commands.AutoJustCharge;
 import frc.robot.commands.ConeIntakeDoubleSubstation;
 import frc.robot.commands.ConeIntakeGround;
 import frc.robot.commands.ConeScoreHigh;
@@ -174,6 +175,10 @@ public class RobotContainer {
     autoChoice.addOption(
         "FullSendChargeStation",
         new FullSendChargeStation(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+    autoChoice.addOption(
+        "AutoJustCharge",
+        new AutoJustCharge(driveTrain));
+
     //    new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
     // autoChoice.addOption(
     //    "AutoConeCubeTopBalance",
