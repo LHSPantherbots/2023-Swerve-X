@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoBalance;
+import frc.robot.commands.AutoBalance2;
+import frc.robot.commands.AutoBalance3;
 import frc.robot.commands.AutoConeHigh;
 import frc.robot.commands.AutoCubeHigh;
 import frc.robot.commands.AutoHighScoreConeBalance;
@@ -24,6 +26,7 @@ import frc.robot.commands.ConeIntakeDoubleSubstation;
 import frc.robot.commands.ConeIntakeGround;
 import frc.robot.commands.ConeScoreHigh;
 import frc.robot.commands.ConeScoreMid;
+import frc.robot.commands.CoreStationDriveOnlyCharge;
 import frc.robot.commands.CrossSlideCmd;
 import frc.robot.commands.CubeIntakeGround;
 import frc.robot.commands.CubeScoreHigh;
@@ -141,7 +144,7 @@ public class RobotContainer {
 
     SmartDashboard.putData("Intake Hold", new IntakeHold(intake));
 
-    SmartDashboard.putData("Auto Balance", new AutoBalance(driveTrain, elevator));
+    SmartDashboard.putData("Auto Balance", new AutoBalance3(driveTrain));
 
     Shuffleboard.getTab("Autonomous").add(autoChoice);
     autoChoice.addOption("Do Nothing", new RunCommand(() -> driveTrain.drive(0, 0, 0, true)));
@@ -178,6 +181,9 @@ public class RobotContainer {
     autoChoice.addOption(
         "AutoJustCharge",
         new AutoJustCharge(driveTrain));
+    autoChoice.addOption(
+        "CoreStationDriveOnlyCharge",
+        new CoreStationDriveOnlyCharge(driveTrain, leds));
 
     //    new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
     // autoChoice.addOption(

@@ -23,19 +23,13 @@ import frc.robot.subsystems.DriveSubsystem;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoJustCharge extends SequentialCommandGroup {
-  double xSpeed;
 
-  public AutoJustCharge(DriveSubsystem driveSubsystem) {
-    this(driveSubsystem, false);
-  }
-  ;
+  
+
   /** Creates a new AutoBalance. */
-  public AutoJustCharge(DriveSubsystem driveSubsystem, Boolean reversed) {
-    if (reversed) {
-      this.xSpeed = -0.6;
-    } else {
-      this.xSpeed = 0.6;
-    }
+  public AutoJustCharge(DriveSubsystem driveSubsystem) {
+    
+    
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
@@ -61,9 +55,8 @@ public class AutoJustCharge extends SequentialCommandGroup {
             true,
             driveSubsystem);
     addCommands(
-        new ParallelRaceGroup(
             new InstantCommand(() -> driveSubsystem.resetOdometry(path.getInitialPose())),
             autoBuilder.fullAuto(path),
-            new InstantCommand(driveSubsystem::restAll180, driveSubsystem)));
+            new InstantCommand(driveSubsystem::restAll180, driveSubsystem));
   }
 }
