@@ -347,14 +347,12 @@ public class DriveSubsystem extends SubsystemBase {
     return getYaw().getRadians();
   }
 
-  public boolean isBalanced(){
-    if(autoBalanceAngle < Math.abs(getRoll())){
+  public boolean isBalanced() {
+    if (autoBalanceAngle < Math.abs(getRoll())) {
       return false;
-    }
-    else{
+    } else {
       return true;
     }
-
   }
 
   /**
