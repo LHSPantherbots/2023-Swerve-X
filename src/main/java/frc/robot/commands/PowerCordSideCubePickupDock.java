@@ -63,7 +63,7 @@ public class PowerCordSideCubePickupDock extends SequentialCommandGroup {
         new AutoConeHigh(elevator, crossslide, intakepivot, intake),
         autoBuilder.fullAuto(path),
         new ParallelCommandGroup(
-            new AutoBalance(drivesubsystem, elevator, true),
+            new AutoBalanceTwoShot(drivesubsystem),
             new IntakePivotCmd(Position.STOW, intakepivot, false),
             new CrossSlideCmd(Position.STOW, crossslide, false)));
   }

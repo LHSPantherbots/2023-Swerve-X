@@ -7,14 +7,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class AutoBalance3 extends CommandBase {
+public class AutoBalanceSmart extends CommandBase {
   /** Creates a new AutoBalance3. */
 
   DriveSubsystem m_driveSubsystem;
   double driveDirection;
-  public AutoBalance3(DriveSubsystem driveSubsystem) {
+  public AutoBalanceSmart(DriveSubsystem driveSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveSubsystem = driveSubsystem;
+    addRequirements(m_driveSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -34,7 +35,7 @@ public class AutoBalance3 extends CommandBase {
   @Override
   public void execute() {
 
-    m_driveSubsystem.drive(driveDirection * 1.5, 0, 0, false);
+    m_driveSubsystem.drive(driveDirection * 0.6, 0, 0, false);
 
 
   }

@@ -15,7 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoBalance2;
-import frc.robot.commands.AutoBalance3;
+import frc.robot.commands.AutoBalanceSmart;
+import frc.robot.commands.AutoBalanceTwoShot;
 import frc.robot.commands.AutoConeHigh;
 import frc.robot.commands.AutoCubeHigh;
 import frc.robot.commands.AutoHighScoreConeBalance;
@@ -36,8 +37,10 @@ import frc.robot.commands.FullSendChargeStation;
 import frc.robot.commands.HoldAtCurrentPosition;
 import frc.robot.commands.IntakeHold;
 import frc.robot.commands.IntakePivotCmd;
+import frc.robot.commands.LoadStationSideConePickupDock;
 import frc.robot.commands.LoadStationSideCubePickupDock;
 import frc.robot.commands.LoadStationSideCubePickupScore;
+import frc.robot.commands.PowerCordSideConePickupDock;
 import frc.robot.commands.PowerCordSideCubePickupDock;
 import frc.robot.commands.PowerCordSideCubePickupScore;
 import frc.robot.commands.StowAll;
@@ -144,7 +147,7 @@ public class RobotContainer {
 
     SmartDashboard.putData("Intake Hold", new IntakeHold(intake));
 
-    SmartDashboard.putData("Auto Balance", new AutoBalance3(driveTrain));
+    SmartDashboard.putData("Auto Balance", new AutoBalanceTwoShot(driveTrain));
 
     Shuffleboard.getTab("Autonomous").add(autoChoice);
     autoChoice.addOption("Do Nothing", new RunCommand(() -> driveTrain.drive(0, 0, 0, true)));
@@ -168,8 +171,16 @@ public class RobotContainer {
         new LoadStationSideCubePickupDock(
             elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
+        "LoadStationSideConeHighConePickupDock",
+        new LoadStationSideConePickupDock(
+            elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+    autoChoice.addOption(
         "PowerCordSideConeHighCubePickupDock",
         new PowerCordSideCubePickupDock(
+            elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+    autoChoice.addOption(
+        "PowerCordSideConeHighConePickupDock",
+        new PowerCordSideConePickupDock(
             elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
         "PowerCordSideConeHighCubePickupScore",
@@ -283,14 +294,14 @@ public class RobotContainer {
         // .onTrue(new InstantCommand(() -> robotState.setConeMode(true), robotState))
         // .onTrue(new InstantCommand(() -> robotState.setCubeMode(false), robotState))
         .onTrue(new RunCommand(() -> robotState.setConeMode(true), robotState))
-        .onTrue(new RunCommand(leds::yellow, leds));
+        .onTrue(new RunCommand(leds::yellowStreak, leds));
 
     // Turns on Cube Mode
     new JoystickButton(operatorController, GamePadButtons.B)
         // .onTrue(new InstantCommand(() -> robotState.setConeMode(false), robotState))
         // .onTrue(new InstantCommand(() -> robotState.setCubeMode(true), robotState))
         .onTrue(new RunCommand(() -> robotState.setConeMode(false), robotState))
-        .onTrue(new RunCommand(leds::purple, leds));
+        .onTrue(new RunCommand(leds::purpleStreak, leds));
 
     // Runs Intake both Driver and operator have these buttons currently if there is a change do to
     // both
