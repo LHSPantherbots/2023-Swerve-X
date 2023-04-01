@@ -62,9 +62,13 @@ public class PowerCordSideConePickupDock extends SequentialCommandGroup {
         new InstantCommand(() -> drivesubsystem.resetOdometry(path.getInitialPose())),
         new AutoConeHigh(elevator, crossslide, intakepivot, intake),
         autoBuilder.fullAuto(path),
+        new InstantCommand(drivesubsystem::restAll180, drivesubsystem),
         new ParallelCommandGroup(
             new AutoBalanceTwoShot(drivesubsystem),
             new IntakePivotCmd(Position.STOW, intakepivot, false),
-            new CrossSlideCmd(Position.STOW, crossslide, false)));
+            new CrossSlideCmd(Position.STOW, crossslide, false))
+     
+        
+            );
   }
 }
