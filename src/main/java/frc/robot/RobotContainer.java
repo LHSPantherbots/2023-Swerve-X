@@ -186,10 +186,8 @@ public class RobotContainer {
     autoChoice.addOption(
         "FullSendChargeStation",
         new FullSendChargeStation(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+    autoChoice.addOption("AutoJustCharge", new AutoJustCharge(driveTrain));
     autoChoice.addOption(
-        "AutoJustCharge",
-        new AutoJustCharge(driveTrain));
-     autoChoice.addOption(
         "CoreStationConeDropCharge",
         new CoreStationConeDropCharge(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
 
