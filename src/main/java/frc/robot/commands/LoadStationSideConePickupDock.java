@@ -67,7 +67,6 @@ public class LoadStationSideConePickupDock extends SequentialCommandGroup {
         new ParallelCommandGroup(
             new AutoBalanceTwoShot(drivesubsystem),
             new IntakePivotCmd(Position.STOW, intakepivot, false),
-            new CrossSlideCmd(Position.STOW, crossslide, false))
-            );
+            new CrossSlideCmd(Position.STOW, crossslide, false)));
   }
 }
