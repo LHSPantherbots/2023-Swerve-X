@@ -9,9 +9,10 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class AutoBalanceSmart extends CommandBase {
   /** Creates a new AutoBalance3. */
-
   DriveSubsystem m_driveSubsystem;
+
   double driveDirection;
+
   public AutoBalanceSmart(DriveSubsystem driveSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveSubsystem = driveSubsystem;
@@ -22,13 +23,11 @@ public class AutoBalanceSmart extends CommandBase {
   @Override
   public void initialize() {
 
-    if (m_driveSubsystem.getRoll() > 0){
+    if (m_driveSubsystem.getRoll() > 0) {
       driveDirection = -1.0;
-    }
-    else{
+    } else {
       driveDirection = 1.0;
     }
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,8 +35,6 @@ public class AutoBalanceSmart extends CommandBase {
   public void execute() {
 
     m_driveSubsystem.drive(driveDirection * 0.6, 0, 0, false);
-
-
   }
 
   // Called once the command ends or is interrupted.
@@ -47,8 +44,7 @@ public class AutoBalanceSmart extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    
-    return m_driveSubsystem.isBalanced();
 
+    return m_driveSubsystem.isBalanced();
   }
 }
