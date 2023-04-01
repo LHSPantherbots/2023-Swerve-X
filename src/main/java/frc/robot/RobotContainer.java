@@ -24,6 +24,7 @@ import frc.robot.commands.ConeIntakeDoubleSubstation;
 import frc.robot.commands.ConeIntakeGround;
 import frc.robot.commands.ConeScoreHigh;
 import frc.robot.commands.ConeScoreMid;
+import frc.robot.commands.CoreStationConeDropCharge;
 import frc.robot.commands.CrossSlideCmd;
 import frc.robot.commands.CubeIntakeGround;
 import frc.robot.commands.CubeScoreHigh;
@@ -186,7 +187,12 @@ public class RobotContainer {
     autoChoice.addOption(
         "FullSendChargeStation",
         new FullSendChargeStation(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
-    autoChoice.addOption("AutoJustCharge", new AutoJustCharge(driveTrain));
+    autoChoice.addOption(
+        "AutoJustCharge",
+        new AutoJustCharge(driveTrain));
+     autoChoice.addOption(
+        "CoreStationConeDropCharge",
+        new CoreStationConeDropCharge(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
 
     //    new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
     // autoChoice.addOption(
