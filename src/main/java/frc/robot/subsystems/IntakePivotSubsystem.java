@@ -62,7 +62,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
 
     intakePivotEncoder = intakePivot.getEncoder();
 
-    intakePivotAbsoluteEncoder.configMagnetOffset(180.0);
+    intakePivotAbsoluteEncoder.configMagnetOffset(180.0);  //spare intake 149 straight up is approxamatly where 180 is on current sensor
 
     m_constraints = new TrapezoidProfile.Constraints(maxVel, maxAcc);
     m_controller = new ProfiledPIDController(kP, kI, kD, m_constraints, kDt);

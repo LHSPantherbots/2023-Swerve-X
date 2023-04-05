@@ -151,7 +151,7 @@ public final class Constants {
     public static final int ELEVATOR_FOLLOWER = 32;
     public static final int CROSS_SLIDE = 33;
     public static final int INTAKE_PIVOT = 34;
-    public static final int INTAKE_PIVOT_ABS_INCODER = 35;
+    public static final int INTAKE_PIVOT_ABS_INCODER = 35;  
     public static final int INTAKE = 36;
   }
 }
