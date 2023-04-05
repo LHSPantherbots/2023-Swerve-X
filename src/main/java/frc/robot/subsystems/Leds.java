@@ -84,6 +84,44 @@ public class Leds extends SubsystemBase {
     m_led.setData(m_ledBuffer);
   }
 
+  public void purpleStreak() {
+    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+      m_ledBuffer.setRGB(i, 148, 0, 211);
+    }
+    for (int i = index; i < m_ledBuffer.getLength(); i += 2) {
+      m_ledBuffer.setRGB(i, 37, 0, 52);
+    }
+
+    if (numLoops % 10 == 0) {
+      index++;
+      index %= 2;
+      numLoops = 0;
+    }
+
+    numLoops++;
+
+    m_led.setData(m_ledBuffer);
+  }
+
+  public void yellowStreak() {
+    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+      m_ledBuffer.setRGB(i, 255, 90, 0);
+    }
+    for (int i = index; i < m_ledBuffer.getLength(); i += 2) {
+      m_ledBuffer.setRGB(i, 63, 22, 0);
+    }
+
+    if (numLoops % 10 == 0) {
+      index++;
+      index %= 2;
+      numLoops = 0;
+    }
+
+    numLoops++;
+
+    m_led.setData(m_ledBuffer);
+  }
+
   public void red() {
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
       // Sets the specified LED to the RGB values for red

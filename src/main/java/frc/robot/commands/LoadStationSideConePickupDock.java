@@ -10,6 +10,7 @@ import com.pathplanner.lib.auto.SwerveAutoBuilder;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
@@ -19,10 +20,11 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakePivotSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Leds;
+import frc.robot.util.Position;
 
-public class LoadStationSideCubePickupScore extends SequentialCommandGroup {
+public class LoadStationSideConePickupDock extends SequentialCommandGroup {
 
-  public LoadStationSideCubePickupScore(
+  public LoadStationSideConePickupDock(
       ElevatorSubsystem elevator,
       CrossSlideSubsystem crossslide,
       IntakePivotSubsystem intakepivot,
@@ -30,13 +32,13 @@ public class LoadStationSideCubePickupScore extends SequentialCommandGroup {
       DriveSubsystem drivesubsystem,
       Leds led) {
     PathPlannerTrajectory path =
-        PathPlanner.loadPath("LoadStationSideCubePickupScore", new PathConstraints(3, 2), false);
+        PathPlanner.loadPath("LoadStationSideConePickupDock", new PathConstraints(3, 2), false);
     HashMap<String, Command> eventMap = new HashMap<>();
     // eventMap.put("event1", new RunCommand(led::bluePulse, led));
     eventMap.put(
         "event1",
-        new CubeIntakeGround(crossslide, intakepivot, elevator)
-            .alongWith(new RunCommand(intake::intakeCube, intake).withTimeout(1.0))
+        new ConeIntakeGround(crossslide, intakepivot, elevator)
+            .alongWith(new RunCommand(intake::intakeCone, intake).withTimeout(1.5))
             .andThen(
                 new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake))));
 
@@ -61,8 +63,10 @@ public class LoadStationSideCubePickupScore extends SequentialCommandGroup {
         new InstantCommand(() -> drivesubsystem.resetOdometry(path.getInitialPose())),
         new AutoConeHigh(elevator, crossslide, intakepivot, intake),
         autoBuilder.fullAuto(path),
-        new SpitCubeHigh(elevator, crossslide, intakepivot, intake),
-        new StowAll(crossslide, intakepivot, elevator),
-        new InstantCommand(drivesubsystem::restAll180, drivesubsystem));
+        new InstantCommand(drivesubsystem::restAll180, drivesubsystem),
+        new ParallelCommandGroup(
+            new AutoBalanceTwoShot(drivesubsystem),
+            new IntakePivotCmd(Position.STOW, intakepivot, false),
+            new CrossSlideCmd(Position.STOW, crossslide, false)));
   }
 }

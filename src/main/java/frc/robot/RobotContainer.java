@@ -13,16 +13,18 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AutoBalance;
+import frc.robot.commands.AutoBalanceTwoShot;
 import frc.robot.commands.AutoConeHigh;
 import frc.robot.commands.AutoCubeHigh;
 import frc.robot.commands.AutoHighScoreConeBalance;
 import frc.robot.commands.AutoHighScoreConeCubeIntake;
 import frc.robot.commands.AutoHighScoreCubeBalance;
+import frc.robot.commands.AutoJustCharge;
 import frc.robot.commands.ConeIntakeDoubleSubstation;
 import frc.robot.commands.ConeIntakeGround;
 import frc.robot.commands.ConeScoreHigh;
 import frc.robot.commands.ConeScoreMid;
+import frc.robot.commands.CoreStationConeDropCharge;
 import frc.robot.commands.CrossSlideCmd;
 import frc.robot.commands.CubeIntakeGround;
 import frc.robot.commands.CubeScoreHigh;
@@ -32,12 +34,14 @@ import frc.robot.commands.FullSendChargeStation;
 import frc.robot.commands.HoldAtCurrentPosition;
 import frc.robot.commands.IntakeHold;
 import frc.robot.commands.IntakePivotCmd;
+import frc.robot.commands.LoadStationSideConePickupDock;
 import frc.robot.commands.LoadStationSideCubePickupDock;
 import frc.robot.commands.LoadStationSideCubePickupScore;
+import frc.robot.commands.PowerCordSideConePickupDock;
 import frc.robot.commands.PowerCordSideCubePickupDock;
 import frc.robot.commands.PowerCordSideCubePickupScore;
 import frc.robot.commands.StowAll;
-import frc.robot.commands.StowAllSelect;
+import frc.robot.commands.StowAllQuick;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -140,7 +144,7 @@ public class RobotContainer {
 
     SmartDashboard.putData("Intake Hold", new IntakeHold(intake));
 
-    SmartDashboard.putData("Auto Balance", new AutoBalance(driveTrain, elevator));
+    SmartDashboard.putData("Auto Balance", new AutoBalanceTwoShot(driveTrain));
 
     Shuffleboard.getTab("Autonomous").add(autoChoice);
     autoChoice.addOption("Do Nothing", new RunCommand(() -> driveTrain.drive(0, 0, 0, true)));
@@ -164,8 +168,16 @@ public class RobotContainer {
         new LoadStationSideCubePickupDock(
             elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
+        "LoadStationSideConeHighConePickupDock",
+        new LoadStationSideConePickupDock(
+            elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+    autoChoice.addOption(
         "PowerCordSideConeHighCubePickupDock",
         new PowerCordSideCubePickupDock(
+            elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+    autoChoice.addOption(
+        "PowerCordSideConeHighConePickupDock",
+        new PowerCordSideConePickupDock(
             elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
         "PowerCordSideConeHighCubePickupScore",
@@ -174,6 +186,11 @@ public class RobotContainer {
     autoChoice.addOption(
         "FullSendChargeStation",
         new FullSendChargeStation(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+    autoChoice.addOption("AutoJustCharge", new AutoJustCharge(driveTrain));
+    autoChoice.addOption(
+        "CoreStationConeDropCharge",
+        new CoreStationConeDropCharge(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+
     //    new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
     // autoChoice.addOption(
     //    "AutoConeCubeTopBalance",
@@ -272,14 +289,14 @@ public class RobotContainer {
         // .onTrue(new InstantCommand(() -> robotState.setConeMode(true), robotState))
         // .onTrue(new InstantCommand(() -> robotState.setCubeMode(false), robotState))
         .onTrue(new RunCommand(() -> robotState.setConeMode(true), robotState))
-        .onTrue(new RunCommand(leds::yellow, leds));
+        .onTrue(new RunCommand(leds::yellowStreak, leds));
 
     // Turns on Cube Mode
     new JoystickButton(operatorController, GamePadButtons.B)
         // .onTrue(new InstantCommand(() -> robotState.setConeMode(false), robotState))
         // .onTrue(new InstantCommand(() -> robotState.setCubeMode(true), robotState))
         .onTrue(new RunCommand(() -> robotState.setConeMode(false), robotState))
-        .onTrue(new RunCommand(leds::purple, leds));
+        .onTrue(new RunCommand(leds::purpleStreak, leds));
 
     // Runs Intake both Driver and operator have these buttons currently if there is a change do to
     // both
@@ -299,7 +316,8 @@ public class RobotContainer {
                 () -> robotState.getConeMode()));
 
     new POVButton(operatorController, GamePadButtons.Left)
-        .onTrue(new StowAllSelect(crossSlide, intakePivot, elevator));
+        .onTrue(new StowAllQuick(crossSlide, intakePivot, elevator));
+    // .onTrue(new StowAllSelect(crossSlide, intakePivot, elevator));
 
     new POVButton(operatorController, GamePadButtons.Down)
         .onTrue(

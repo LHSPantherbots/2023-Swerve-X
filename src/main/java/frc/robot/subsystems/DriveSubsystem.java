@@ -193,6 +193,8 @@ public class DriveSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("Roll Rate", getRollRate());
     SmartDashboard.putBoolean("Is At Angle", isAtAutoBalanceAngle());
+
+    SmartDashboard.putBoolean("is Balanced", isBalanced());
   }
 
   /**
@@ -343,6 +345,14 @@ public class DriveSubsystem extends SubsystemBase {
 
   public double getHeadingRadians() {
     return getYaw().getRadians();
+  }
+
+  public boolean isBalanced() {
+    if (autoBalanceAngle < Math.abs(getRoll())) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   /**
