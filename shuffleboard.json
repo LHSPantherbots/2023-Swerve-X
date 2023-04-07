@@ -1918,8 +1918,8 @@
             ],
             "content": {
               "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/Intake Pivot Position Setpoint",
-              "_source1": "network_table:///SmartDashboard/Intake Pivot Absolute Encoder Position",
+              "_source0": "network_table:///SmartDashboard/Intake Pivot Absolute Encoder Position",
+              "_source1": "network_table:///SmartDashboard/Intake Pivot Position Setpoint",
               "_title": "SmartDashboard/Intake Pivot Absolute Encoder Position",
               "_glyph": 148,
               "_showGlyph": false,
@@ -2515,9 +2515,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -5.599999904632568,
-    "y": 2.4000000953674316,
-    "width": 1548.0,
-    "height": 829.5999755859375
+    "x": -7.199999809265137,
+    "y": -7.199999809265137,
+    "width": 1550.4000244140625,
+    "height": 838.4000244140625
   }
 }

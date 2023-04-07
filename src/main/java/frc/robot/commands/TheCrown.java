@@ -22,9 +22,9 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Leds;
 import frc.robot.util.Position;
 
-public class LoadStationSideConePickupDock extends SequentialCommandGroup {
+public class TheCrown extends SequentialCommandGroup {
 
-  public LoadStationSideConePickupDock(
+  public TheCrown(
       ElevatorSubsystem elevator,
       CrossSlideSubsystem crossslide,
       IntakePivotSubsystem intakepivot,
@@ -32,11 +32,11 @@ public class LoadStationSideConePickupDock extends SequentialCommandGroup {
       DriveSubsystem drivesubsystem,
       Leds led) {
     PathPlannerTrajectory path =
-        PathPlanner.loadPath("LoadStationSideConePickupDock", new PathConstraints(3, 2), false);
+        PathPlanner.loadPath("TheCrown", new PathConstraints(3, 2), false);
     HashMap<String, Command> eventMap = new HashMap<>();
     // eventMap.put("event1", new RunCommand(led::bluePulse, led));
     eventMap.put(
-        "event1",
+        "IntakeDown1",
         new ConeIntakeGround(crossslide, intakepivot, elevator)
             .alongWith(new RunCommand(intake::intakeCone, intake).withTimeout(1.5))
             .andThen(

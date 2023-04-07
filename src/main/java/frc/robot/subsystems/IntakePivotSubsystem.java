@@ -175,3 +175,4 @@ public class IntakePivotSubsystem extends SubsystemBase {
     closedLoopIntakePivot();
   }
 }
+// 196 ANGLE is a level FOR THE INTAKE. REMEMBER!!!!!

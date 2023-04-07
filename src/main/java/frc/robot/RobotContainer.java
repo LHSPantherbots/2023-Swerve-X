@@ -42,6 +42,7 @@ import frc.robot.commands.PowerCordSideCubePickupDock;
 import frc.robot.commands.PowerCordSideCubePickupScore;
 import frc.robot.commands.StowAll;
 import frc.robot.commands.StowAllQuick;
+import frc.robot.commands.TheCrown;
 import frc.robot.subsystems.CrossSlideSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -189,9 +190,12 @@ public class RobotContainer {
     autoChoice.addOption(
         "AutoJustCharge",
         new AutoJustCharge(driveTrain));
-     autoChoice.addOption(
+    autoChoice.addOption(
         "CoreStationConeDropCharge",
         new CoreStationConeDropCharge(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+    autoChoice.addOption(
+        "TheCrown",
+        new TheCrown(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
 
     //    new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
     // autoChoice.addOption(
