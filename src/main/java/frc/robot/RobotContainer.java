@@ -192,8 +192,7 @@ public class RobotContainer {
         "CoreStationConeDropCharge",
         new CoreStationConeDropCharge(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
-        "TheCrown",
-        new TheCrown(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+        "TheCrown", new TheCrown(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
 
     //    new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
     // autoChoice.addOption(

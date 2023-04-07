@@ -31,8 +31,7 @@ public class TheCrown extends SequentialCommandGroup {
       IntakeSubsystem intake,
       DriveSubsystem drivesubsystem,
       Leds led) {
-    PathPlannerTrajectory path =
-        PathPlanner.loadPath("TheCrown", new PathConstraints(3, 2), false);
+    PathPlannerTrajectory path = PathPlanner.loadPath("TheCrown", new PathConstraints(3, 2), false);
     HashMap<String, Command> eventMap = new HashMap<>();
     // eventMap.put("event1", new RunCommand(led::bluePulse, led));
     eventMap.put(
