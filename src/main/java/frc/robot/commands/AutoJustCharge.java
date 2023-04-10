@@ -54,7 +54,6 @@ public class AutoJustCharge extends SequentialCommandGroup {
         new InstantCommand(() -> driveSubsystem.resetOdometry(path.getInitialPose())),
         autoBuilder.fullAuto(path),
         new InstantCommand(driveSubsystem::restAll180, driveSubsystem),
-        new AutoBalanceTwoShot(driveSubsystem)
-        );
+        new AutoBalanceTwoShot(driveSubsystem));
   }
 }

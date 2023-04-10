@@ -195,14 +195,16 @@ public class RobotContainer {
         new CoreStationConeDropCharge(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
         "Red Load Station Side Cone High - Cube Pickup Score",
-        new RedLoadStationSideCubePickupScore(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+        new RedLoadStationSideCubePickupScore(
+            elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
         "Red PowerCordSideConeHighCubePickupScore",
         new RedPowerCordSideCubePickupScore(
             elevator, crossSlide, intakePivot, intake, driveTrain, leds));
-    autoChoice.addOption("ConeHighDelayMobility",
-        new PowerCordSideDelayMobility(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
-
+    autoChoice.addOption(
+        "ConeHighDelayMobility",
+        new PowerCordSideDelayMobility(
+            elevator, crossSlide, intakePivot, intake, driveTrain, leds));
 
     //    new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
     // autoChoice.addOption(
