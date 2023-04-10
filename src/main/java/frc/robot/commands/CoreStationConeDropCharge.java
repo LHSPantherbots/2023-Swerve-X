@@ -32,7 +32,7 @@ public class CoreStationConeDropCharge extends SequentialCommandGroup {
       DriveSubsystem drivesubsystem,
       Leds led) {
     PathPlannerTrajectory path =
-        PathPlanner.loadPath("CoreStationConeDropCharge", new PathConstraints(3, 2), false);
+        PathPlanner.loadPath("CoreStationDriveOnlyCharge", new PathConstraints(3, 2), false);
     HashMap<String, Command> eventMap = new HashMap<>();
     eventMap.put(
         "event1",

@@ -20,8 +20,8 @@ import frc.robot.subsystems.IntakePivotSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Leds;
 
-public class PowerCordSideCubePickupScore extends SequentialCommandGroup {
-  public PowerCordSideCubePickupScore(
+public class RedPowerCordSideCubePickupScore extends SequentialCommandGroup {
+  public RedPowerCordSideCubePickupScore(
       ElevatorSubsystem elevator,
       CrossSlideSubsystem crossslide,
       IntakePivotSubsystem intakepivot,
@@ -29,7 +29,7 @@ public class PowerCordSideCubePickupScore extends SequentialCommandGroup {
       DriveSubsystem drivesubsystem,
       Leds led) {
     PathPlannerTrajectory path =
-        PathPlanner.loadPath("PowerCordSideCubePickupScore", new PathConstraints(3, 2), false);
+        PathPlanner.loadPath("RedPowerCordSideCubePickupScore", new PathConstraints(3, 2), false);
     HashMap<String, Command> eventMap = new HashMap<>();
     // eventMap.put("event1", new RunCommand(led::bluePulse, led));
     eventMap.put(

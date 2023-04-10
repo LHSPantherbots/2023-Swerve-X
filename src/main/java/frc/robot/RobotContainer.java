@@ -40,6 +40,9 @@ import frc.robot.commands.LoadStationSideCubePickupScore;
 import frc.robot.commands.PowerCordSideConePickupDock;
 import frc.robot.commands.PowerCordSideCubePickupDock;
 import frc.robot.commands.PowerCordSideCubePickupScore;
+import frc.robot.commands.PowerCordSideDelayMobility;
+import frc.robot.commands.RedLoadStationSideCubePickupScore;
+import frc.robot.commands.RedPowerCordSideCubePickupScore;
 import frc.robot.commands.StowAll;
 import frc.robot.commands.StowAllQuick;
 import frc.robot.subsystems.CrossSlideSubsystem;
@@ -190,6 +193,16 @@ public class RobotContainer {
     autoChoice.addOption(
         "CoreStationConeDropCharge",
         new CoreStationConeDropCharge(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+    autoChoice.addOption(
+        "Red Load Station Side Cone High - Cube Pickup Score",
+        new RedLoadStationSideCubePickupScore(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+    autoChoice.addOption(
+        "Red PowerCordSideConeHighCubePickupScore",
+        new RedPowerCordSideCubePickupScore(
+            elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+    autoChoice.addOption("ConeHighDelayMobility",
+        new PowerCordSideDelayMobility(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+
 
     //    new AutoDriveAndRot(elevator, crossSlide, intakePivot, intake, driveTrain));
     // autoChoice.addOption(

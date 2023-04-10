@@ -2512,12 +2512,39 @@
           }
         }
       }
+    },
+    {
+      "title": "Tab 11",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Auto Balance",
+              "_title": "SmartDashboard/Auto Balance",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          }
+        }
+      }
     }
   ],
   "windowGeometry": {
-    "x": -5.599999904632568,
-    "y": 2.4000000953674316,
-    "width": 1548.0,
-    "height": 829.5999755859375
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1920.0,
+    "height": 1039.0
   }
 }

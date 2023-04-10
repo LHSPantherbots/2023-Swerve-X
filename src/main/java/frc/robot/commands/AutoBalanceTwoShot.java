@@ -22,7 +22,7 @@ public class AutoBalanceTwoShot extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new AutoBalanceSmart(driveSubsystem),
-        new RunCommand(driveSubsystem::xWheels, driveSubsystem).withTimeout(3.0),
+        new RunCommand(driveSubsystem::xWheels, driveSubsystem).withTimeout(1.0),
         new AutoBalanceSmart(driveSubsystem),
         new RunCommand(driveSubsystem::xWheels, driveSubsystem).withTimeout(3.0));
 

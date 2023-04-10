@@ -20,8 +20,9 @@ import frc.robot.subsystems.IntakePivotSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Leds;
 
-public class PowerCordSideCubePickupScore extends SequentialCommandGroup {
-  public PowerCordSideCubePickupScore(
+public class RedLoadStationSideCubePickupScore extends SequentialCommandGroup {
+
+  public RedLoadStationSideCubePickupScore(
       ElevatorSubsystem elevator,
       CrossSlideSubsystem crossslide,
       IntakePivotSubsystem intakepivot,
@@ -29,13 +30,13 @@ public class PowerCordSideCubePickupScore extends SequentialCommandGroup {
       DriveSubsystem drivesubsystem,
       Leds led) {
     PathPlannerTrajectory path =
-        PathPlanner.loadPath("PowerCordSideCubePickupScore", new PathConstraints(3, 2), false);
+        PathPlanner.loadPath("RedLoadStationSideCubePickupScore", new PathConstraints(3, 2), false);
     HashMap<String, Command> eventMap = new HashMap<>();
     // eventMap.put("event1", new RunCommand(led::bluePulse, led));
     eventMap.put(
         "event1",
         new CubeIntakeGround(crossslide, intakepivot, elevator)
-            .alongWith(new RunCommand(intake::intakeCube, intake).withTimeout(2.0))
+            .alongWith(new RunCommand(intake::intakeCube, intake).withTimeout(1.75))
             .andThen(
                 new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake))));
 
@@ -61,7 +62,7 @@ public class PowerCordSideCubePickupScore extends SequentialCommandGroup {
         new AutoConeHigh(elevator, crossslide, intakepivot, intake),
         autoBuilder.fullAuto(path),
         new SpitCubeHigh(elevator, crossslide, intakepivot, intake),
-        new StowAllQuick(crossslide, intakepivot, elevator),
-        new InstantCommand(drivesubsystem::restAll180, drivesubsystem));
+        //new InstantCommand(drivesubsystem::restAll180, drivesubsystem),
+        new StowAllQuick(crossslide, intakepivot, elevator));
   }
 }
