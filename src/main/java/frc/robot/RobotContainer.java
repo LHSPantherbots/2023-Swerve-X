@@ -29,6 +29,7 @@ import frc.robot.commands.CrossSlideCmd;
 import frc.robot.commands.CubeIntakeGround;
 import frc.robot.commands.CubeScoreHigh;
 import frc.robot.commands.CubeScoreMid;
+import frc.robot.commands.DriveStraight;
 import frc.robot.commands.ElevatorCmd;
 import frc.robot.commands.FullSendChargeStation;
 import frc.robot.commands.HoldAtCurrentPosition;
@@ -358,6 +359,12 @@ public class RobotContainer {
 
     new JoystickButton(operatorController, GamePadButtons.Select)
         .onTrue(new ConeIntakeDoubleSubstation(crossSlide, intakePivot, elevator));
+
+    new JoystickButton(operatorController, GamePadButtons.RB)
+        .whileTrue(new DriveStraight(driveTrain))
+        .onTrue(new InstantCommand(leds::bluePulse, leds))
+        .onFalse(new InstantCommand(leds::greenPulse, leds));
+
 
     new JoystickButton(operatorController, GamePadButtons.LB)
         .whileTrue(

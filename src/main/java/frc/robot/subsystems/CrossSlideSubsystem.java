@@ -151,4 +151,9 @@ public class CrossSlideSubsystem extends SubsystemBase {
     positionSetpoint = 9.9;
     closedLoopCrossSlide();
   }
+
+  public void setLevelCobraIntake(){
+    positionSetpoint = 5.0;
+    closedLoopCrossSlide();
+  }
 }

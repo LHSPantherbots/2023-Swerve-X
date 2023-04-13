@@ -40,6 +40,8 @@ public class CrossSlideCmd extends CommandBase {
       case CONE_STATION_INTAKE:
         this.crosSlide.setPositionIntake();
         break;
+      case COBRA_INTAKE:
+        this.crosSlide.setLevelCobraIntake();
       case CUBE_SCORE_MID:
         this.crosSlide.setLevelt2CubeScore();
         break;

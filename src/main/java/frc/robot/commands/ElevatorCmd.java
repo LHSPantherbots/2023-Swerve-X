@@ -39,6 +39,9 @@ public class ElevatorCmd extends CommandBase {
       case CONE_STATION_INTAKE:
         this.elevator.setHeightConeIntakeDoubleSubstation();
         break;
+      case COBRA_INTAKE:
+        this.elevator.setLevelCobraIntake();
+        break;
       case CUBE_SCORE_MID:
         this.elevator.setLevelt2CubeScore();
         break;

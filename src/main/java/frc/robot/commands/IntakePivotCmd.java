@@ -39,6 +39,9 @@ public class IntakePivotCmd extends CommandBase {
       case CONE_STATION_INTAKE:
         this.intakePivot.setPositonIntakeConeDoubleSubstation();
         break;
+      case COBRA_INTAKE:
+        this.intakePivot.setLevelCobraIntake();
+        break;
       case CUBE_SCORE_MID:
         this.intakePivot.setLevelt2CubeScore();
         break;
