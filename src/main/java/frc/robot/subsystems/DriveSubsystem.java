@@ -378,10 +378,10 @@ public class DriveSubsystem extends SubsystemBase {
     }
   }
 
-  public void driveStraight(double xSpeed, double desiredAngle){
+  public void driveStraight(double xSpeed, double desiredAngle) {
     double error = getHeading() - desiredAngle;
     double thetaP = 1.25;
-    double turnValue = thetaP*error;
+    double turnValue = thetaP * error;
     drive(xSpeed, 0.0, turnValue, true);
   }
 }

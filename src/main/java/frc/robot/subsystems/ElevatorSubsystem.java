@@ -67,7 +67,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     m_controller = new ProfiledPIDController(kP, kI, kD, m_constraints, kDt);
 
     elevatorEncoder.setPosition(0.0);
-    
+
     elevatorLeader.burnFlash();
     elevatorFollower.burnFlash();
   }
@@ -163,7 +163,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     closedLoopElevator();
   }
 
-  public void setLevelCobraIntake(){
+  public void setLevelCobraIntake() {
     heightSetpoint = 10.0;
     closedLoopElevator();
   }

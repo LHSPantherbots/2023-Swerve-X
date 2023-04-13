@@ -62,7 +62,7 @@ public class RedLoadStationSideCubePickupScore extends SequentialCommandGroup {
         new AutoConeHigh(elevator, crossslide, intakepivot, intake),
         autoBuilder.fullAuto(path),
         new SpitCubeHigh(elevator, crossslide, intakepivot, intake),
-        //new InstantCommand(drivesubsystem::restAll180, drivesubsystem),
+        // new InstantCommand(drivesubsystem::restAll180, drivesubsystem),
         new StowAllQuick(crossslide, intakepivot, elevator));
   }
 }
