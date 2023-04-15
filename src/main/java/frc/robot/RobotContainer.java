@@ -196,8 +196,8 @@ public class RobotContainer {
         "CoreStationConeDropCharge",
         new CoreStationConeDropCharge(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
-            "CoreStationCubeDropCharge",
-            new CoreStationCubeDropCharge(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+        "CoreStationCubeDropCharge",
+        new CoreStationCubeDropCharge(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
         "Red Load Station Side Cone High - Cube Pickup Score",
         new RedLoadStationSideCubePickupScore(
@@ -307,7 +307,6 @@ public class RobotContainer {
     // Turns on Cone Mode
     new JoystickButton(operatorController, GamePadButtons.RB)
         .onTrue(new CobraIntake(crossSlide, intakePivot, elevator));
-
 
     new JoystickButton(operatorController, GamePadButtons.A)
         // .onTrue(new InstantCommand(() -> robotState.setConeMode(true), robotState))

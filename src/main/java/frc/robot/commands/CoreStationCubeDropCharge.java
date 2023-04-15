@@ -11,7 +11,6 @@ import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.subsystems.CrossSlideSubsystem;
@@ -35,15 +34,14 @@ public class CoreStationCubeDropCharge extends SequentialCommandGroup {
         PathPlanner.loadPath("CoreStationDriveOnlyCharge", new PathConstraints(1, 1.5), false);
     HashMap<String, Command> eventMap = new HashMap<>();
     eventMap.put(
-        "event1",
-        
-                new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake)));
+        "event1", new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake)));
     // eventMap.put(
     //                 "event1",
     //                 new ConeIntakeGround(crossslide, intakepivot, elevator)
     //                     .alongWith(new RunCommand(intake::intakeCone, intake).withTimeout(1.5))
     //                     .andThen(
-    //                         new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake))));
+    //                         new StowAll(crossslide, intakepivot, elevator).alongWith(new
+    // IntakeHold(intake))));
 
     SwerveAutoBuilder autoBuilder =
         new SwerveAutoBuilder(
