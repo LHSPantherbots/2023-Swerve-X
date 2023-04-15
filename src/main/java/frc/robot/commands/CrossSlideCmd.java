@@ -42,6 +42,7 @@ public class CrossSlideCmd extends CommandBase {
         break;
       case COBRA_INTAKE:
         this.crosSlide.setLevelCobraIntake();
+        break;
       case CUBE_SCORE_MID:
         this.crosSlide.setLevelt2CubeScore();
         break;
@@ -56,6 +57,8 @@ public class CrossSlideCmd extends CommandBase {
         break;
       case HOLD:
         this.crosSlide.closedLoopCrossSlide();
+        break;
+      default:
         break;
     }
   }

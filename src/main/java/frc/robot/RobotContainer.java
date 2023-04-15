@@ -20,11 +20,13 @@ import frc.robot.commands.AutoHighScoreConeBalance;
 import frc.robot.commands.AutoHighScoreConeCubeIntake;
 import frc.robot.commands.AutoHighScoreCubeBalance;
 import frc.robot.commands.AutoJustCharge;
+import frc.robot.commands.CobraIntake;
 import frc.robot.commands.ConeIntakeDoubleSubstation;
 import frc.robot.commands.ConeIntakeGround;
 import frc.robot.commands.ConeScoreHigh;
 import frc.robot.commands.ConeScoreMid;
 import frc.robot.commands.CoreStationConeDropCharge;
+import frc.robot.commands.CoreStationCubeDropCharge;
 import frc.robot.commands.CrossSlideCmd;
 import frc.robot.commands.CubeIntakeGround;
 import frc.robot.commands.CubeScoreHigh;
@@ -87,7 +89,6 @@ public class RobotContainer {
   XboxController operatorController = new XboxController(OIConstants.kOperatorControllerPort);
 
   public static SendableChooser<Command> autoChoice = new SendableChooser<>();
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Add Button Controls to Smart Dashboard
@@ -195,6 +196,9 @@ public class RobotContainer {
         "CoreStationConeDropCharge",
         new CoreStationConeDropCharge(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
+            "CoreStationCubeDropCharge",
+            new CoreStationCubeDropCharge(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
+    autoChoice.addOption(
         "Red Load Station Side Cone High - Cube Pickup Score",
         new RedLoadStationSideCubePickupScore(elevator, crossSlide, intakePivot, intake, driveTrain, leds));
     autoChoice.addOption(
@@ -299,6 +303,10 @@ public class RobotContainer {
     // Operator Controls
 
     // Turns on Cone Mode
+    new JoystickButton(operatorController, GamePadButtons.RB)
+        .onTrue(new CobraIntake(crossSlide, intakePivot, elevator));
+
+
     new JoystickButton(operatorController, GamePadButtons.A)
         // .onTrue(new InstantCommand(() -> robotState.setConeMode(true), robotState))
         // .onTrue(new InstantCommand(() -> robotState.setCubeMode(false), robotState))
@@ -360,10 +368,10 @@ public class RobotContainer {
     new JoystickButton(operatorController, GamePadButtons.Select)
         .onTrue(new ConeIntakeDoubleSubstation(crossSlide, intakePivot, elevator));
 
-    new JoystickButton(operatorController, GamePadButtons.RB)
-        .whileTrue(new DriveStraight(driveTrain))
-        .onTrue(new InstantCommand(leds::bluePulse, leds))
-        .onFalse(new InstantCommand(leds::greenPulse, leds));
+    new JoystickButton(m_driverController, GamePadButtons.RB)
+        .whileTrue(new DriveStraight(driveTrain, m_driverController))
+        .onTrue(new RunCommand(leds::bluePulse, leds))
+        .onFalse(new RunCommand(leds::pantherStreak, leds));
 
 
     new JoystickButton(operatorController, GamePadButtons.LB)

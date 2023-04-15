@@ -26,8 +26,8 @@ public class CobraIntake extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new ParallelCommandGroup(
-            new ElevatorCmd(Position.COBRA_INTAKE, elevatorSubsystem),
+        new ParallelRaceGroup(
+            new ElevatorCmd(Position.COBRA_INTAKE, elevatorSubsystem, true),
             new CrossSlideCmd(Position.COBRA_INTAKE, crossSlide, false),
             new IntakePivotCmd(Position.COBRA_INTAKE, intakePivot, false)),
        

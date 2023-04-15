@@ -57,6 +57,8 @@ public class ElevatorCmd extends CommandBase {
       case HOLD:
         this.elevator.closedLoopElevator();
         break;
+      default:
+        break;
     }
   }
 

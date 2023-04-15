@@ -10,6 +10,7 @@ import com.pathplanner.lib.auto.SwerveAutoBuilder;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
@@ -19,9 +20,11 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakePivotSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Leds;
+import frc.robot.util.Position;
 
-public class PowerCordSideCubePickupScore extends SequentialCommandGroup {
-  public PowerCordSideCubePickupScore(
+public class CoreStationCubeDropCharge extends SequentialCommandGroup {
+
+  public CoreStationCubeDropCharge(
       ElevatorSubsystem elevator,
       CrossSlideSubsystem crossslide,
       IntakePivotSubsystem intakepivot,
@@ -29,15 +32,18 @@ public class PowerCordSideCubePickupScore extends SequentialCommandGroup {
       DriveSubsystem drivesubsystem,
       Leds led) {
     PathPlannerTrajectory path =
-        PathPlanner.loadPath("PowerCordSideCubePickupScore", new PathConstraints(3, 2), false);
+        PathPlanner.loadPath("CoreStationDriveOnlyCharge", new PathConstraints(1, 1.5), false);
     HashMap<String, Command> eventMap = new HashMap<>();
-    // eventMap.put("event1", new RunCommand(led::bluePulse, led));
     eventMap.put(
         "event1",
-        new CubeIntakeGround(crossslide, intakepivot, elevator)
-            .alongWith(new RunCommand(intake::intakeCube, intake).withTimeout(3.0))
-            .andThen(
-                new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake))));
+        
+                new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake)));
+    // eventMap.put(
+    //                 "event1",
+    //                 new ConeIntakeGround(crossslide, intakepivot, elevator)
+    //                     .alongWith(new RunCommand(intake::intakeCone, intake).withTimeout(1.5))
+    //                     .andThen(
+    //                         new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake))));
 
     SwerveAutoBuilder autoBuilder =
         new SwerveAutoBuilder(
@@ -57,12 +63,15 @@ public class PowerCordSideCubePickupScore extends SequentialCommandGroup {
             true,
             drivesubsystem);
     addCommands(
-        new InstantCommand(() -> drivesubsystem.resetOdometry(path.getInitialPose())),
-        new AutoConeHigh(elevator, crossslide, intakepivot, intake),
-        autoBuilder.fullAuto(path),
-        new InstantCommand(drivesubsystem::restAll180, drivesubsystem),
-        new SpitCubeHigh(elevator, crossslide, intakepivot, intake),
-        new StowAllQuick(crossslide, intakepivot, elevator)
-        );
+        new SequentialCommandGroup(
+            new InstantCommand(() -> drivesubsystem.resetOdometry(path.getInitialPose())),
+            new AutoCubeHigh(elevator, crossslide, intakepivot, intake),
+            autoBuilder.fullAuto(path),
+            new AutoBalance2(drivesubsystem),
+            new InstantCommand(drivesubsystem::restAll180, drivesubsystem),
+            new ParallelCommandGroup(
+                new AutoBalanceTwoShot(drivesubsystem),
+                new IntakePivotCmd(Position.STOW, intakepivot, false),
+                new CrossSlideCmd(Position.STOW, crossslide, false))));
   }
 }

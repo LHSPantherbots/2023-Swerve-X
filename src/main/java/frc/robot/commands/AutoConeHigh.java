@@ -28,6 +28,6 @@ public class AutoConeHigh extends SequentialCommandGroup {
         new ConeScoreHigh(crossslide, intakepivot, elevator),
         new RunCommand(intake::ejectCone, intake).withTimeout(0.5),
         new InstantCommand(intake::stopIntake, intake),
-        new StowAll(crossslide, intakepivot, elevator));
+        new StowAllQuick(crossslide, intakepivot, elevator));
   }
 }

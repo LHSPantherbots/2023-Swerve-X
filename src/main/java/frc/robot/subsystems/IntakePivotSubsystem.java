@@ -171,7 +171,7 @@ public class IntakePivotSubsystem extends SubsystemBase {
   }
 
   public void setLevelCobraIntake() {
-    positionSetpoint = 165.0;
+    positionSetpoint = 149.4;
     closedLoopIntakePivot();
   }
 

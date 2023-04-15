@@ -74,6 +74,7 @@ public class CrossSlideSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Cross Slide Position", getCrossSlidePosition());
     SmartDashboard.putBoolean("Cross Slide at Set Positon", isAtPosition());
     SmartDashboard.putNumber("Cross Slide Positio Setpoint", getPositionSetpoint());
+    SmartDashboard.putNumber("Cross Slide Amps", crossSlide.getOutputCurrent());
   }
 
   public double getCrossSlidePosition() {
@@ -103,6 +104,10 @@ public class CrossSlideSubsystem extends SubsystemBase {
 
   public void manualCrossSlide(double move) {
     crossSlide.set(move);
+  }
+
+  public double getCrossSlideCurrent(){
+    return crossSlide.getOutputCurrent();
   }
 
   public void resetController() {
@@ -153,7 +158,7 @@ public class CrossSlideSubsystem extends SubsystemBase {
   }
 
   public void setLevelCobraIntake(){
-    positionSetpoint = 5.0;
+    positionSetpoint = 7.7;
     closedLoopCrossSlide();
   }
 }

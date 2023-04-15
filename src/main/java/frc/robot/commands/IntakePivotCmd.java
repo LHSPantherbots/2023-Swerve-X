@@ -57,6 +57,8 @@ public class IntakePivotCmd extends CommandBase {
       case HOLD:
         this.intakePivot.closedLoopIntakePivot();
         break;
+      default:
+        break;
     }
   }
 

@@ -28,6 +28,6 @@ public class AutoCubeHigh extends SequentialCommandGroup {
         new CubeScoreHigh(crossslide, intakepivot, elevator),
         new RunCommand(intake::ejectCube, intake).withTimeout(0.5),
         new InstantCommand(intake::stopIntake, intake),
-        new StowAll(crossslide, intakepivot, elevator));
+        new StowAllQuick(crossslide, intakepivot, elevator));
   }
 }

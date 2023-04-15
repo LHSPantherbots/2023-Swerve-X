@@ -4,17 +4,23 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveStraight extends CommandBase {
   /** Creates a new DriveStraight. */
   DriveSubsystem m_DriveSubsystem;
+  XboxController m_controller;
   double startAngle;
+  boolean atWall = false;
 
-  public DriveStraight(DriveSubsystem driveSubsystem) {
+  public DriveStraight(DriveSubsystem driveSubsystem, XboxController controller) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_DriveSubsystem = driveSubsystem;
+    m_controller = controller;
     addRequirements(m_DriveSubsystem);
   }
 
@@ -22,18 +28,29 @@ public class DriveStraight extends CommandBase {
   @Override
   public void initialize() {
     startAngle = m_DriveSubsystem.getHeading();
+    m_controller.setRumble(RumbleType.kBothRumble, 0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_DriveSubsystem.driveStraight(0.3, startAngle);
+    
+    
+    if (RobotContainer.crossSlide.getCrossSlideCurrent()>5){
+      m_controller.setRumble(RumbleType.kBothRumble, 1.0);
+      m_DriveSubsystem.driveStraight(0.0, startAngle);
+    }
+    else{
+      m_controller.setRumble(RumbleType.kBothRumble, 0.0);
+      m_DriveSubsystem.driveStraight(0.6, startAngle);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_DriveSubsystem.drive(0.0, 0.0, 0.0, true);
+    m_controller.setRumble(RumbleType.kBothRumble, 0.0);
   }
 
   // Returns true when the command should end.
