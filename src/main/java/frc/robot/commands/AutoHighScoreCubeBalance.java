@@ -98,7 +98,7 @@ public class AutoHighScoreCubeBalance extends SequentialCommandGroup {
         new InstantCommand(driveTrain::restAll180, driveTrain),
         new ParallelRaceGroup(
             new AutoBalanceTwoShot(driveTrain),
-            //new AutoBalance(driveTrain, elevator),
+            // new AutoBalance(driveTrain, elevator),
             // new ElevatorCmd(Position.HOLD, elevator, false),
             new CrossSlideCmd(Position.HOLD, crossslide, false),
             new IntakePivotCmd(Position.HOLD, intakepivot, false)));

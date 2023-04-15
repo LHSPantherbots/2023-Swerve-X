@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.CrossSlideSubsystem;
@@ -30,7 +29,6 @@ public class CobraIntake extends SequentialCommandGroup {
             new ElevatorCmd(Position.COBRA_INTAKE, elevatorSubsystem, true),
             new CrossSlideCmd(Position.COBRA_INTAKE, crossSlide, false),
             new IntakePivotCmd(Position.COBRA_INTAKE, intakePivot, false)),
-       
         new InstantCommand(() -> RobotContainer.robotState.setPosition(Position.COBRA_INTAKE)));
 
     // RobotContainer.robotState.setPosition(Position.CUBE_SCORE_MID);

@@ -10,7 +10,6 @@ import com.pathplanner.lib.auto.SwerveAutoBuilder;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
@@ -29,8 +28,7 @@ public class PowerCordSideDelayMobility extends SequentialCommandGroup {
       IntakeSubsystem intake,
       DriveSubsystem drivesubsystem,
       Leds led) {
-    PathPlannerTrajectory path =
-        PathPlanner.loadPath("Mobility", new PathConstraints(3, 2), false);
+    PathPlannerTrajectory path = PathPlanner.loadPath("Mobility", new PathConstraints(3, 2), false);
     HashMap<String, Command> eventMap = new HashMap<>();
     // eventMap.put("event1", new RunCommand(led::bluePulse, led));
 
