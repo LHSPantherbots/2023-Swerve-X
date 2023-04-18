@@ -291,7 +291,10 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public Rotation2d getYaw() {
-    double yawRadians = Math.toRadians(m_gyro.getYaw());
+    double angle = m_gyro.getYaw();
+    angle = Math.IEEEremainder(angle, 360);
+    //double yawRadians = Math.toRadians(m_gyro.getYaw());
+    double yawRadians = Math.toRadians(angle);
     return new Rotation2d(yawRadians);
   }
 
@@ -378,10 +381,10 @@ public class DriveSubsystem extends SubsystemBase {
     }
   }
 
-  public void driveStraight(double xSpeed, double desiredAngle){
+  public void driveStraight(double xSpeed, double ySpeed, double desiredAngle){
     double error = desiredAngle - getHeading() ;
     double thetaP = 0.1;
     double turnValue = thetaP*error;
-    drive(xSpeed, 0.0, turnValue, true);
+    drive(xSpeed, ySpeed, turnValue, true);
   }
 }

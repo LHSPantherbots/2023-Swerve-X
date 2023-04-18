@@ -8,18 +8,16 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class DriveStraight extends CommandBase {
+public class DriveStraight2 extends CommandBase {
   /** Creates a new DriveStraight. */
   DriveSubsystem m_DriveSubsystem;
   XboxController m_controller;
   double startAngle;
   boolean atWall = false;
-  double reducedspeedconstant = 0.2;
 
-  public DriveStraight(DriveSubsystem driveSubsystem, XboxController controller) {
+  public DriveStraight2(DriveSubsystem driveSubsystem, XboxController controller) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_DriveSubsystem = driveSubsystem;
     m_controller = controller;
@@ -29,8 +27,7 @@ public class DriveStraight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //startAngle = m_DriveSubsystem.getHeading(); uses current angle
-    startAngle = 0.0; //makes robot turn to 0 angle field relative
+    startAngle = m_DriveSubsystem.getHeading();
     m_controller.setRumble(RumbleType.kBothRumble, 0.0);
   }
 
@@ -45,10 +42,7 @@ public class DriveStraight extends CommandBase {
     }
     else{
       m_controller.setRumble(RumbleType.kBothRumble, 0.0);
-      m_DriveSubsystem.driveStraight(0.6, 
-                                    -m_controller.getLeftX() * reducedspeedconstant
-                                    * DriveConstants.kMaxSpeedMetersPerSecond, 
-                                    startAngle);
+      m_DriveSubsystem.driveStraight(0.6, 0.0, startAngle);
     }
   }
 
