@@ -35,7 +35,7 @@ public class PowerCordSideCubePickupScore extends SequentialCommandGroup {
     eventMap.put(
         "event1",
         new CubeIntakeGround(crossslide, intakepivot, elevator)
-            .alongWith(new RunCommand(intake::intakeCube, intake).withTimeout(3.0))
+            .alongWith(new RunCommand(intake::intakeCube, intake).withTimeout(2.0))
             .andThen(
                 new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake))));
 
