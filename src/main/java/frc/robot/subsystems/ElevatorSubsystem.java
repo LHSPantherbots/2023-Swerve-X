@@ -163,7 +163,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     closedLoopElevator();
   }
 
-  public void setLevelCobraIntake(){
+  public void setLevelCobraIntake() {
     heightSetpoint = 9.7;
     closedLoopElevator();
   }

@@ -106,7 +106,7 @@ public class CrossSlideSubsystem extends SubsystemBase {
     crossSlide.set(move);
   }
 
-  public double getCrossSlideCurrent(){
+  public double getCrossSlideCurrent() {
     return crossSlide.getOutputCurrent();
   }
 
@@ -157,7 +157,7 @@ public class CrossSlideSubsystem extends SubsystemBase {
     closedLoopCrossSlide();
   }
 
-  public void setLevelCobraIntake(){
+  public void setLevelCobraIntake() {
     positionSetpoint = 7.7;
     closedLoopCrossSlide();
   }

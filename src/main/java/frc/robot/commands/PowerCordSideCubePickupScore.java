@@ -62,7 +62,6 @@ public class PowerCordSideCubePickupScore extends SequentialCommandGroup {
         autoBuilder.fullAuto(path),
         new InstantCommand(drivesubsystem::restAll180, drivesubsystem),
         new SpitCubeHigh(elevator, crossslide, intakepivot, intake),
-        new StowAllQuick(crossslide, intakepivot, elevator)
-        );
+        new StowAllQuick(crossslide, intakepivot, elevator));
   }
 }

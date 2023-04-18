@@ -14,6 +14,7 @@ import frc.robot.subsystems.DriveSubsystem;
 public class DriveStraight extends CommandBase {
   /** Creates a new DriveStraight. */
   DriveSubsystem m_DriveSubsystem;
+
   XboxController m_controller;
   double startAngle;
   boolean atWall = false;
@@ -37,9 +38,8 @@ public class DriveStraight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    
-    if (RobotContainer.crossSlide.getCrossSlideCurrent()>5){
+
+    if (RobotContainer.crossSlide.getCrossSlideCurrent() > 5) {
       m_controller.setRumble(RumbleType.kBothRumble, 1.0);
       m_DriveSubsystem.driveStraight(0.0, 0.0, startAngle);
     }

@@ -291,10 +291,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public Rotation2d getYaw() {
-    double angle = m_gyro.getYaw();
-    angle = Math.IEEEremainder(angle, 360);
-    //double yawRadians = Math.toRadians(m_gyro.getYaw());
-    double yawRadians = Math.toRadians(angle);
+    double yawRadians = Math.toRadians(m_gyro.getYaw());
     return new Rotation2d(yawRadians);
   }
 
