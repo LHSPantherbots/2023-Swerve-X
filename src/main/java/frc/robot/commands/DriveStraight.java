@@ -30,8 +30,8 @@ public class DriveStraight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //startAngle = m_DriveSubsystem.getHeading(); uses current angle
-    startAngle = 0.0; //makes robot turn to 0 angle field relative
+    // startAngle = m_DriveSubsystem.getHeading(); uses current angle
+    startAngle = 0.0; // makes robot turn to 0 angle field relative
     m_controller.setRumble(RumbleType.kBothRumble, 0.0);
   }
 
@@ -42,13 +42,12 @@ public class DriveStraight extends CommandBase {
     if (RobotContainer.crossSlide.getCrossSlideCurrent() > 5) {
       m_controller.setRumble(RumbleType.kBothRumble, 1.0);
       m_DriveSubsystem.driveStraight(0.0, 0.0, startAngle);
-    }
-    else{
+    } else {
       m_controller.setRumble(RumbleType.kBothRumble, 0.0);
-      m_DriveSubsystem.driveStraight(0.6, 
-                                    -m_controller.getLeftX() * reducedspeedconstant
-                                    * DriveConstants.kMaxSpeedMetersPerSecond, 
-                                    startAngle);
+      m_DriveSubsystem.driveStraight(
+          0.6,
+          -m_controller.getLeftX() * reducedspeedconstant * DriveConstants.kMaxSpeedMetersPerSecond,
+          startAngle);
     }
   }
 
