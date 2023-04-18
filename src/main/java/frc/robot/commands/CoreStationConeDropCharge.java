@@ -34,12 +34,12 @@ public class CoreStationConeDropCharge extends SequentialCommandGroup {
     PathPlannerTrajectory path =
         PathPlanner.loadPath("CoreStationDriveOnlyCharge", new PathConstraints(1, 1), false);
     HashMap<String, Command> eventMap = new HashMap<>();
-    eventMap.put(
-        "event1",
-        new ConeIntakeGround(crossslide, intakepivot, elevator)
-            .alongWith(new RunCommand(intake::intakeCone, intake).withTimeout(1.5))
-            .andThen(
-                new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake))));
+    // eventMap.put(
+       // "event1",
+        // new ConeIntakeGround(crossslide, intakepivot, elevator)
+           //  .alongWith(new RunCommand(intake::intakeCone, intake).withTimeout(1.5))
+           //  .andThen(
+              //  new StowAll(crossslide, intakepivot, elevator).alongWith(new IntakeHold(intake))));
 
     SwerveAutoBuilder autoBuilder =
         new SwerveAutoBuilder(
